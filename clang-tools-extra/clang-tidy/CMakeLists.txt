@@ -41,6 +41,7 @@ endif()
 # If you add a check, also add it to ClangTidyForceLinker.h in this directory.
 add_subdirectory(android)
 add_subdirectory(abseil)
+add_subdirectory(bsl)
 add_subdirectory(boost)
 add_subdirectory(bugprone)
 add_subdirectory(cert)
@@ -66,6 +67,7 @@ add_subdirectory(zircon)
 set(ALL_CLANG_TIDY_CHECKS
   clangTidyAndroidModule
   clangTidyAbseilModule
+  clangTidyBslModule
   clangTidyBoostModule
   clangTidyBugproneModule
   clangTidyCERTModule
