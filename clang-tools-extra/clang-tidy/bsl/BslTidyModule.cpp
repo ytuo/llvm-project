@@ -11,6 +11,7 @@
 #include "../ClangTidyModuleRegistry.h"
 #include "FixedWidthInts.h"
 #include "LiteralsUnsignedSuffixCheck.h"
+#include "LiteralsUppercaseSuffixCheck.h"
 
 namespace clang {
 namespace tidy {
@@ -23,6 +24,8 @@ public:
         "bsl-fixed-width-ints");
     CheckFactories.registerCheck<LiteralsUnsignedSuffixCheck>(
         "bsl-literals-unsigned-suffix");
+    CheckFactories.registerCheck<LiteralsUppercaseSuffixCheck>(
+        "bsl-literals-uppercase-suffix");
   }
 };
 

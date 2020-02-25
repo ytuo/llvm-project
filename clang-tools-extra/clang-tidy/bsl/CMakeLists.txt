@@ -4,6 +4,7 @@ add_clang_library(clangTidyBslModule
   BslTidyModule.cpp
   FixedWidthInts.cpp
   LiteralsUnsignedSuffixCheck.cpp
+  LiteralsUppercaseSuffixCheck.cpp
 
   LINK_LIBS
   clangAST
