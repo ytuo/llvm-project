@@ -8,6 +8,7 @@ add_clang_library(clangTidyBslModule
   LiteralsUnsignedSuffixCheck.cpp
   LiteralsUppercaseSuffixCheck.cpp
   TypesFixedWidthIntsCheck.cpp
+  TypesNoWideCharCheck.cpp
 
   LINK_LIBS
   clangAST

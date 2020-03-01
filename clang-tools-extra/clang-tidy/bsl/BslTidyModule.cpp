@@ -14,6 +14,7 @@
 #include "LiteralsUnsignedSuffixCheck.h"
 #include "LiteralsUppercaseSuffixCheck.h"
 #include "TypesFixedWidthIntsCheck.h"
+#include "TypesNoWideCharCheck.h"
 
 namespace clang {
 namespace tidy {
@@ -32,6 +33,8 @@ public:
         "bsl-literals-unsigned-suffix");
     CheckFactories.registerCheck<LiteralsUppercaseSuffixCheck>(
         "bsl-literals-uppercase-suffix");
+    CheckFactories.registerCheck<TypesNoWideCharCheck>(
+        "bsl-types-no-wide-char");
   }
 };
 

@@ -101,6 +101,11 @@ New checks
 
   Checks that fixed-width integer types are used.
 
+- New :doc:`bsl-types-no-wide-char
+  <clang-tidy/checks/bsl-types-no-wide-char>` check.
+
+  Check that no wide-character types are used.
+
 - New :doc:`bugprone-misplaced-pointer-arithmetic-in-alloc
   <clang-tidy/checks/bugprone-misplaced-pointer-arithmetic-in-alloc>` check.
 
