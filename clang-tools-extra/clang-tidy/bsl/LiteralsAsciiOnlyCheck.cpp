@@ -26,18 +26,18 @@ void LiteralsAsciiOnlyCheck::check(const MatchFinder::MatchResult &Result) {
   if (!Lit)
     return;
 
-  for (auto i = 0U; i < Lit->getNumConcatenated(); i++) {
-    auto Loc = Lit->getStrTokenLoc(i);
-    auto Str = getRawTokenStr(Loc, Result);
+  auto Loc = Lit->getBeginLoc();
+  if (Loc.isInvalid() || Loc.isMacroID())
+    return;
 
-    if (Str.empty())
-      continue;
+  auto Mgr = Result.SourceManager;
+  if (Mgr->getFileID(Loc) != Mgr->getMainFileID())
+    return;
 
-    if (Str.startswith("\""))
-      continue;
+  if (Lit->isAscii())
+    return;
 
-    diag(Loc, "non-ascii string literal");
-  }
+  diag(Loc, "non-ascii string literal");
 }
 
 } // namespace bsl
