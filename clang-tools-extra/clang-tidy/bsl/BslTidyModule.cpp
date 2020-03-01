@@ -9,11 +9,11 @@
 #include "../ClangTidy.h"
 #include "../ClangTidyModule.h"
 #include "../ClangTidyModuleRegistry.h"
-#include "FixedWidthInts.h"
 #include "LiteralsAsciiOnlyCheck.h"
 #include "LiteralsNoOctalCheck.h"
 #include "LiteralsUnsignedSuffixCheck.h"
 #include "LiteralsUppercaseSuffixCheck.h"
+#include "TypesFixedWidthIntsCheck.h"
 
 namespace clang {
 namespace tidy {
@@ -22,8 +22,8 @@ namespace bsl {
 class BslModule : public ClangTidyModule {
 public:
   void addCheckFactories(ClangTidyCheckFactories &CheckFactories) override {
-    CheckFactories.registerCheck<FixedWidthInts>(
-        "bsl-fixed-width-ints");
+    CheckFactories.registerCheck<TypesFixedWidthIntsCheck>(
+        "bsl-types-fixed-width-ints");
     CheckFactories.registerCheck<LiteralsAsciiOnlyCheck>(
         "bsl-literals-ascii-only");
     CheckFactories.registerCheck<LiteralsNoOctalCheck>(

@@ -95,6 +95,12 @@ New checks
   <clang-tidy/checks/bsl-literals-uppercase-suffix>` check.
 
   Checks that each integer literal has an uppercase integer suffix.
+
+- New :doc:`bsl-types-fixed-width-ints
+  <clang-tidy/checks/bsl-types-fixed-width-ints>` check.
+
+  Checks that fixed-width integer types are used.
+
 - New :doc:`bugprone-misplaced-pointer-arithmetic-in-alloc
   <clang-tidy/checks/bugprone-misplaced-pointer-arithmetic-in-alloc>` check.
 

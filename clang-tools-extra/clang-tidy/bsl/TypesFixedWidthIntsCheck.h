@@ -1,4 +1,4 @@
-//===--- FixedWidthInts.h - clang-tidy-------------------------*- C++ -*-===//
+//===--- TypesFixedWidthIntsCheck.h - clang-tidy-----------------*- C++ -*-===//
 //
 // Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
 // See https://llvm.org/LICENSE.txt for license information.
@@ -6,8 +6,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef LLVM_CLANG_TOOLS_EXTRA_CLANG_TIDY_BSL_FIXED_WIDTH_INTS_H
-#define LLVM_CLANG_TOOLS_EXTRA_CLANG_TIDY_BSL_FIXED_WIDTH_INTS_H
+#ifndef LLVM_CLANG_TOOLS_EXTRA_CLANG_TIDY_BSL_TYPESFIXEDWIDTHINTSCHECK_H
+#define LLVM_CLANG_TOOLS_EXTRA_CLANG_TIDY_BSL_TYPESFIXEDWIDTHINTSCHECK_H
 
 #include "../ClangTidyCheck.h"
 #include <memory>
@@ -23,13 +23,16 @@ namespace bsl {
 /// ``unsigned long``.
 ///
 /// For the user-facing documentation see:
-/// http://clang.llvm.org/extra/clang-tidy/checks/bsl-fixed-width-ints.html
-class FixedWidthInts : public ClangTidyCheck {
+/// http://clang.llvm.org/extra/clang-tidy/checks/bsl-types-fixed-width-ints.html
+class TypesFixedWidthIntsCheck : public ClangTidyCheck {
 public:
-  FixedWidthInts(StringRef Name, ClangTidyContext *Context)
+  TypesFixedWidthIntsCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
   void registerMatchers(ast_matchers::MatchFinder *Finder) override;
   void check(const ast_matchers::MatchFinder::MatchResult &Result) override;
+  bool isLanguageVersionSupported(const LangOptions &LangOpts) const override {
+    return LangOpts.CPlusPlus;
+  }
 
 private:
   std::unique_ptr<IdentifierTable> IdentTable;
@@ -39,4 +42,4 @@ private:
 } // namespace tidy
 } // namespace clang
 
-#endif // LLVM_CLANG_TOOLS_EXTRA_CLANG_TIDY_BSL_FIXED_WIDTH_INTS_H
+#endif // LLVM_CLANG_TOOLS_EXTRA_CLANG_TIDY_BSL_TYPESFIXEDWIDTHINTSCHECK_H

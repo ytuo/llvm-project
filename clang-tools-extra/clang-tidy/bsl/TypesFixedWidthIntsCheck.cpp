@@ -1,4 +1,4 @@
-//===--- FixedWidthInts.cpp - clang-tidy---------------------------------===//
+//===--- TypesFixedWidthIntsCheck.cpp - clang-tidy---------------------------------===//
 //
 // Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
 // See https://llvm.org/LICENSE.txt for license information.
@@ -6,7 +6,7 @@
 //
 //===----------------------------------------------------------------------===//
 
-#include "FixedWidthInts.h"
+#include "TypesFixedWidthIntsCheck.h"
 #include "clang/Basic/IdentifierTable.h"
 #include "clang/Lex/Lexer.h"
 
@@ -38,12 +38,12 @@ static Token getTokenAtLoc(SourceLocation Loc,
 namespace tidy {
 namespace bsl {
 
-void FixedWidthInts::registerMatchers(MatchFinder *Finder) {
+void TypesFixedWidthIntsCheck::registerMatchers(MatchFinder *Finder) {
   Finder->addMatcher(typeLoc(loc(isInteger())).bind("loc"), this);
   IdentTable = std::make_unique<IdentifierTable>(getLangOpts());
 }
 
-void FixedWidthInts::check(const MatchFinder::MatchResult &Result) {
+void TypesFixedWidthIntsCheck::check(const MatchFinder::MatchResult &Result) {
   auto TL = *Result.Nodes.getNodeAs<TypeLoc>("loc");
   auto Loc = TL.getBeginLoc();
   auto Man = Result.SourceManager;

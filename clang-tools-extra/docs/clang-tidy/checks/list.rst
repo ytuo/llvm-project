@@ -48,6 +48,7 @@ Clang-Tidy Checks
    `bsl-literals-ascii-only <bsl-literals-ascii-only.html>`_, "Yes"
    `bsl-literals-no-octal <bsl-literals-no-octal.html>`_,
    `bsl-literals-uppercase-suffix <bsl-literals-uppercase-suffix.html>`_,
+   `bsl-types-fixed-width-ints <bsl-types-fixed-width-ints.html>`_,
    `bugprone-argument-comment <bugprone-argument-comment.html>`_, "Yes"
    `bugprone-assert-side-effect <bugprone-assert-side-effect.html>`_,
    `bugprone-bad-signal-to-kill-thread <bugprone-bad-signal-to-kill-thread.html>`_,
