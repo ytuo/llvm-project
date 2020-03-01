@@ -20,6 +20,10 @@ namespace bsl {
 StringRef getRawTokenStr(SourceLocation Loc,
                          const ast_matchers::MatchFinder::MatchResult &Result);
 
+Token getTokenAtLoc(SourceLocation Loc,
+                    const ast_matchers::MatchFinder::MatchResult &MatchResult,
+                    IdentifierTable &IdentTable);
+
 } // namespace bsl
 } // namespace tidy
 } // namespace clang

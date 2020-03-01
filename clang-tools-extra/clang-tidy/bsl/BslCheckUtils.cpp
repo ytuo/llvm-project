@@ -39,6 +39,27 @@ StringRef getRawTokenStr(SourceLocation Loc,
   return StringRef(Buf, Tok.getLength());
 }
 
+// This function is taken from ../google/IntegerTypesCheck.cpp. The check
+// below is similar except that is matches additional keywords and doesn't
+// provide a suggested replacement.
+Token getTokenAtLoc(SourceLocation Loc,
+                           const MatchFinder::MatchResult &MatchResult,
+                           IdentifierTable &IdentTable) {
+  Token Tok;
+
+  if (Lexer::getRawToken(Loc, Tok, *MatchResult.SourceManager,
+                         MatchResult.Context->getLangOpts(), false))
+    return Tok;
+
+  if (Tok.is(tok::raw_identifier)) {
+    IdentifierInfo &Info = IdentTable.get(Tok.getRawIdentifier());
+    Tok.setIdentifierInfo(&Info);
+    Tok.setKind(Info.getTokenID());
+  }
+
+  return Tok;
+}
+
 } // namespace bsl
 } // namespace tidy
 } // namespace clang

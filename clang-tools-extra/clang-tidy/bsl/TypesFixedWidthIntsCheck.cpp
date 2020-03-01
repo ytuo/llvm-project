@@ -7,34 +7,13 @@
 //===----------------------------------------------------------------------===//
 
 #include "TypesFixedWidthIntsCheck.h"
+#include "BslCheckUtils.h"
 #include "clang/Basic/IdentifierTable.h"
 #include "clang/Lex/Lexer.h"
 
 using namespace clang::ast_matchers;
 
 namespace clang {
-
-// This function is taken from ../google/IntegerTypesCheck.cpp. The check
-// below is similar except that is matches additional keywords and doesn't
-// provide a suggested replacement.
-static Token getTokenAtLoc(SourceLocation Loc,
-                           const MatchFinder::MatchResult &MatchResult,
-                           IdentifierTable &IdentTable) {
-  Token Tok;
-
-  if (Lexer::getRawToken(Loc, Tok, *MatchResult.SourceManager,
-                         MatchResult.Context->getLangOpts(), false))
-    return Tok;
-
-  if (Tok.is(tok::raw_identifier)) {
-    IdentifierInfo &Info = IdentTable.get(Tok.getRawIdentifier());
-    Tok.setIdentifierInfo(&Info);
-    Tok.setKind(Info.getTokenID());
-  }
-
-  return Tok;
-}
-
 namespace tidy {
 namespace bsl {
 
