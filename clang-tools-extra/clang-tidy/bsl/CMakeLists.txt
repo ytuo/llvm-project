@@ -2,6 +2,7 @@ set(LLVM_LINK_COMPONENTS support)
 
 add_clang_library(clangTidyBslModule
   BslTidyModule.cpp
+  BslCheckUtils.cpp
   FixedWidthInts.cpp
   LiteralsNoOctalCheck.cpp
   LiteralsUnsignedSuffixCheck.cpp
