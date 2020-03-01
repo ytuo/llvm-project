@@ -80,6 +80,12 @@ New checks
   Finds non-const global variables as described in check I.2 of C++ Core
   Guidelines.
 
+- New :doc:`bsl-literals-no-octal
+  <clang-tidy/checks/bsl-literals-no-octal>` check.
+
+  Checks that no octal integer literals nor octal escape sequences
+  exist.
+
 - New :doc:`bsl-literals-uppercase-suffix
   <clang-tidy/checks/bsl-literals-uppercase-suffix>` check.
 
@@ -160,7 +166,7 @@ Changes in existing checks
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 - Improved :doc:`readability-qualified-auto
-  <clang-tidy/checks/readability-qualified-auto>` check now supports a 
+  <clang-tidy/checks/readability-qualified-auto>` check now supports a
   `AddConstToQualified` to enable adding ``const`` qualifiers to variables
   typed with ``auto *`` and ``auto &``.
 

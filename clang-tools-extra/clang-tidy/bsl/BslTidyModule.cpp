@@ -10,6 +10,7 @@
 #include "../ClangTidyModule.h"
 #include "../ClangTidyModuleRegistry.h"
 #include "FixedWidthInts.h"
+#include "LiteralsNoOctalCheck.h"
 #include "LiteralsUnsignedSuffixCheck.h"
 #include "LiteralsUppercaseSuffixCheck.h"
 
@@ -22,6 +23,8 @@ public:
   void addCheckFactories(ClangTidyCheckFactories &CheckFactories) override {
     CheckFactories.registerCheck<FixedWidthInts>(
         "bsl-fixed-width-ints");
+    CheckFactories.registerCheck<LiteralsNoOctalCheck>(
+        "bsl-literals-no-octal");
     CheckFactories.registerCheck<LiteralsUnsignedSuffixCheck>(
         "bsl-literals-unsigned-suffix");
     CheckFactories.registerCheck<LiteralsUppercaseSuffixCheck>(
