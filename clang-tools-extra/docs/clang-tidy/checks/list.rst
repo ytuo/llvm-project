@@ -45,7 +45,8 @@ Clang-Tidy Checks
    `android-cloexec-socket <android-cloexec-socket.html>`_,
    `android-comparison-in-temp-failure-retry <android-comparison-in-temp-failure-retry.html>`_,
    `boost-use-to-string <boost-use-to-string.html>`_, "Yes"
-   `bsl-literals-no-octal <bsl-literals-no-octal.html>`_, "Yes"
+   `bsl-literals-ascii-only <bsl-literals-ascii-only.html>`_, "Yes"
+   `bsl-literals-no-octal <bsl-literals-no-octal.html>`_,
    `bsl-literals-uppercase-suffix <bsl-literals-uppercase-suffix.html>`_,
    `bugprone-argument-comment <bugprone-argument-comment.html>`_, "Yes"
    `bugprone-assert-side-effect <bugprone-assert-side-effect.html>`_,
