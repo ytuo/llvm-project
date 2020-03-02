@@ -96,6 +96,11 @@ New checks
 
   Checks that each integer literal has an uppercase integer suffix.
 
+- New :doc:`bsl-enum-scoped
+  <clang-tidy/checks/bsl-enum-scoped>` check.
+
+  Check all enums are scoped.
+
 - New :doc:`bsl-types-fixed-width-ints
   <clang-tidy/checks/bsl-types-fixed-width-ints>` check.
 
