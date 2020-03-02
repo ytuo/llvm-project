@@ -80,6 +80,11 @@ New checks
   Finds non-const global variables as described in check I.2 of C++ Core
   Guidelines.
 
+- New :doc:`bsl-enum-explicit
+  <clang-tidy/checks/bsl-enum-explicit>` check.
+
+  Check all enum declarations explicitly state the underlying type.
+
 - New :doc:`bsl-literals-ascii-only
   <clang-tidy/checks/bsl-literals-ascii-only>` check.
 

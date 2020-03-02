@@ -9,6 +9,7 @@
 #include "../ClangTidy.h"
 #include "../ClangTidyModule.h"
 #include "../ClangTidyModuleRegistry.h"
+#include "EnumExplicitCheck.h"
 #include "EnumScopedCheck.h"
 #include "LiteralsAsciiOnlyCheck.h"
 #include "LiteralsNoOctalCheck.h"
@@ -24,6 +25,8 @@ namespace bsl {
 class BslModule : public ClangTidyModule {
 public:
   void addCheckFactories(ClangTidyCheckFactories &CheckFactories) override {
+    CheckFactories.registerCheck<EnumExplicitCheck>(
+        "bsl-enum-explicit");
     CheckFactories.registerCheck<EnumScopedCheck>(
         "bsl-enum-scoped");
     CheckFactories.registerCheck<TypesFixedWidthIntsCheck>(
