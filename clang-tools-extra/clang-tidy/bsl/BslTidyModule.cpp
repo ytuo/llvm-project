@@ -10,6 +10,7 @@
 #include "../ClangTidyModule.h"
 #include "../ClangTidyModuleRegistry.h"
 #include "EnumExplicitCheck.h"
+#include "EnumInitCheck.h"
 #include "EnumScopedCheck.h"
 #include "LiteralsAsciiOnlyCheck.h"
 #include "LiteralsNoOctalCheck.h"
@@ -27,6 +28,8 @@ public:
   void addCheckFactories(ClangTidyCheckFactories &CheckFactories) override {
     CheckFactories.registerCheck<EnumExplicitCheck>(
         "bsl-enum-explicit");
+    CheckFactories.registerCheck<EnumInitCheck>(
+        "bsl-enum-init");
     CheckFactories.registerCheck<EnumScopedCheck>(
         "bsl-enum-scoped");
     CheckFactories.registerCheck<TypesFixedWidthIntsCheck>(

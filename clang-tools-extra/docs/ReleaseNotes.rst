@@ -85,6 +85,12 @@ New checks
 
   Check all enum declarations explicitly state the underlying type.
 
+- New :doc:`bsl-enum-init
+  <clang-tidy/checks/bsl-enum-init>` check.
+
+  Check that either none or all or the first only enum constants
+  are initialized.
+
 - New :doc:`bsl-literals-ascii-only
   <clang-tidy/checks/bsl-literals-ascii-only>` check.
 

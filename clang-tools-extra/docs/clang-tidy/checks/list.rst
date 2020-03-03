@@ -46,6 +46,7 @@ Clang-Tidy Checks
    `android-comparison-in-temp-failure-retry <android-comparison-in-temp-failure-retry.html>`_,
    `boost-use-to-string <boost-use-to-string.html>`_, "Yes"
    `bsl-enum-explicit <bsl-enum-explicit.html>`_,
+   `bsl-enum-init <bsl-enum-init.html>`_,
    `bsl-enum-scoped <bsl-enum-scoped.html>`_,
    `bsl-literals-ascii-only <bsl-literals-ascii-only.html>`_,
    `bsl-literals-no-octal <bsl-literals-no-octal.html>`_,
