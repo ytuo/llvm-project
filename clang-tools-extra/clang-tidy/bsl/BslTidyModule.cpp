@@ -18,6 +18,7 @@
 #include "LiteralsUppercaseSuffixCheck.h"
 #include "TypesFixedWidthIntsCheck.h"
 #include "TypesNoWideCharCheck.h"
+#include "UnusedReturnValueCheck.h"
 
 namespace clang {
 namespace tidy {
@@ -44,6 +45,8 @@ public:
         "bsl-literals-uppercase-suffix");
     CheckFactories.registerCheck<TypesNoWideCharCheck>(
         "bsl-types-no-wide-char");
+    CheckFactories.registerCheck<UnusedReturnValueCheck>(
+        "bsl-unused-return-value");
   }
 };
 

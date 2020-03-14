@@ -122,6 +122,11 @@ New checks
 
   Check that no wide-character types are used.
 
+- New :doc:`bsl-unused-return-value
+  <clang-tidy/checks/bsl-unused-return-value>` check.
+
+  Checks for unused non-void function return values.
+
 - New :doc:`bugprone-misplaced-pointer-arithmetic-in-alloc
   <clang-tidy/checks/bugprone-misplaced-pointer-arithmetic-in-alloc>` check.
 
