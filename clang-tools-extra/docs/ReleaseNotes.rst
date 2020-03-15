@@ -112,6 +112,11 @@ New checks
 
   Check all enums are scoped.
 
+- New :doc:`bsl-non-pod-static
+  <clang-tidy/checks/bsl-non-pod-static>` check.
+
+  Checks that static storage duration is not used for non-POD variables.
+
 - New :doc:`bsl-types-fixed-width-ints
   <clang-tidy/checks/bsl-types-fixed-width-ints>` check.
 
