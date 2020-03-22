@@ -12,6 +12,7 @@
 #include "EnumExplicitCheck.h"
 #include "EnumInitCheck.h"
 #include "EnumScopedCheck.h"
+#include "LambdaImplicitCaptureCheck.h"
 #include "LiteralsAsciiOnlyCheck.h"
 #include "LiteralsNoOctalCheck.h"
 #include "LiteralsUnsignedSuffixCheck.h"
@@ -34,6 +35,8 @@ public:
         "bsl-enum-init");
     CheckFactories.registerCheck<EnumScopedCheck>(
         "bsl-enum-scoped");
+    CheckFactories.registerCheck<LambdaImplicitCaptureCheck>(
+        "bsl-lambda-implicit-capture");
     CheckFactories.registerCheck<NonPodStaticCheck>(
         "bsl-non-pod-static");
     CheckFactories.registerCheck<TypesFixedWidthIntsCheck>(

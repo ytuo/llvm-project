@@ -6,6 +6,7 @@ add_clang_library(clangTidyBslModule
   EnumExplicitCheck.cpp
   EnumInitCheck.cpp
   EnumScopedCheck.cpp
+  LambdaImplicitCaptureCheck.cpp
   LiteralsAsciiOnlyCheck.cpp
   LiteralsNoOctalCheck.cpp
   LiteralsUnsignedSuffixCheck.cpp
