@@ -85,6 +85,12 @@ New checks
 
   Ensures lambda expressions' parameter lists are explicit.
 
+- New :doc:`bsl-op-forbidden-overload
+  <clang-tidy/checks/bsl-op-forbidden-overload>` check.
+
+  Warns if binary-logical, comma, subscript, or unary-ampresand operators
+  are overloaded.
+
 - New :doc:`cppcoreguidelines-avoid-non-const-global-variables
   <clang-tidy/checks/cppcoreguidelines-avoid-non-const-global-variables>` check.
   Finds non-const global variables as described in check I.2 of C++ Core

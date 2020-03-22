@@ -19,6 +19,7 @@
 #include "LiteralsUnsignedSuffixCheck.h"
 #include "LiteralsUppercaseSuffixCheck.h"
 #include "NonPodStaticCheck.h"
+#include "OpForbiddenOverloadCheck.h"
 #include "TypesFixedWidthIntsCheck.h"
 #include "TypesNoWideCharCheck.h"
 #include "UnusedReturnValueCheck.h"
@@ -42,6 +43,8 @@ public:
         "bsl-lambda-param-list");
     CheckFactories.registerCheck<NonPodStaticCheck>(
         "bsl-non-pod-static");
+    CheckFactories.registerCheck<OpForbiddenOverloadCheck>(
+        "bsl-op-forbidden-overload");
     CheckFactories.registerCheck<TypesFixedWidthIntsCheck>(
         "bsl-types-fixed-width-ints");
     CheckFactories.registerCheck<LiteralsAsciiOnlyCheck>(
