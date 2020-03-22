@@ -80,6 +80,11 @@ New checks
 
   Check for implicit captures of variables with automatic storage duration.
 
+- New :doc:`bsl-lambda-param-list
+  <clang-tidy/checks/bsl-lambda-param-list>` check.
+
+  Ensures lambda expressions' parameter lists are explicit.
+
 - New :doc:`cppcoreguidelines-avoid-non-const-global-variables
   <clang-tidy/checks/cppcoreguidelines-avoid-non-const-global-variables>` check.
   Finds non-const global variables as described in check I.2 of C++ Core
