@@ -13,6 +13,7 @@ add_clang_library(clangTidyBslModule
   LiteralsUnsignedSuffixCheck.cpp
   LiteralsUppercaseSuffixCheck.cpp
   NonPodStaticCheck.cpp
+  OpBitwiseOperandsCheck.cpp
   OpForbiddenOverloadCheck.cpp
   TypesFixedWidthIntsCheck.cpp
   TypesNoWideCharCheck.cpp

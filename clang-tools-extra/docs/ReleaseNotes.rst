@@ -85,6 +85,11 @@ New checks
 
   Ensures lambda expressions' parameter lists are explicit.
 
+- New :doc:`bsl-op-bitwise-operands
+  <clang-tidy/checks/bsl-op-bitwise-operands>` check.
+
+  Warns if operands to binary bitwise operations have different types.
+
 - New :doc:`bsl-op-forbidden-overload
   <clang-tidy/checks/bsl-op-forbidden-overload>` check.
 

@@ -54,7 +54,8 @@ Clang-Tidy Checks
    `bsl-literals-no-octal <bsl-literals-no-octal.html>`_,
    `bsl-literals-uppercase-suffix <bsl-literals-uppercase-suffix.html>`_,
    `bsl-non-pod-static <bsl-non-pod-static.html>`_,
-   `bsl-op-forbidden-overload <bsl-op-forbidden-overload.html>`_, "Yes"
+   `bsl-op-bitwise-operands <bsl-op-bitwise-operands.html>`_, "Yes"
+   `bsl-op-forbidden-overload <bsl-op-forbidden-overload.html>`_,
    `bsl-types-fixed-width-ints <bsl-types-fixed-width-ints.html>`_,
    `bsl-types-no-wide-char <bsl-types-no-wide-char.html>`_,
    `bsl-unused-return-value <bsl-unused-return-value.html>`_,
