@@ -21,6 +21,7 @@
 #include "NonPodStaticCheck.h"
 #include "OpBitwiseOperandsCheck.h"
 #include "OpForbiddenOverloadCheck.h"
+#include "OpMixedIncrementDecrementCheck.h"
 #include "TypesFixedWidthIntsCheck.h"
 #include "TypesNoWideCharCheck.h"
 #include "UnusedReturnValueCheck.h"
@@ -48,6 +49,8 @@ public:
         "bsl-op-bitwise-operands");
     CheckFactories.registerCheck<OpForbiddenOverloadCheck>(
         "bsl-op-forbidden-overload");
+    CheckFactories.registerCheck<OpMixedIncrementDecrementCheck>(
+        "bsl-op-mixed-increment-decrement");
     CheckFactories.registerCheck<TypesFixedWidthIntsCheck>(
         "bsl-types-fixed-width-ints");
     CheckFactories.registerCheck<LiteralsAsciiOnlyCheck>(

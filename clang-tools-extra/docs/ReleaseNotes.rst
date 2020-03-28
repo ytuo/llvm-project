@@ -96,6 +96,11 @@ New checks
   Warns if binary-logical, comma, subscript, or unary-ampresand operators
   are overloaded.
 
+- New :doc:`bsl-op-mixed-increment-decrement
+  <clang-tidy/checks/bsl-op-mixed-increment-decrement>` check.
+
+  Warns if "++" or "--" operators are mixed with other operations.
+
 - New :doc:`cppcoreguidelines-avoid-non-const-global-variables
   <clang-tidy/checks/cppcoreguidelines-avoid-non-const-global-variables>` check.
   Finds non-const global variables as described in check I.2 of C++ Core
