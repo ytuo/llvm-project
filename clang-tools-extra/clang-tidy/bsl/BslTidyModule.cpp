@@ -21,6 +21,7 @@
 #include "NonPodStaticCheck.h"
 #include "OpBitwiseOperandsCheck.h"
 #include "OpConditionalSubexprCheck.h"
+#include "OpEqualityVirtMemfnNullptrCheck.h"
 #include "OpForbiddenOverloadCheck.h"
 #include "OpMixedIncrementDecrementCheck.h"
 #include "TypesFixedWidthIntsCheck.h"
@@ -50,6 +51,8 @@ public:
         "bsl-op-bitwise-operands");
     CheckFactories.registerCheck<OpConditionalSubexprCheck>(
         "bsl-op-conditional-subexpr");
+    CheckFactories.registerCheck<OpEqualityVirtMemfnNullptrCheck>(
+        "bsl-op-equality-virt-memfn-nullptr");
     CheckFactories.registerCheck<OpForbiddenOverloadCheck>(
         "bsl-op-forbidden-overload");
     CheckFactories.registerCheck<OpMixedIncrementDecrementCheck>(

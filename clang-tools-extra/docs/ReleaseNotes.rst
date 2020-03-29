@@ -95,6 +95,12 @@ New checks
 
   Warns whenever a conditional operator is used as a subexpression
 
+- New :doc:`bsl-op-equality-virt-memfn-nullptr
+  <clang-tidy/checks/bsl-op-equality-virt-memfn-nullptr>` check.
+
+  Warns if a pointer to virtual member function is compared for equality
+  to an expression that is not 'nullptr'.
+
 - New :doc:`bsl-op-forbidden-overload
   <clang-tidy/checks/bsl-op-forbidden-overload>` check.
 

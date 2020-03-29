@@ -56,6 +56,7 @@ Clang-Tidy Checks
    `bsl-non-pod-static <bsl-non-pod-static.html>`_,
    `bsl-op-bitwise-operands <bsl-op-bitwise-operands.html>`_,
    `bsl-op-conditional-subexpr <bsl-op-conditional-subexpr.html>`_,
+   `bsl-op-equality-virt-memfn-nullptr <bsl-op-equality-virt-memfn-nullptr.html>`_,
    `bsl-op-forbidden-overload <bsl-op-forbidden-overload.html>`_,
    `bsl-op-mixed-increment-decrement <bsl-op-mixed-increment-decrement.html>`_,
    `bsl-types-fixed-width-ints <bsl-types-fixed-width-ints.html>`_,
