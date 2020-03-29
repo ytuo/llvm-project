@@ -20,6 +20,7 @@
 #include "LiteralsUppercaseSuffixCheck.h"
 #include "NonPodStaticCheck.h"
 #include "OpBitwiseOperandsCheck.h"
+#include "OpConditionalSubexprCheck.h"
 #include "OpForbiddenOverloadCheck.h"
 #include "OpMixedIncrementDecrementCheck.h"
 #include "TypesFixedWidthIntsCheck.h"
@@ -47,6 +48,8 @@ public:
         "bsl-non-pod-static");
     CheckFactories.registerCheck<OpBitwiseOperandsCheck>(
         "bsl-op-bitwise-operands");
+    CheckFactories.registerCheck<OpConditionalSubexprCheck>(
+        "bsl-op-conditional-subexpr");
     CheckFactories.registerCheck<OpForbiddenOverloadCheck>(
         "bsl-op-forbidden-overload");
     CheckFactories.registerCheck<OpMixedIncrementDecrementCheck>(

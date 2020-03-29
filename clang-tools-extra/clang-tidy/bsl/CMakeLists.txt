@@ -14,6 +14,7 @@ add_clang_library(clangTidyBslModule
   LiteralsUppercaseSuffixCheck.cpp
   NonPodStaticCheck.cpp
   OpBitwiseOperandsCheck.cpp
+  OpConditionalSubexprCheck.cpp
   OpForbiddenOverloadCheck.cpp
   OpMixedIncrementDecrementCheck.cpp
   TypesFixedWidthIntsCheck.cpp

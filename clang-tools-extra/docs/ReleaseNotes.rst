@@ -90,6 +90,11 @@ New checks
 
   Warns if operands to binary bitwise operations have different types.
 
+- New :doc:`bsl-op-conditional-subexpr
+  <clang-tidy/checks/bsl-op-conditional-subexpr>` check.
+
+  Warns whenever a conditional operator is used as a subexpression
+
 - New :doc:`bsl-op-forbidden-overload
   <clang-tidy/checks/bsl-op-forbidden-overload>` check.
 
