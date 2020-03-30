@@ -17,6 +17,7 @@ add_clang_library(clangTidyBslModule
   OpConditionalSubexprCheck.cpp
   OpEqualityVirtMemfnNullptrCheck.cpp
   OpForbiddenOverloadCheck.cpp
+  OpLogicalPostfixCheck.cpp
   OpMixedIncrementDecrementCheck.cpp
   TypesFixedWidthIntsCheck.cpp
   TypesNoWideCharCheck.cpp

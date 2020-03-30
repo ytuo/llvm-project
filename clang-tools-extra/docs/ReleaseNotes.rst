@@ -107,6 +107,12 @@ New checks
   Warns if binary-logical, comma, subscript, or unary-ampresand operators
   are overloaded.
 
+- New :doc:`bsl-op-logical-postfix
+  <clang-tidy/checks/bsl-op-logical-postfix>` check.
+
+  Warns if either operand to '&&' or '||' expressions are either
+  not postfix or are not '&&' or '||', respectively.
+
 - New :doc:`bsl-op-mixed-increment-decrement
   <clang-tidy/checks/bsl-op-mixed-increment-decrement>` check.
 

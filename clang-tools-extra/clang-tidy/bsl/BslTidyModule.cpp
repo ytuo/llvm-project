@@ -23,6 +23,7 @@
 #include "OpConditionalSubexprCheck.h"
 #include "OpEqualityVirtMemfnNullptrCheck.h"
 #include "OpForbiddenOverloadCheck.h"
+#include "OpLogicalPostfixCheck.h"
 #include "OpMixedIncrementDecrementCheck.h"
 #include "TypesFixedWidthIntsCheck.h"
 #include "TypesNoWideCharCheck.h"
@@ -55,6 +56,8 @@ public:
         "bsl-op-equality-virt-memfn-nullptr");
     CheckFactories.registerCheck<OpForbiddenOverloadCheck>(
         "bsl-op-forbidden-overload");
+    CheckFactories.registerCheck<OpLogicalPostfixCheck>(
+        "bsl-op-logical-postfix");
     CheckFactories.registerCheck<OpMixedIncrementDecrementCheck>(
         "bsl-op-mixed-increment-decrement");
     CheckFactories.registerCheck<TypesFixedWidthIntsCheck>(
