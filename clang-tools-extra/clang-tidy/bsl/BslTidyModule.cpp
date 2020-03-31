@@ -25,6 +25,7 @@
 #include "OpForbiddenOverloadCheck.h"
 #include "OpLogicalPostfixCheck.h"
 #include "OpMixedIncrementDecrementCheck.h"
+#include "StmtSwitchCaseParentCheck.h"
 #include "TypesFixedWidthIntsCheck.h"
 #include "TypesNoWideCharCheck.h"
 #include "UnusedReturnValueCheck.h"
@@ -60,6 +61,8 @@ public:
         "bsl-op-logical-postfix");
     CheckFactories.registerCheck<OpMixedIncrementDecrementCheck>(
         "bsl-op-mixed-increment-decrement");
+    CheckFactories.registerCheck<StmtSwitchCaseParentCheck>(
+        "bsl-stmt-switch-case-parent");
     CheckFactories.registerCheck<TypesFixedWidthIntsCheck>(
         "bsl-types-fixed-width-ints");
     CheckFactories.registerCheck<LiteralsAsciiOnlyCheck>(

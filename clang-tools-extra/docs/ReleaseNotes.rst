@@ -118,6 +118,13 @@ New checks
 
   Warns if "++" or "--" operators are mixed with other operations.
 
+- New :doc:`bsl-stmt-switch-case-parent
+  <clang-tidy/checks/bsl-stmt-switch-case-parent>` check.
+
+  Warns whenever a 'case' or 'default' label of a switch statement
+  does not have either another 'case' label or the body of the switch
+  as its parent statement.
+
 - New :doc:`cppcoreguidelines-avoid-non-const-global-variables
   <clang-tidy/checks/cppcoreguidelines-avoid-non-const-global-variables>` check.
   Finds non-const global variables as described in check I.2 of C++ Core

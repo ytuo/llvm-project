@@ -19,6 +19,7 @@ add_clang_library(clangTidyBslModule
   OpForbiddenOverloadCheck.cpp
   OpLogicalPostfixCheck.cpp
   OpMixedIncrementDecrementCheck.cpp
+  StmtSwitchCaseParentCheck.cpp
   TypesFixedWidthIntsCheck.cpp
   TypesNoWideCharCheck.cpp
   UnusedReturnValueCheck.cpp
