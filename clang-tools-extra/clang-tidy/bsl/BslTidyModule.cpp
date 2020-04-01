@@ -26,6 +26,8 @@
 #include "OpLogicalPostfixCheck.h"
 #include "OpMixedIncrementDecrementCheck.h"
 #include "StmtSwitchCaseParentCheck.h"
+#include "StmtSwitchDefaultBreakCheck.h"
+#include "StmtSwitchDefaultLastCheck.h"
 #include "TypesFixedWidthIntsCheck.h"
 #include "TypesNoWideCharCheck.h"
 #include "UnusedReturnValueCheck.h"
@@ -63,6 +65,10 @@ public:
         "bsl-op-mixed-increment-decrement");
     CheckFactories.registerCheck<StmtSwitchCaseParentCheck>(
         "bsl-stmt-switch-case-parent");
+    CheckFactories.registerCheck<StmtSwitchDefaultBreakCheck>(
+        "bsl-stmt-switch-default-break");
+    CheckFactories.registerCheck<StmtSwitchDefaultLastCheck>(
+        "bsl-stmt-switch-default-last");
     CheckFactories.registerCheck<TypesFixedWidthIntsCheck>(
         "bsl-types-fixed-width-ints");
     CheckFactories.registerCheck<LiteralsAsciiOnlyCheck>(

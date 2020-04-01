@@ -20,6 +20,8 @@ add_clang_library(clangTidyBslModule
   OpLogicalPostfixCheck.cpp
   OpMixedIncrementDecrementCheck.cpp
   StmtSwitchCaseParentCheck.cpp
+  StmtSwitchDefaultBreakCheck.cpp
+  StmtSwitchDefaultLastCheck.cpp
   TypesFixedWidthIntsCheck.cpp
   TypesNoWideCharCheck.cpp
   UnusedReturnValueCheck.cpp

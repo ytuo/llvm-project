@@ -125,6 +125,17 @@ New checks
   does not have either another 'case' label or the body of the switch
   as its parent statement.
 
+- New :doc:`bsl-stmt-switch-default-break
+  <clang-tidy/checks/bsl-stmt-switch-default-break>` check.
+
+  Warns if the default case of switch statements do no end with
+  either break or throw.
+
+- New :doc:`bsl-stmt-switch-default-last
+  <clang-tidy/checks/bsl-stmt-switch-default-last>` check.
+
+  Warns if the default label is not last in a switch statement.
+
 - New :doc:`cppcoreguidelines-avoid-non-const-global-variables
   <clang-tidy/checks/cppcoreguidelines-avoid-non-const-global-variables>` check.
   Finds non-const global variables as described in check I.2 of C++ Core
