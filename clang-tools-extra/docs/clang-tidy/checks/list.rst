@@ -53,8 +53,9 @@ Clang-Tidy Checks
    `bsl-literals-ascii-only <bsl-literals-ascii-only.html>`_,
    `bsl-literals-no-octal <bsl-literals-no-octal.html>`_,
    `bsl-literals-uppercase-suffix <bsl-literals-uppercase-suffix.html>`_,
+   `bsl-namespace-global <bsl-namespace-global.html>`_,
    `bsl-non-pod-static <bsl-non-pod-static.html>`_,
-   `bsl-op-bitwise-operands <bsl-op-bitwise-operands.html>`_,
+   `bsl-op-bitwise-operands <bsl-op-bitwise-operands.html>`_, "Yes"
    `bsl-op-conditional-subexpr <bsl-op-conditional-subexpr.html>`_,
    `bsl-op-equality-virt-memfn-nullptr <bsl-op-equality-virt-memfn-nullptr.html>`_,
    `bsl-op-forbidden-overload <bsl-op-forbidden-overload.html>`_,

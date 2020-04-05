@@ -12,6 +12,7 @@ add_clang_library(clangTidyBslModule
   LiteralsNoOctalCheck.cpp
   LiteralsUnsignedSuffixCheck.cpp
   LiteralsUppercaseSuffixCheck.cpp
+  NamespaceGlobalCheck.cpp
   NonPodStaticCheck.cpp
   OpBitwiseOperandsCheck.cpp
   OpConditionalSubexprCheck.cpp
