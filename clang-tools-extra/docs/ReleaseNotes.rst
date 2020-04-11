@@ -142,6 +142,12 @@ New checks
 
   Warns if the default label is not last in a switch statement.
 
+- New :doc:`bsl-using-decl-scope
+  <clang-tidy/checks/bsl-using-decl-scope>` check.
+
+  Warns if a using declaration in a header file is outside of
+  either a class or function.
+
 - New :doc:`cppcoreguidelines-avoid-non-const-global-variables
   <clang-tidy/checks/cppcoreguidelines-avoid-non-const-global-variables>` check.
   Finds non-const global variables as described in check I.2 of C++ Core

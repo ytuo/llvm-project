@@ -32,6 +32,7 @@
 #include "TypesFixedWidthIntsCheck.h"
 #include "TypesNoWideCharCheck.h"
 #include "UnusedReturnValueCheck.h"
+#include "UsingDeclScopeCheck.h"
 
 namespace clang {
 namespace tidy {
@@ -86,6 +87,8 @@ public:
         "bsl-types-no-wide-char");
     CheckFactories.registerCheck<UnusedReturnValueCheck>(
         "bsl-unused-return-value");
+    CheckFactories.registerCheck<UsingDeclScopeCheck>(
+        "bsl-using-decl-scope");
   }
 };
 
