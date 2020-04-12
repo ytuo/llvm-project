@@ -9,6 +9,7 @@
 #include "../ClangTidy.h"
 #include "../ClangTidyModule.h"
 #include "../ClangTidyModuleRegistry.h"
+#include "ClassFinalFunctionCheck.h"
 #include "EnumExplicitCheck.h"
 #include "EnumInitCheck.h"
 #include "EnumScopedCheck.h"
@@ -43,6 +44,8 @@ namespace bsl {
 class BslModule : public ClangTidyModule {
 public:
   void addCheckFactories(ClangTidyCheckFactories &CheckFactories) override {
+    CheckFactories.registerCheck<ClassFinalFunctionCheck>(
+        "bsl-class-final-function");
     CheckFactories.registerCheck<EnumExplicitCheck>(
         "bsl-enum-explicit");
     CheckFactories.registerCheck<EnumInitCheck>(

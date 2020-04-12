@@ -75,6 +75,12 @@ New module
 
 New checks
 ^^^^^^^^^^
+- New :doc:`bsl-class-final-function
+  <clang-tidy/checks/bsl-class-final-function>` check.
+
+  Warns if a non-overridden virtual function is declared in final class and
+  warns if an overridden function is not marked final in a final class.
+
 - New :doc:`bsl-function-name-use
   <clang-tidy/checks/bsl-function-name-use>` check.
 

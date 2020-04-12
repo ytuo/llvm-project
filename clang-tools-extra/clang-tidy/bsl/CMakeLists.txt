@@ -3,6 +3,7 @@ set(LLVM_LINK_COMPONENTS support)
 add_clang_library(clangTidyBslModule
   BslCheckUtils.cpp
   BslTidyModule.cpp
+  ClassFinalFunctionCheck.cpp
   EnumExplicitCheck.cpp
   EnumInitCheck.cpp
   EnumScopedCheck.cpp
