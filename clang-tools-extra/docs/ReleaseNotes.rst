@@ -154,6 +154,13 @@ New checks
   Warns if a using declaration in a header file is outside of
   either a class or function.
 
+- New :doc:`bsl-var-braced-init
+  <clang-tidy/checks/bsl-var-braced-init>` check.
+
+  Warns whenever direct list initialization is not used for
+  non-auto-declared variables. Warns whenever any list initialization
+  is used for auto-declared variables.
+
 - New :doc:`cppcoreguidelines-avoid-non-const-global-variables
   <clang-tidy/checks/cppcoreguidelines-avoid-non-const-global-variables>` check.
   Finds non-const global variables as described in check I.2 of C++ Core

@@ -28,6 +28,7 @@ add_clang_library(clangTidyBslModule
   TypesNoWideCharCheck.cpp
   UnusedReturnValueCheck.cpp
   UsingDeclScopeCheck.cpp
+  VarBracedInitCheck.cpp
 
   LINK_LIBS
   clangAST

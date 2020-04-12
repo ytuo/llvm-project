@@ -34,6 +34,7 @@
 #include "TypesNoWideCharCheck.h"
 #include "UnusedReturnValueCheck.h"
 #include "UsingDeclScopeCheck.h"
+#include "VarBracedInitCheck.h"
 
 namespace clang {
 namespace tidy {
@@ -92,6 +93,8 @@ public:
         "bsl-unused-return-value");
     CheckFactories.registerCheck<UsingDeclScopeCheck>(
         "bsl-using-decl-scope");
+    CheckFactories.registerCheck<VarBracedInitCheck>(
+        "bsl-var-braced-init");
   }
 };
 
