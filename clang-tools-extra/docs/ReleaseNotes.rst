@@ -75,6 +75,12 @@ New module
 
 New checks
 ^^^^^^^^^^
+- New :doc:`bsl-function-name-use
+  <clang-tidy/checks/bsl-function-name-use>` check.
+
+  Warns if a function name is used in an expression other than a call
+  or address-of.
+
 - New :doc:`bsl-lambda-implicit-capture
   <clang-tidy/checks/bsl-lambda-implicit-capture>` check.
 
