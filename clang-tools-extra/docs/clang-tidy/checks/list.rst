@@ -64,6 +64,7 @@ Clang-Tidy Checks
    `bsl-op-forbidden-overload <bsl-op-forbidden-overload.html>`_,
    `bsl-op-logical-postfix <bsl-op-logical-postfix.html>`_, "Yes"
    `bsl-op-mixed-increment-decrement <bsl-op-mixed-increment-decrement.html>`_,
+   `bsl-pure-override <bsl-pure-override.html>`_,
    `bsl-stmt-switch-case-parent <bsl-stmt-switch-case-parent.html>`_,
    `bsl-stmt-switch-default-break <bsl-stmt-switch-default-break.html>`_,
    `bsl-stmt-switch-default-last <bsl-stmt-switch-default-last.html>`_,

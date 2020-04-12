@@ -23,6 +23,7 @@ add_clang_library(clangTidyBslModule
   OpForbiddenOverloadCheck.cpp
   OpLogicalPostfixCheck.cpp
   OpMixedIncrementDecrementCheck.cpp
+  PureOverrideCheck.cpp
   StmtSwitchCaseParentCheck.cpp
   StmtSwitchDefaultBreakCheck.cpp
   StmtSwitchDefaultLastCheck.cpp

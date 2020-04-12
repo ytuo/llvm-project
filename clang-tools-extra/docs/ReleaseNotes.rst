@@ -141,6 +141,11 @@ New checks
 
   Warns if "++" or "--" operators are mixed with other operations.
 
+- New :doc:`bsl-pure-override
+  <clang-tidy/checks/bsl-pure-override>` check.
+
+  Warns if a pure virtual function overrides a non-pure function.
+
 - New :doc:`bsl-stmt-switch-case-parent
   <clang-tidy/checks/bsl-stmt-switch-case-parent>` check.
 
