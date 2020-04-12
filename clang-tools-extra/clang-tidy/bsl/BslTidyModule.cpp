@@ -13,6 +13,7 @@
 #include "EnumExplicitCheck.h"
 #include "EnumInitCheck.h"
 #include "EnumScopedCheck.h"
+#include "FriendDeclCheck.h"
 #include "FunctionNameUseCheck.h"
 #include "LambdaImplicitCaptureCheck.h"
 #include "LambdaParamListCheck.h"
@@ -52,6 +53,8 @@ public:
         "bsl-enum-init");
     CheckFactories.registerCheck<EnumScopedCheck>(
         "bsl-enum-scoped");
+    CheckFactories.registerCheck<FriendDeclCheck>(
+        "bsl-friend-decl");
     CheckFactories.registerCheck<FunctionNameUseCheck>(
         "bsl-function-name-use");
     CheckFactories.registerCheck<LambdaImplicitCaptureCheck>(

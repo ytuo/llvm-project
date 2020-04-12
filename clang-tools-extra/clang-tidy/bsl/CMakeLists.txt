@@ -7,6 +7,7 @@ add_clang_library(clangTidyBslModule
   EnumExplicitCheck.cpp
   EnumInitCheck.cpp
   EnumScopedCheck.cpp
+  FriendDeclCheck.cpp
   FunctionNameUseCheck.cpp
   LambdaImplicitCaptureCheck.cpp
   LambdaParamListCheck.cpp
