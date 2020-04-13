@@ -102,6 +102,11 @@ New checks
 
   Ensures lambda expressions' parameter lists are explicit.
 
+- New :doc:`bsl-literals-user-defined
+  <clang-tidy/checks/bsl-literals-user-defined>` check.
+
+  Warns on usage of user-defined literals.
+
 - New :doc:`bsl-namespace-global
   <clang-tidy/checks/bsl-namespace-global>` check.
 

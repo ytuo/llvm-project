@@ -21,6 +21,7 @@
 #include "LiteralsNoOctalCheck.h"
 #include "LiteralsUnsignedSuffixCheck.h"
 #include "LiteralsUppercaseSuffixCheck.h"
+#include "LiteralsUserDefinedCheck.h"
 #include "NamespaceGlobalCheck.h"
 #include "NonPodStaticCheck.h"
 #include "OpBitwiseOperandsCheck.h"
@@ -62,6 +63,8 @@ public:
         "bsl-lambda-implicit-capture");
     CheckFactories.registerCheck<LambdaParamListCheck>(
         "bsl-lambda-param-list");
+    CheckFactories.registerCheck<LiteralsUserDefinedCheck>(
+        "bsl-literals-user-defined");
     CheckFactories.registerCheck<NamespaceGlobalCheck>(
         "bsl-namespace-global");
     CheckFactories.registerCheck<NonPodStaticCheck>(
