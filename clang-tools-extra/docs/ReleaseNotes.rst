@@ -146,6 +146,11 @@ New checks
 
   Warns if "++" or "--" operators are mixed with other operations.
 
+- New :doc:`bsl-op-relational-return-bool
+  <clang-tidy/checks/bsl-op-relational-return-bool>` check.
+
+  FIXME: add release notes.
+
 - New :doc:`bsl-pure-override
   <clang-tidy/checks/bsl-pure-override>` check.
 
