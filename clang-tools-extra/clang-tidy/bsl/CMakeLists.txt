@@ -12,6 +12,7 @@ add_clang_library(clangTidyBslModule
   LambdaImplicitCaptureCheck.cpp
   LambdaParamListCheck.cpp
   LiteralsAsciiOnlyCheck.cpp
+  LiteralsDigitSeparatorCheck.cpp
   LiteralsNoOctalCheck.cpp
   LiteralsUnsignedSuffixCheck.cpp
   LiteralsUppercaseSuffixCheck.cpp

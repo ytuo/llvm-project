@@ -54,6 +54,7 @@ Clang-Tidy Checks
    `bsl-lambda-implicit-capture <bsl-lambda-implicit-capture.html>`_,
    `bsl-lambda-param-list <bsl-lambda-param-list.html>`_,
    `bsl-literals-ascii-only <bsl-literals-ascii-only.html>`_,
+   `bsl-literals-digit-separator <bsl-literals-digit-separator.html>`_,
    `bsl-literals-no-octal <bsl-literals-no-octal.html>`_,
    `bsl-literals-uppercase-suffix <bsl-literals-uppercase-suffix.html>`_,
    `bsl-literals-user-defined <bsl-literals-user-defined.html>`_,

@@ -102,6 +102,11 @@ New checks
 
   Ensures lambda expressions' parameter lists are explicit.
 
+- New :doc:`bsl-literals-digit-separator
+  <clang-tidy/checks/bsl-literals-digit-separator>` check.
+
+  Warns on unusual digit separator locations in integer literals.
+
 - New :doc:`bsl-literals-user-defined
   <clang-tidy/checks/bsl-literals-user-defined>` check.
 

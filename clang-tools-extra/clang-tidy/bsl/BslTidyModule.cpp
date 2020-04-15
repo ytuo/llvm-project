@@ -18,6 +18,7 @@
 #include "LambdaImplicitCaptureCheck.h"
 #include "LambdaParamListCheck.h"
 #include "LiteralsAsciiOnlyCheck.h"
+#include "LiteralsDigitSeparatorCheck.h"
 #include "LiteralsNoOctalCheck.h"
 #include "LiteralsUnsignedSuffixCheck.h"
 #include "LiteralsUppercaseSuffixCheck.h"
@@ -64,6 +65,8 @@ public:
         "bsl-lambda-implicit-capture");
     CheckFactories.registerCheck<LambdaParamListCheck>(
         "bsl-lambda-param-list");
+    CheckFactories.registerCheck<LiteralsDigitSeparatorCheck>(
+        "bsl-literals-digit-separator");
     CheckFactories.registerCheck<LiteralsUserDefinedCheck>(
         "bsl-literals-user-defined");
     CheckFactories.registerCheck<NamespaceGlobalCheck>(
