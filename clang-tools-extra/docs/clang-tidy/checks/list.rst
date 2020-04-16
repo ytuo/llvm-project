@@ -68,6 +68,7 @@ Clang-Tidy Checks
    `bsl-op-mixed-increment-decrement <bsl-op-mixed-increment-decrement.html>`_,
    `bsl-op-relational-return-bool <bsl-op-relational-return-bool.html>`_,
    `bsl-pure-override <bsl-pure-override.html>`_,
+   `bsl-stmt-forbidden <bsl-stmt-forbidden.html>`_,
    `bsl-stmt-switch-case-parent <bsl-stmt-switch-case-parent.html>`_,
    `bsl-stmt-switch-default-break <bsl-stmt-switch-default-break.html>`_,
    `bsl-stmt-switch-default-last <bsl-stmt-switch-default-last.html>`_,

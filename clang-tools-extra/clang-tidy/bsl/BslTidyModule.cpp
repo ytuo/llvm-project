@@ -33,6 +33,7 @@
 #include "OpMixedIncrementDecrementCheck.h"
 #include "OpRelationalReturnBoolCheck.h"
 #include "PureOverrideCheck.h"
+#include "StmtForbiddenCheck.h"
 #include "StmtSwitchCaseParentCheck.h"
 #include "StmtSwitchDefaultBreakCheck.h"
 #include "StmtSwitchDefaultLastCheck.h"
@@ -89,6 +90,8 @@ public:
         "bsl-op-relational-return-bool");
     CheckFactories.registerCheck<PureOverrideCheck>(
         "bsl-pure-override");
+    CheckFactories.registerCheck<StmtForbiddenCheck>(
+        "bsl-stmt-forbidden");
     CheckFactories.registerCheck<StmtSwitchCaseParentCheck>(
         "bsl-stmt-switch-case-parent");
     CheckFactories.registerCheck<StmtSwitchDefaultBreakCheck>(

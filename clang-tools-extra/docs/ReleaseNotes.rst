@@ -161,6 +161,11 @@ New checks
 
   Warns if a pure virtual function overrides a non-pure function.
 
+- New :doc:`bsl-stmt-forbidden
+  <clang-tidy/checks/bsl-stmt-forbidden>` check.
+
+  Warns on any goto or do statement.
+
 - New :doc:`bsl-stmt-switch-case-parent
   <clang-tidy/checks/bsl-stmt-switch-case-parent>` check.
 
