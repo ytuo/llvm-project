@@ -10,6 +10,7 @@
 #include "../ClangTidyModule.h"
 #include "../ClangTidyModuleRegistry.h"
 #include "ClassFinalFunctionCheck.h"
+#include "DeclForbiddenCheck.h"
 #include "EnumExplicitCheck.h"
 #include "EnumInitCheck.h"
 #include "EnumScopedCheck.h"
@@ -52,6 +53,8 @@ public:
   void addCheckFactories(ClangTidyCheckFactories &CheckFactories) override {
     CheckFactories.registerCheck<ClassFinalFunctionCheck>(
         "bsl-class-final-function");
+    CheckFactories.registerCheck<DeclForbiddenCheck>(
+        "bsl-decl-forbidden");
     CheckFactories.registerCheck<EnumExplicitCheck>(
         "bsl-enum-explicit");
     CheckFactories.registerCheck<EnumInitCheck>(

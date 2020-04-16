@@ -81,6 +81,11 @@ New checks
   Warns if a non-overridden virtual function is declared in final class and
   warns if an overridden function is not marked final in a final class.
 
+- New :doc:`bsl-decl-forbidden
+  <clang-tidy/checks/bsl-decl-forbidden>` check.
+
+  Warns if unions or bitfields are declared.
+
 - New :doc:`bsl-friend-decl
   <clang-tidy/checks/bsl-friend-decl>` check.
 
