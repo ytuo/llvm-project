@@ -81,6 +81,11 @@ New checks
   Warns if a non-overridden virtual function is declared in final class and
   warns if an overridden function is not marked final in a final class.
 
+- New :doc:`bsl-class-virtual-base
+  <clang-tidy/checks/bsl-class-virtual-base>` check.
+
+  Warns if a class has any virtual bases.
+
 - New :doc:`bsl-decl-forbidden
   <clang-tidy/checks/bsl-decl-forbidden>` check.
 

@@ -4,6 +4,7 @@ add_clang_library(clangTidyBslModule
   BslCheckUtils.cpp
   BslTidyModule.cpp
   ClassFinalFunctionCheck.cpp
+  ClassVirtualBaseCheck.cpp
   DeclForbiddenCheck.cpp
   EnumExplicitCheck.cpp
   EnumInitCheck.cpp
