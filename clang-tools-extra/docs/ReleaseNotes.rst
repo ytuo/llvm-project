@@ -86,6 +86,12 @@ New checks
   Warns if a non-overridden virtual function is declared in final class and
   warns if an overridden function is not marked final in a final class.
 
+- New :doc:`bsl-class-member-redefined
+  <clang-tidy/checks/bsl-class-member-redefined>` check.
+
+  Warns if a derived class defines a data member or method that hides
+  a member with the same name in one of its base classes.
+
 - New :doc:`bsl-class-virtual-base
   <clang-tidy/checks/bsl-class-virtual-base>` check.
 
