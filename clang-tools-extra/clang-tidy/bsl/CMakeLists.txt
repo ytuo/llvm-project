@@ -3,6 +3,7 @@ set(LLVM_LINK_COMPONENTS support)
 add_clang_library(clangTidyBslModule
   BslCheckUtils.cpp
   BslTidyModule.cpp
+  ClassBaseCheck.cpp
   ClassFinalFunctionCheck.cpp
   ClassVirtualBaseCheck.cpp
   DeclForbiddenCheck.cpp

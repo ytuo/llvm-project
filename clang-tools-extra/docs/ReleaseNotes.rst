@@ -75,6 +75,11 @@ New module
 
 New checks
 ^^^^^^^^^^
+- New :doc:`bsl-class-base
+  <clang-tidy/checks/bsl-class-base>` check.
+
+  Warns if a class derives from more than one non-interface base class.
+
 - New :doc:`bsl-class-final-function
   <clang-tidy/checks/bsl-class-final-function>` check.
 

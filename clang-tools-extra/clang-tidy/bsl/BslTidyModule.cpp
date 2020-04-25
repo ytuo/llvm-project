@@ -9,6 +9,7 @@
 #include "../ClangTidy.h"
 #include "../ClangTidyModule.h"
 #include "../ClangTidyModuleRegistry.h"
+#include "ClassBaseCheck.h"
 #include "ClassFinalFunctionCheck.h"
 #include "ClassVirtualBaseCheck.h"
 #include "DeclForbiddenCheck.h"
@@ -52,6 +53,8 @@ namespace bsl {
 class BslModule : public ClangTidyModule {
 public:
   void addCheckFactories(ClangTidyCheckFactories &CheckFactories) override {
+    CheckFactories.registerCheck<ClassBaseCheck>(
+        "bsl-class-base");
     CheckFactories.registerCheck<ClassFinalFunctionCheck>(
         "bsl-class-final-function");
     CheckFactories.registerCheck<ClassVirtualBaseCheck>(
