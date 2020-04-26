@@ -11,6 +11,7 @@
 #include "../ClangTidyModuleRegistry.h"
 #include "ClassBaseCheck.h"
 #include "ClassFinalFunctionCheck.h"
+#include "ClassMemberInitCheck.h"
 #include "ClassMemberRedefinedCheck.h"
 #include "ClassVirtualBaseCheck.h"
 #include "DeclForbiddenCheck.h"
@@ -58,6 +59,8 @@ public:
         "bsl-class-base");
     CheckFactories.registerCheck<ClassFinalFunctionCheck>(
         "bsl-class-final-function");
+    CheckFactories.registerCheck<ClassMemberInitCheck>(
+        "bsl-class-member-init");
     CheckFactories.registerCheck<ClassMemberRedefinedCheck>(
         "bsl-class-member-redefined");
     CheckFactories.registerCheck<ClassVirtualBaseCheck>(

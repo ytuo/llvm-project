@@ -5,6 +5,7 @@ add_clang_library(clangTidyBslModule
   BslTidyModule.cpp
   ClassBaseCheck.cpp
   ClassFinalFunctionCheck.cpp
+  ClassMemberInitCheck.cpp
   ClassMemberRedefinedCheck.cpp
   ClassVirtualBaseCheck.cpp
   DeclForbiddenCheck.cpp

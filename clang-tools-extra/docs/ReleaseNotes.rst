@@ -86,6 +86,15 @@ New checks
   Warns if a non-overridden virtual function is declared in final class and
   warns if an overridden function is not marked final in a final class.
 
+- New :doc:`bsl-class-member-init
+  <clang-tidy/checks/bsl-class-member-init>` check.
+
+  Warns in any of the following cases:
+    1. class has fields that use a mixture of in-class initializers
+      and constructor initializers
+    2. constructor doesn't init each field with member initialization list
+      (unless they are initialized in-class)
+
 - New :doc:`bsl-class-member-redefined
   <clang-tidy/checks/bsl-class-member-redefined>` check.
 

@@ -47,6 +47,7 @@ Clang-Tidy Checks
    `boost-use-to-string <boost-use-to-string.html>`_, "Yes"
    `bsl-class-base <bsl-class-base.html>`_,
    `bsl-class-final-function <bsl-class-final-function.html>`_,
+   `bsl-class-member-init <bsl-class-member-init.html>`_,
    `bsl-class-member-redefined <bsl-class-member-redefined.html>`_,
    `bsl-class-virtual-base <bsl-class-virtual-base.html>`_,
    `bsl-decl-forbidden <bsl-decl-forbidden.html>`_,
