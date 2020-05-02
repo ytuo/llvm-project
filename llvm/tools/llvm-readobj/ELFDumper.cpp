@@ -752,7 +752,7 @@ public:
   void printRelocatableStackSizes(const ELFObjectFile<ELFT> *Obj,
                                   std::function<void()> PrintHeader);
   void printFunctionStackSize(const ELFObjectFile<ELFT> *Obj, uint64_t SymValue,
-                              SectionRef FunctionSec,
+                              Optional<SectionRef> FunctionSec,
                               const StringRef SectionName, DataExtractor Data,
                               uint64_t *Offset);
   void printStackSize(const ELFObjectFile<ELFT> *Obj, RelocationRef Rel,
@@ -2690,7 +2690,9 @@ template <> void ELFDumper<ELF32LE>::printAttributes() {
     if (Contents.size() == 1)
       continue;
 
-    ARMAttributeParser(&W).parse(Contents, support::little);
+    // TODO: Print error and delete the redundant FormatVersion check above.
+    if (Error E = ARMAttributeParser(&W).parse(Contents, support::little))
+      consumeError(std::move(E));
   }
 }
 
@@ -5042,11 +5044,18 @@ static void printCoreNote(raw_ostream &OS, const CoreNote &Note) {
 
 template <class ELFT>
 void GNUStyle<ELFT>::printNotes(const ELFFile<ELFT> *Obj) {
-  auto PrintHeader = [&](const typename ELFT::Off Offset,
+  auto PrintHeader = [&](Optional<StringRef> SecName,
+                         const typename ELFT::Off Offset,
                          const typename ELFT::Addr Size) {
-    OS << "Displaying notes found at file offset " << format_hex(Offset, 10)
-       << " with length " << format_hex(Size, 10) << ":\n"
-       << "  Owner                Data size \tDescription\n";
+    OS << "Displaying notes found ";
+
+    if (SecName)
+      OS << "in: " << *SecName << "\n";
+    else
+      OS << "at file offset " << format_hex(Offset, 10) << " with length "
+         << format_hex(Size, 10) << ":\n";
+
+    OS << "  Owner                Data size \tDescription\n";
   };
 
   auto ProcessNote = [&](const Elf_Note &Note) {
@@ -5111,7 +5120,8 @@ void GNUStyle<ELFT>::printNotes(const ELFFile<ELFT> *Obj) {
     for (const auto &S : Sections) {
       if (S.sh_type != SHT_NOTE)
         continue;
-      PrintHeader(S.sh_offset, S.sh_size);
+      PrintHeader(expectedToOptional(Obj->getSectionName(&S)), S.sh_offset,
+                  S.sh_size);
       Error Err = Error::success();
       for (auto Note : Obj->notes(S, Err))
         ProcessNote(Note);
@@ -5123,7 +5133,7 @@ void GNUStyle<ELFT>::printNotes(const ELFFile<ELFT> *Obj) {
          unwrapOrError(this->FileName, Obj->program_headers())) {
       if (P.p_type != PT_NOTE)
         continue;
-      PrintHeader(P.p_offset, P.p_filesz);
+      PrintHeader(/*SecName=*/None, P.p_offset, P.p_filesz);
       Error Err = Error::success();
       for (auto Note : Obj->notes(P, Err))
         ProcessNote(Note);
@@ -5164,9 +5174,12 @@ static std::string getSymbolName(const ELFSymbolRef &Sym) {
 }
 
 template <class ELFT>
-void DumpStyle<ELFT>::printFunctionStackSize(
-    const ELFObjectFile<ELFT> *Obj, uint64_t SymValue, SectionRef FunctionSec,
-    const StringRef SectionName, DataExtractor Data, uint64_t *Offset) {
+void DumpStyle<ELFT>::printFunctionStackSize(const ELFObjectFile<ELFT> *Obj,
+                                             uint64_t SymValue,
+                                             Optional<SectionRef> FunctionSec,
+                                             const StringRef SectionName,
+                                             DataExtractor Data,
+                                             uint64_t *Offset) {
   // This function ignores potentially erroneous input, unless it is directly
   // related to stack size reporting.
   SymbolRef FuncSym;
@@ -5176,9 +5189,15 @@ void DumpStyle<ELFT>::printFunctionStackSize(
       consumeError(SymAddrOrErr.takeError());
       continue;
     }
+    if (Expected<uint32_t> SymFlags = Symbol.getFlags()) {
+      if (*SymFlags & SymbolRef::SF_Undefined)
+        continue;
+    } else
+      consumeError(SymFlags.takeError());
     if (Symbol.getELFType() == ELF::STT_FUNC && *SymAddrOrErr == SymValue) {
-      // Check if the symbol is in the right section.
-      if (FunctionSec.containsSymbol(Symbol)) {
+      // Check if the symbol is in the right section. FunctionSec == None means
+      // "any section".
+      if (!FunctionSec || FunctionSec->containsSymbol(Symbol)) {
         FuncSym = Symbol;
         break;
       }
@@ -5289,11 +5308,6 @@ void DumpStyle<ELFT>::printNonRelocatableStackSizes(
     ArrayRef<uint8_t> Contents =
         unwrapOrError(this->FileName, EF->getSectionContents(ElfSec));
     DataExtractor Data(Contents, Obj->isLittleEndian(), sizeof(Elf_Addr));
-    // A .stack_sizes section header's sh_link field is supposed to point
-    // to the section that contains the functions whose stack sizes are
-    // described in it.
-    const Elf_Shdr *FunctionELFSec =
-        unwrapOrError(this->FileName, EF->getSection(ElfSec->sh_link));
     uint64_t Offset = 0;
     while (Offset < Contents.size()) {
       // The function address is followed by a ULEB representing the stack
@@ -5307,8 +5321,8 @@ void DumpStyle<ELFT>::printNonRelocatableStackSizes(
             FileStr);
       }
       uint64_t SymValue = Data.getAddress(&Offset);
-      printFunctionStackSize(Obj, SymValue, Obj->toSectionRef(FunctionELFSec),
-                             SectionName, Data, &Offset);
+      printFunctionStackSize(Obj, SymValue, /*FunctionSec=*/None, SectionName,
+                             Data, &Offset);
     }
   }
 }
@@ -6263,8 +6277,10 @@ template <class ELFT>
 void LLVMStyle<ELFT>::printNotes(const ELFFile<ELFT> *Obj) {
   ListScope L(W, "Notes");
 
-  auto PrintHeader = [&](const typename ELFT::Off Offset,
+  auto PrintHeader = [&](Optional<StringRef> SecName,
+                         const typename ELFT::Off Offset,
                          const typename ELFT::Addr Size) {
+    W.printString("Name", SecName ? *SecName : "<?>");
     W.printHex("Offset", Offset);
     W.printHex("Size", Size);
   };
@@ -6331,7 +6347,8 @@ void LLVMStyle<ELFT>::printNotes(const ELFFile<ELFT> *Obj) {
       if (S.sh_type != SHT_NOTE)
         continue;
       DictScope D(W, "NoteSection");
-      PrintHeader(S.sh_offset, S.sh_size);
+      PrintHeader(expectedToOptional(Obj->getSectionName(&S)), S.sh_offset,
+                  S.sh_size);
       Error Err = Error::success();
       for (auto Note : Obj->notes(S, Err))
         ProcessNote(Note);
@@ -6344,7 +6361,7 @@ void LLVMStyle<ELFT>::printNotes(const ELFFile<ELFT> *Obj) {
       if (P.p_type != PT_NOTE)
         continue;
       DictScope D(W, "NoteSection");
-      PrintHeader(P.p_offset, P.p_filesz);
+      PrintHeader(/*SecName=*/None, P.p_offset, P.p_filesz);
       Error Err = Error::success();
       for (auto Note : Obj->notes(P, Err))
         ProcessNote(Note);

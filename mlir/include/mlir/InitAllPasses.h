@@ -15,6 +15,7 @@
 #define MLIR_INITALLPASSES_H_
 
 #include "mlir/Analysis/Passes.h"
+#include "mlir/Conversion/AVX512ToLLVM/ConvertAVX512ToLLVM.h"
 #include "mlir/Conversion/GPUToCUDA/GPUToCUDAPass.h"
 #include "mlir/Conversion/GPUToNVVM/GPUToNVVMPass.h"
 #include "mlir/Conversion/GPUToROCDL/GPUToROCDLPass.h"
@@ -24,11 +25,14 @@
 #include "mlir/Conversion/LinalgToSPIRV/LinalgToSPIRVPass.h"
 #include "mlir/Conversion/LoopsToGPU/LoopsToGPUPass.h"
 #include "mlir/Conversion/StandardToSPIRV/ConvertStandardToSPIRVPass.h"
+#include "mlir/Dialect/Affine/Passes.h"
+#include "mlir/Dialect/FxpMathOps/Passes.h"
 #include "mlir/Dialect/FxpMathOps/Passes.h"
 #include "mlir/Dialect/GPU/Passes.h"
+#include "mlir/Dialect/LLVMIR/Transforms/LegalizeForExport.h"
 #include "mlir/Dialect/Linalg/Passes.h"
 #include "mlir/Dialect/LoopOps/Passes.h"
-#include "mlir/Dialect/QuantOps/Passes.h"
+#include "mlir/Dialect/Quant/Passes.h"
 #include "mlir/Dialect/SPIRV/Passes.h"
 #include "mlir/Quantizer/Transforms/Passes.h"
 #include "mlir/Transforms/LocationSnapshot.h"
@@ -77,6 +81,9 @@ inline void registerAllPasses() {
   createSymbolDCEPass();
   createLocationSnapshotPass({});
 
+  // AVX512
+  createConvertAVX512ToLLVMPass();
+
   // GPUtoRODCLPass
   createLowerGpuOpsToROCDLOpsPass();
 
@@ -107,6 +114,9 @@ inline void registerAllPasses() {
   createConvertLinalgToAffineLoopsPass();
   createConvertLinalgToLLVMPass();
 
+  // LLVM
+  LLVM::createLegalizeForExportPass();
+
   // LoopOps
   createParallelLoopFusionPass();
   createParallelLoopSpecializationPass();
@@ -122,13 +132,15 @@ inline void registerAllPasses() {
   // SPIR-V
   spirv::createDecorateSPIRVCompositeTypeLayoutPass();
   spirv::createLowerABIAttributesPass();
+  spirv::createUpdateVersionCapabilityExtensionPass();
   createConvertGPUToSPIRVPass();
   createConvertStandardToSPIRVPass();
   createLegalizeStdOpsForSPIRVLoweringPass();
   createLinalgToSPIRVPass();
 
   // Vulkan
-  createConvertGpuLaunchFuncToVulkanCallsPass();
+  createConvertGpuLaunchFuncToVulkanLaunchFuncPass();
+  createConvertVulkanLaunchFuncToVulkanCallsPass();
 }
 
 } // namespace mlir

@@ -1,0 +1,45 @@
+//===--- OpRelationalReturnBoolCheck.cpp - clang-tidy ---------------------===//
+//
+// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
+// See https://llvm.org/LICENSE.txt for license information.
+// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
+//
+//===----------------------------------------------------------------------===//
+
+#include "OpRelationalReturnBoolCheck.h"
+#include "clang/AST/ASTContext.h"
+#include "clang/ASTMatchers/ASTMatchFinder.h"
+
+using namespace clang::ast_matchers;
+
+namespace clang {
+namespace tidy {
+namespace bsl {
+
+void OpRelationalReturnBoolCheck::registerMatchers(MatchFinder *Finder) {
+  // FIXME: Add matchers.
+  Finder->addMatcher(
+    functionDecl(
+      hasAnyOverloadedOperatorName("==", "!=", "<", ">", "<=", ">="),
+      unless(returns(booleanType()))
+    ).bind("comp"),
+    this);
+}
+
+void OpRelationalReturnBoolCheck::check(const MatchFinder::MatchResult &Result) {
+  const auto *Func = Result.Nodes.getNodeAs<FunctionDecl>("comp");
+
+  const auto Loc = Func->getLocation();
+  if (Loc.isInvalid())
+    return;
+
+  auto Mgr = Result.SourceManager;
+  if (Mgr->getFileID(Loc) != Mgr->getMainFileID())
+    return;
+
+  diag(Loc, "comparison operator does not return bool");
+}
+
+} // namespace bsl
+} // namespace tidy
+} // namespace clang

@@ -45,6 +45,43 @@ Clang-Tidy Checks
    `android-cloexec-socket <android-cloexec-socket.html>`_,
    `android-comparison-in-temp-failure-retry <android-comparison-in-temp-failure-retry.html>`_,
    `boost-use-to-string <boost-use-to-string.html>`_, "Yes"
+   `bsl-class-base <bsl-class-base.html>`_,
+   `bsl-class-final-function <bsl-class-final-function.html>`_,
+   `bsl-class-member-init <bsl-class-member-init.html>`_,
+   `bsl-class-member-redefined <bsl-class-member-redefined.html>`_,
+   `bsl-class-virtual-base <bsl-class-virtual-base.html>`_,
+   `bsl-decl-forbidden <bsl-decl-forbidden.html>`_,
+   `bsl-enum-explicit <bsl-enum-explicit.html>`_,
+   `bsl-enum-init <bsl-enum-init.html>`_,
+   `bsl-enum-scoped <bsl-enum-scoped.html>`_,
+   `bsl-friend-decl <bsl-friend-decl.html>`_,
+   `bsl-function-name-use <bsl-function-name-use.html>`_, "Yes"
+   `bsl-lambda-implicit-capture <bsl-lambda-implicit-capture.html>`_,
+   `bsl-lambda-param-list <bsl-lambda-param-list.html>`_,
+   `bsl-literals-ascii-only <bsl-literals-ascii-only.html>`_,
+   `bsl-literals-digit-separator <bsl-literals-digit-separator.html>`_,
+   `bsl-literals-no-octal <bsl-literals-no-octal.html>`_,
+   `bsl-literals-uppercase-suffix <bsl-literals-uppercase-suffix.html>`_,
+   `bsl-literals-user-defined <bsl-literals-user-defined.html>`_,
+   `bsl-namespace-global <bsl-namespace-global.html>`_,
+   `bsl-non-pod-static <bsl-non-pod-static.html>`_,
+   `bsl-op-bitwise-operands <bsl-op-bitwise-operands.html>`_, "Yes"
+   `bsl-op-conditional-subexpr <bsl-op-conditional-subexpr.html>`_,
+   `bsl-op-equality-virt-memfn-nullptr <bsl-op-equality-virt-memfn-nullptr.html>`_,
+   `bsl-op-forbidden-overload <bsl-op-forbidden-overload.html>`_,
+   `bsl-op-logical-postfix <bsl-op-logical-postfix.html>`_, "Yes"
+   `bsl-op-mixed-increment-decrement <bsl-op-mixed-increment-decrement.html>`_,
+   `bsl-op-relational-return-bool <bsl-op-relational-return-bool.html>`_,
+   `bsl-pure-override <bsl-pure-override.html>`_,
+   `bsl-stmt-forbidden <bsl-stmt-forbidden.html>`_,
+   `bsl-stmt-switch-case-parent <bsl-stmt-switch-case-parent.html>`_,
+   `bsl-stmt-switch-default-break <bsl-stmt-switch-default-break.html>`_,
+   `bsl-stmt-switch-default-last <bsl-stmt-switch-default-last.html>`_,
+   `bsl-types-fixed-width-ints <bsl-types-fixed-width-ints.html>`_,
+   `bsl-types-no-wide-char <bsl-types-no-wide-char.html>`_,
+   `bsl-unused-return-value <bsl-unused-return-value.html>`_,
+   `bsl-using-decl-scope <bsl-using-decl-scope.html>`_,
+   `bsl-var-braced-init <bsl-var-braced-init.html>`_,
    `bugprone-argument-comment <bugprone-argument-comment.html>`_, "Yes"
    `bugprone-assert-side-effect <bugprone-assert-side-effect.html>`_,
    `bugprone-bad-signal-to-kill-thread <bugprone-bad-signal-to-kill-thread.html>`_,
@@ -76,10 +113,12 @@ Clang-Tidy Checks
    `bugprone-signed-char-misuse <bugprone-signed-char-misuse.html>`_,
    `bugprone-sizeof-container <bugprone-sizeof-container.html>`_,
    `bugprone-sizeof-expression <bugprone-sizeof-expression.html>`_,
+   `bugprone-spuriously-wake-up-functions <bugprone-spuriously-wake-up-functions.html>`_,
    `bugprone-string-constructor <bugprone-string-constructor.html>`_, "Yes"
    `bugprone-string-integer-assignment <bugprone-string-integer-assignment.html>`_, "Yes"
    `bugprone-string-literal-with-embedded-nul <bugprone-string-literal-with-embedded-nul.html>`_,
    `bugprone-suspicious-enum-usage <bugprone-suspicious-enum-usage.html>`_,
+   `bugprone-suspicious-include <bugprone-suspicious-include.html>`_,
    `bugprone-suspicious-memset-usage <bugprone-suspicious-memset-usage.html>`_, "Yes"
    `bugprone-suspicious-missing-comma <bugprone-suspicious-missing-comma.html>`_,
    `bugprone-suspicious-semicolon <bugprone-suspicious-semicolon.html>`_, "Yes"
@@ -130,6 +169,7 @@ Clang-Tidy Checks
    `clang-analyzer-valist.Uninitialized <clang-analyzer-valist.Uninitialized.html>`_,
    `clang-analyzer-valist.Unterminated <clang-analyzer-valist.Unterminated.html>`_,
    `cppcoreguidelines-avoid-goto <cppcoreguidelines-avoid-goto.html>`_,
+   `cppcoreguidelines-avoid-non-const-global-variables <cppcoreguidelines-avoid-non-const-global-variables.html>`_,
    `cppcoreguidelines-init-variables <cppcoreguidelines-init-variables.html>`_, "Yes"
    `cppcoreguidelines-interfaces-global-init <cppcoreguidelines-interfaces-global-init.html>`_,
    `cppcoreguidelines-macro-usage <cppcoreguidelines-macro-usage.html>`_,
@@ -154,7 +194,6 @@ Clang-Tidy Checks
    `fuchsia-default-arguments-declarations <fuchsia-default-arguments-declarations.html>`_, "Yes"
    `fuchsia-multiple-inheritance <fuchsia-multiple-inheritance.html>`_,
    `fuchsia-overloaded-operator <fuchsia-overloaded-operator.html>`_,
-   `fuchsia-restrict-system-includes <fuchsia-restrict-system-includes.html>`_, "Yes"
    `fuchsia-statically-constructed-objects <fuchsia-statically-constructed-objects.html>`_,
    `fuchsia-trailing-return <fuchsia-trailing-return.html>`_,
    `fuchsia-virtual-inheritance <fuchsia-virtual-inheritance.html>`_,
@@ -187,6 +226,7 @@ Clang-Tidy Checks
    `llvm-prefer-isa-or-dyn-cast-in-conditionals <llvm-prefer-isa-or-dyn-cast-in-conditionals.html>`_, "Yes"
    `llvm-prefer-register-over-unsigned <llvm-prefer-register-over-unsigned.html>`_, "Yes"
    `llvm-twine-local <llvm-twine-local.html>`_, "Yes"
+   `llvmlibc-restrict-system-libc-headers <llvmlibc-restrict-system-libc-headers.html>`_,
    `misc-definitions-in-headers <misc-definitions-in-headers.html>`_, "Yes"
    `misc-misplaced-const <misc-misplaced-const.html>`_,
    `misc-new-delete-overloads <misc-new-delete-overloads.html>`_,
@@ -255,6 +295,7 @@ Clang-Tidy Checks
    `performance-type-promotion-in-math-fn <performance-type-promotion-in-math-fn.html>`_, "Yes"
    `performance-unnecessary-copy-initialization <performance-unnecessary-copy-initialization.html>`_,
    `performance-unnecessary-value-param <performance-unnecessary-value-param.html>`_, "Yes"
+   `portability-restrict-system-includes <portability-restrict-system-includes.html>`_, "Yes"
    `portability-simd-intrinsics <portability-simd-intrinsics.html>`_,
    `readability-avoid-const-params-in-decls <readability-avoid-const-params-in-decls.html>`_,
    `readability-braces-around-statements <readability-braces-around-statements.html>`_, "Yes"
@@ -298,6 +339,8 @@ Clang-Tidy Checks
 .. csv-table:: Aliases..
    :header: "Name", "Redirect", "Offers fixes"
 
+   `cert-con36-c <cert-con36-c.html>`_, `bugprone-spuriously-wake-up-functions <bugprone-spuriously-wake-up-functions.html>`_,
+   `cert-con54-cpp <cert-con54-cpp.html>`_, `bugprone-spuriously-wake-up-functions <bugprone-spuriously-wake-up-functions.html>`_,
    `cert-dcl03-c <cert-dcl03-c.html>`_, `misc-static-assert <misc-static-assert.html>`_, "Yes"
    `cert-dcl16-c <cert-dcl16-c.html>`_, `readability-uppercase-literal-suffix <readability-uppercase-literal-suffix.html>`_, "Yes"
    `cert-dcl37-c <cert-dcl37-c.html>`_, `bugprone-reserved-identifier <bugprone-reserved-identifier.html>`_, "Yes"
