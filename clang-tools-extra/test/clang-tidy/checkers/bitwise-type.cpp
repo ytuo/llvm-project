@@ -1,7 +1,6 @@
 
 #include <stdint.h>
 
-
 int main()
 {
   unsigned char a0 = 'H';
@@ -12,22 +11,21 @@ int main()
   unsigned short a4;
 
   // Check signed not broken
-  a3 = a0 >> 1;   // Warning
+  a3 = ~a0 >> 1;   // Warning
   a3 = a0 << 1;   // No warning
 
-  a3 = (unsigned char (a0)) >> 1;   // No warning
+  a3 = (unsigned char)(a0) >> 1;   // No warning
 
   a4 = a1 >> 1; // Warning
   a4 = a1 << 1; // No warning
   a4 = (~a1) >> 1;  // Warning
   a4 = (~a1) << 1;  // No wsrning
 
-  a4 = (unsigned short (a1)) >> 1;   // No warning
-  a4 = (unsigned short (~a1)) >> 1;   // No warning
+  a4 = (unsigned short)(a1) >> 1;   // No warning
+  a4 = (unsigned short)(~a1) >> 1;   // No warning
 
   a1 >>= 1;   // No warning?
   a1 <<= 1;   // No warning?
-
 
   return 0;
 }
