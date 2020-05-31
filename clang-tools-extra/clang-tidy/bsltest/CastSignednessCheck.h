@@ -1,4 +1,4 @@
-//===--- BitwiseTypeCheck.h - clang-tidy ------------------------*- C++ -*-===//
+//===--- CastSignednessCheck.h - clang-tidy ---------------------*- C++ -*-===//
 //
 // Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
 // See https://llvm.org/LICENSE.txt for license information.
@@ -6,8 +6,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef LLVM_CLANG_TOOLS_EXTRA_CLANG_TIDY_BSLTEST_BITWISETYPECHECK_H
-#define LLVM_CLANG_TOOLS_EXTRA_CLANG_TIDY_BSLTEST_BITWISETYPECHECK_H
+#ifndef LLVM_CLANG_TOOLS_EXTRA_CLANG_TIDY_BSLTEST_CASTSIGNEDNESSCHECK_H
+#define LLVM_CLANG_TOOLS_EXTRA_CLANG_TIDY_BSLTEST_CASTSIGNEDNESSCHECK_H
 
 #include "../ClangTidyCheck.h"
 
@@ -18,10 +18,10 @@ namespace bsltest {
 /// FIXME: Write a short description.
 ///
 /// For the user-facing documentation see:
-/// http://clang.llvm.org/extra/clang-tidy/checks/bsltest-bitwise-type.html
-class BitwiseTypeCheck : public ClangTidyCheck {
+/// http://clang.llvm.org/extra/clang-tidy/checks/bsltest-cast-signedness.html
+class CastSignednessCheck : public ClangTidyCheck {
 public:
-  BitwiseTypeCheck(StringRef Name, ClangTidyContext *Context)
+  CastSignednessCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
   void registerMatchers(ast_matchers::MatchFinder *Finder) override;
   void check(const ast_matchers::MatchFinder::MatchResult &Result) override;
@@ -34,4 +34,4 @@ public:
 } // namespace tidy
 } // namespace clang
 
-#endif // LLVM_CLANG_TOOLS_EXTRA_CLANG_TIDY_BSLTEST_BITWISETYPECHECK_H
+#endif // LLVM_CLANG_TOOLS_EXTRA_CLANG_TIDY_BSLTEST_CASTSIGNEDNESSCHECK_H

@@ -227,6 +227,26 @@ New checks
   non-auto-declared variables. Warns whenever any list initialization
   is used for auto-declared variables.
 
+- New :doc:`bsltest-bitwise-type
+  <clang-tidy/checks/bsltest-bitwise-type>` check.
+
+  FIXME: add release notes.
+
+- New :doc:`bsltest-bitwise-type
+  <clang-tidy/checks/bsltest-bitwise-type>` check.
+
+  FIXME: add release notes.
+
+- New :doc:`bsltest-cast-signedness
+  <clang-tidy/checks/bsltest-cast-signedness>` check.
+
+  FIXME: add release notes.
+
+- New :doc:`bsltest-for-loop
+  <clang-tidy/checks/bsltest-for-loop>` check.
+
+  FIXME: add release notes.
+
 - New :doc:`cppcoreguidelines-avoid-non-const-global-variables
   <clang-tidy/checks/cppcoreguidelines-avoid-non-const-global-variables>` check.
   Finds non-const global variables as described in check I.2 of C++ Core

@@ -21,18 +21,29 @@ namespace bsltest {
 // }
 
 void BitwiseTypeCheck::registerMatchers(MatchFinder *Finder) {
-  auto BinaryOps = hasAnyOperatorName("~",
-                                      "<<", "<<=");
-  Finder->addMatcher(binaryOperator(BinaryOps).bind("op"), this);
+
+  auto BinaryOps = hasAnyOperatorName("<<", "<<=");
+  Finder->addMatcher(binaryOperator(BinaryOps).bind("shift"), this);
+
+  // https://clang.llvm.org/doxygen/classclang_1_1CharacterLiteral.html signed char?
+  Finder->addMatcher(
+      unaryOperator(hasOperatorName("~"), hasUnaryOperand(hasType(isUnsignedInteger())))  // unsigned char?
+          .bind("not"),
+      this);
 }
 
 
 void BitwiseTypeCheck::check(const MatchFinder::MatchResult &Result) {
   // FIXME: Add callback implementation.
-  const auto *MatchedDecl = Result.Nodes.getNodeAs<BinaryOperator>("op");
+  /* check for right shift binaryoperator or ~ unaryoperator
+  binary: get both sides; if left side is a variable, check type
+  if unsigned char or short, CastExpr: make sure not implicit
+  if right side is expression, decompose and repeat (don't need to do this?)
+  */
+  const auto *Op = Result.Nodes.getNodeAs<BinaryOperator>("shift");
 
-  auto LHS = MatchedDecl->getLHS();
-  auto RHS = MatchedDecl->getRHS();
+  auto LHS = Op->getLHS();
+  auto RHS = Op->getRHS();
 
   auto LHSType = LHS->getType();
   auto RHSType = RHS->getType();
@@ -44,8 +55,8 @@ void BitwiseTypeCheck::check(const MatchFinder::MatchResult &Result) {
   }
 
   // MatchedDecl->getOperatorLoc() ?
-  diag(MatchedDecl->getLocation(), "function %0 is insufficiently awesome")
-      << MatchedDecl;
+  diag(Op->getOperatorLoc(), "function is insufficiently awesome");
+      //<< Op;
   // diag(MatchedDecl->getLocation(), "insert 'awesome'", DiagnosticIDs::Note)
   //     << FixItHint::CreateInsertion(MatchedDecl->getLocation(), "awesome_");
 }
