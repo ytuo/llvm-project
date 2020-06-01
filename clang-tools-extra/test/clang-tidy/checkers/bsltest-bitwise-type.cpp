@@ -1,7 +1,14 @@
 // RUN: %check_clang_tidy %s bsltest-bitwise-type %t
 
 // FIXME: Add something that triggers the check here.
-void f();
+int main()
+{
+  unsigned char a0 = 'H';
+  unsigned char a3;
+
+  // Check signed not broken
+  a3 = (unsigned char)(~a0 << 1) << 1;   // No warning
+}
 // CHECK-MESSAGES: :[[@LINE-1]]:6: warning: function 'f' is insufficiently awesome [bsltest-bitwise-type]
 
 // FIXME: Verify the applied fix.

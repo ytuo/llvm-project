@@ -17,7 +17,11 @@ namespace tidy {
 namespace bsltest {
 
 void CastSignednessCheck::registerMatchers(MatchFinder *Finder) {
-  // FIXME: Add matchers.
+  // M5-0-4
+  // check cstylecastexpr and castexpr
+  // getCastKind -> INtegralCast
+  // Finder->addMatcher(implicitCastExpr())
+  //       .bind("signcast"), this);
   Finder->addMatcher(
     binaryOperator(isAssignmentOperator())
         .bind("signcast"), this);

@@ -9,11 +9,11 @@ using namespace std;
 int main()
 {
   unsigned char a0 = 'H';
-  unsigned short a1 = 0x4;
-  unsigned char a2 = 36;
+  // unsigned short a1 = 0x4;
+  // unsigned char a2 = 36;
 
   unsigned char a3;
-  unsigned short a4;
+  // unsigned short a4;
 
   // Check signed not broken
   a3 = ~a0 >> 1;   // Warning
