@@ -21,6 +21,11 @@ int main()
 	// CHECK-FIXES: {{^}}    for (float z = 0.0F; z < 3; z += 1) {}{{$}}
 
 	// check fail
+	for (int i = 0.0F; i < 3; i += 1) {}
+	// CHECK-MESSAGES: :[[@LINE-1]]:6: warning: for loop counter cannot be of floating point type [bsltest-bitwise-type]
+	// CHECK-FIXES: {{^}}    for (int i = 0; i < 3; i += 0.1F) {}{{$}}
+
+	// check fail
 	for (int i = 0; i < 3; i += 0.1F) {}
 	// CHECK-MESSAGES: :[[@LINE-1]]:6: warning: for loop counter cannot be of floating point type [bsltest-bitwise-type]
 	// CHECK-FIXES: {{^}}    for (int i = 0; i < 3; i += 0.1F) {}{{$}}
