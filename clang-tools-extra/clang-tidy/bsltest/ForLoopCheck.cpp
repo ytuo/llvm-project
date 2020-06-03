@@ -19,16 +19,16 @@ namespace bsltest {
 void ForLoopCheck::registerMatchers(MatchFinder *Finder) {
   // A6-5-2
   Finder->addMatcher(forStmt(hasIncrement(binaryOperator(hasOperatorName(",")))).bind("singlecounter"), this);
-  // forStmt(hasLoopInit(declStmt(hasSingleDecl(varDecl(
-  //  hasInitializer(integerLiteral(equals(0)))))))).bind("forLoop");
+
   Finder->addMatcher(forStmt(anyOf(
-      hasLoopInit(expr(hasType(realFloatingPointType()))),
-      hasLoopInit(binaryOperator(hasRHS(floatLiteral())))
+    hasLoopInit(expr(binaryOperator(hasRHS(floatLiteral())))),
+    hasLoopInit(declStmt(hasSingleDecl(varDecl(hasType(realFloatingPointType()))))),
+    hasLoopInit(declStmt(hasSingleDecl(varDecl(hasDescendant(floatLiteral()))))) 
     )).bind("floatinit"), this);
-  Finder->addMatcher(forStmt(anyOf(
-      hasIncrement(expr(hasType(realFloatingPointType()))),
+  Finder->addMatcher(forStmt(//anyOf(
+      // hasIncrement(expr(hasType(realFloatingPointType()))),
       hasIncrement(binaryOperator(hasRHS(floatLiteral())))
-    )).bind("floatcounter"), this);
+    ).bind("floatcounter"), this);
   Finder->addMatcher(forStmt(anyOf(
       hasCondition(expr(hasType(realFloatingPointType()))),
       hasCondition(binaryOperator(hasRHS(floatLiteral())))
@@ -36,28 +36,23 @@ void ForLoopCheck::registerMatchers(MatchFinder *Finder) {
 }
 
 void ForLoopCheck::check(const MatchFinder::MatchResult &Result) {
-  // FIXME: Add callback implementation.
   const auto *ForIncSingle = Result.Nodes.getNodeAs<ForStmt>("singlecounter");
   if (ForIncSingle) {
       auto locs = ForIncSingle->getInc()->getExprLoc();
       diag(locs, "for loop must have single loop-counter");
-      // diag(ForIncSingle->getForLoc(), "For loop must have single loop-counter");
   }
 
   const auto *ForInitFloat = Result.Nodes.getNodeAs<ForStmt>("floatinit");
   const auto *ForIncFloat = Result.Nodes.getNodeAs<ForStmt>("floatcounter");
   const auto *ForCondFloat = Result.Nodes.getNodeAs<ForStmt>("floatcond");
-  // auto locf = ForIncFloat->getInc()->getRHS()->getExprLoc();
-  // get conditional variable
   SourceLocation locf; 
+
   if (ForInitFloat) {
       locf = ForInitFloat->getInit()->getBeginLoc();
       diag(locf, "for loop counter cannot be of floating point type");
   } else if (ForIncFloat) {
-      // locf = ForIncFloat->getInc()->getExprLoc();
-      locf = ForIncFloat->getInit()->getBeginLoc();
+      locf = ForIncFloat->getInc()->getExprLoc();
       diag(locf, "for loop counter cannot be of floating point type (increment by float)");
-      // diag(ForIncFloat->getForLoc(), "For loop counter cannot be of floating point type");
   } else if (ForCondFloat) {
       locf = ForCondFloat->getCond()->getExprLoc();
       diag(locf, "for loop counter cannot be of floating point type (comparison to float)");
