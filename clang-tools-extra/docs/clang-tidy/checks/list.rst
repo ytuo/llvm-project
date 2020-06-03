@@ -82,6 +82,7 @@ Clang-Tidy Checks
    `bsl-unused-return-value <bsl-unused-return-value.html>`_,
    `bsl-using-decl-scope <bsl-using-decl-scope.html>`_,
    `bsl-var-braced-init <bsl-var-braced-init.html>`_,
+   `bsltest-for-loop <bsltest-for-loop.html>`_, "Yes"
    `bugprone-argument-comment <bugprone-argument-comment.html>`_, "Yes"
    `bugprone-assert-side-effect <bugprone-assert-side-effect.html>`_,
    `bugprone-bad-signal-to-kill-thread <bugprone-bad-signal-to-kill-thread.html>`_,

@@ -42,6 +42,7 @@ endif()
 add_subdirectory(android)
 add_subdirectory(abseil)
 add_subdirectory(bsl)
+add_subdirectory(bsltest)
 add_subdirectory(boost)
 add_subdirectory(bugprone)
 add_subdirectory(cert)
@@ -68,6 +69,7 @@ set(ALL_CLANG_TIDY_CHECKS
   clangTidyAndroidModule
   clangTidyAbseilModule
   clangTidyBslModule
+  clangTidyBslTestModule
   clangTidyBoostModule
   clangTidyBugproneModule
   clangTidyCERTModule
