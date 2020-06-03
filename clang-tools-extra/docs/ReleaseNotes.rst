@@ -227,6 +227,11 @@ New checks
   non-auto-declared variables. Warns whenever any list initialization
   is used for auto-declared variables.
 
+- New :doc:`bsl-for-loop-counter
+  <clang-tidy/checks/bsl-for-loop-counter>` check.
+
+  Warns if for loop does not contain single loop-counter and uses floating point type.
+
 - New :doc:`cppcoreguidelines-avoid-non-const-global-variables
   <clang-tidy/checks/cppcoreguidelines-avoid-non-const-global-variables>` check.
   Finds non-const global variables as described in check I.2 of C++ Core

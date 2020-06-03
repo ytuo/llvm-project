@@ -18,6 +18,7 @@
 #include "EnumExplicitCheck.h"
 #include "EnumInitCheck.h"
 #include "EnumScopedCheck.h"
+#include "ForLoopCounterCheck.h"
 #include "FriendDeclCheck.h"
 #include "FunctionNameUseCheck.h"
 #include "LambdaImplicitCaptureCheck.h"
@@ -73,6 +74,11 @@ public:
         "bsl-enum-init");
     CheckFactories.registerCheck<EnumScopedCheck>(
         "bsl-enum-scoped");
+<<<<<<< HEAD
+    CheckFactories.registerCheck<ForLoopCounterCheck>(
+        "bsl-for-loop-counter");
+=======
+>>>>>>> 6987314f3a8... Revert "For loop counter clang-tidy check"
     CheckFactories.registerCheck<FriendDeclCheck>(
         "bsl-friend-decl");
     CheckFactories.registerCheck<FunctionNameUseCheck>(
