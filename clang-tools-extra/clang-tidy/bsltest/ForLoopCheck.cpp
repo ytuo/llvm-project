@@ -19,6 +19,8 @@ namespace bsltest {
 void ForLoopCheck::registerMatchers(MatchFinder *Finder) {
   // A6-5-2
   Finder->addMatcher(forStmt(hasIncrement(binaryOperator(hasOperatorName(",")))).bind("singlecounter"), this);
+  // forStmt(hasLoopInit(declStmt(hasSingleDecl(varDecl(
+  //  hasInitializer(integerLiteral(equals(0)))))))).bind("forLoop");
   Finder->addMatcher(forStmt(anyOf(
       hasLoopInit(expr(hasType(realFloatingPointType()))),
       hasLoopInit(binaryOperator(hasRHS(floatLiteral())))
@@ -36,9 +38,9 @@ void ForLoopCheck::registerMatchers(MatchFinder *Finder) {
 void ForLoopCheck::check(const MatchFinder::MatchResult &Result) {
   // FIXME: Add callback implementation.
   const auto *ForIncSingle = Result.Nodes.getNodeAs<ForStmt>("singlecounter");
-  auto locs = ForIncSingle->getInc()->getExprLoc();
   if (ForIncSingle) {
-        diag(locs, "for loop must have single loop-counter");
+      auto locs = ForIncSingle->getInc()->getExprLoc();
+      diag(locs, "for loop must have single loop-counter");
       // diag(ForIncSingle->getForLoc(), "For loop must have single loop-counter");
   }
 

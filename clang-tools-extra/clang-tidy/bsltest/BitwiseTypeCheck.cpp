@@ -10,6 +10,9 @@
 #include "clang/AST/ASTContext.h"
 #include "clang/ASTMatchers/ASTMatchFinder.h"
 
+#include <iostream>
+using namespace std;
+
 using namespace clang::ast_matchers;
 
 namespace clang {
@@ -34,9 +37,16 @@ void BitwiseTypeCheck::registerMatchers(MatchFinder *Finder) {
   // or must exist explicit castexpr on parenexpr (??)
   // parenexpr not in multiple expressions? (dumb but can happen). Also, makes this a two-step fix
   Finder->addMatcher(expr(anyOf(
-                    binaryOperator(hasParent(parenExpr())), 
-                    unaryOperator(hasParent(parenExpr()))
-                  )).bind("shift"), this);
+                        binaryOperator(hasParent(parenExpr())), 
+                        unaryOperator(hasParent(parenExpr()))),
+                      unless(anyOf(
+                        // binaryOperator(hasParent(implicitCastExpr(hasParent(explicitCastExpr())))), 
+                        // unaryOperator(hasParent(implicitCastExpr(hasParent(explicitCastExpr())))),
+                        binaryOperator(isAssignmentOperator())))
+                    )).bind("shift"), this);
+  // Finder->addMatcher(implicitCastExpr(hasParent(parenExpr())), unless(implicitCastExpr(hasParent(explicitCastExpr())))).bind("impcast"), this);
+  // Finder->addMatcher(explicitCastExpr()).bind("expcast"), this);
+
   // auto BinaryOps = hasAnyOperatorName("<<", "<<=");
   // Finder->addMatcher(binaryOperator(BinaryOps).bind("shift"), this);
 
@@ -55,7 +65,14 @@ void BitwiseTypeCheck::check(const MatchFinder::MatchResult &Result) {
   if unsigned char or short, CastExpr: make sure not implicit
   if right side is expression, decompose and repeat (don't need to do this?)
   */
+  const auto *ImpCast = Result.Nodes.getNodeAs<ImplicitCastExpr>("impcast");
+  if (ImpCast) {
+      auto loci = ImpCast->getExprLoc();
+      diag(loci, "implicit casts are not allowed");
+  }
+
   const auto *Op = Result.Nodes.getNodeAs<BinaryOperator>("shift");
+  ASTContext *Context = Result.Context;
 
   auto LHS = Op->getLHS();
   auto RHS = Op->getRHS();
@@ -63,13 +80,25 @@ void BitwiseTypeCheck::check(const MatchFinder::MatchResult &Result) {
   auto LHSType = LHS->getType();
   auto RHSType = RHS->getType();
 
-  // auto lwidth = getIntWidth(LHSType); 
-  // auto rwidth = getIntWidth(RHSType); 
-  // // CastExpr->getType --> check same type, or error, isUnsignedInteger
-  // // Check isUnsignedInteger
-  // if (lwidth == 8 || lwidth == 16 || rwidth == 8 || rwidth == 16) {
-  //     diag(Op->getOperatorLoc(), "function is insufficiently awesome");
-  // }
+  // auto l1width = Context->getIntWidth(LHSType); 
+  // auto r1width = Context->getIntWidth(RHSType); 
+  auto lwidth = Context->getTypeInfo(LHSType).Width;
+  auto rwidth = Context->getTypeInfo(RHSType).Width;
+  // CastExpr->getType --> check same type, or error, isUnsignedInteger
+  // Check isUnsignedInteger
+  cout << LHSType.getAsString();
+  cout << RHSType.getAsString();
+  cout << lwidth;
+  cout << rwidth;
+  // cout << l1width;
+  // cout << r1width;
+  if (lwidth == 8 || lwidth == 16 || rwidth == 8 || rwidth == 16) {
+      cout << LHSType.getAsString();
+      cout << RHSType.getAsString();
+      cout << lwidth;
+      cout << rwidth;
+      diag(Op->getOperatorLoc(), "function is insufficiently awesome");
+  }
 
   // MatchedDecl->getOperatorLoc() ?
   diag(Op->getOperatorLoc(), "function is insufficiently awesome");
