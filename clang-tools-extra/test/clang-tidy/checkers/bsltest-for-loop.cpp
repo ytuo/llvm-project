@@ -2,7 +2,7 @@
 #include <cstdint>
 
 // A6-5-2
-int main()
+void foo()
 {
 	int y = 0;
 
@@ -36,8 +36,6 @@ int main()
 	for (int i = 0; i < 3.0F; i++) {}
 	// CHECK-MESSAGES: :[[@LINE-1]]:20: warning: for loop counter cannot be of floating point type (comparison to float) [bsltest-bitwise-type]
 	// CHECK-FIXES: {{^}}    for (int i = 0; i < 3.0F; i++) {}{{$}}
-
-	return 0;
 }
 
 
