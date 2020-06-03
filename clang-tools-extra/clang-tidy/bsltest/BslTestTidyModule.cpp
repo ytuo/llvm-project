@@ -9,8 +9,6 @@
 #include "../ClangTidy.h"
 #include "../ClangTidyModule.h"
 #include "../ClangTidyModuleRegistry.h"
-#include "BitwiseTypeCheck.h"
-#include "CastSignednessCheck.h"
 #include "ForLoopCheck.h"
 using namespace clang::ast_matchers;
 
@@ -21,10 +19,6 @@ namespace bsltest {
 class BslTestModule : public ClangTidyModule {
 public:
   void addCheckFactories(ClangTidyCheckFactories &CheckFactories) override {
-    CheckFactories.registerCheck<BitwiseTypeCheck>(
-        "bsltest-bitwise-type");
-    CheckFactories.registerCheck<CastSignednessCheck>(
-        "bsltest-cast-signedness");
     CheckFactories.registerCheck<ForLoopCheck>(
         "bsltest-for-loop");
   }
