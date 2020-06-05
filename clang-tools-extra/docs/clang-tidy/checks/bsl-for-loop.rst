@@ -1,7 +1,7 @@
-.. title:: clang-tidy - bsltest-for-loop
+.. title:: clang-tidy - bsl-for-loop
 
-bsltest-for-loop
-================
+bsl-for-loop
+============
 
 Checks that for loops contain a single loop-counter that is not of floating point type.
 

@@ -30,11 +30,6 @@ extern volatile int BslModuleAnchorSource;
 static int LLVM_ATTRIBUTE_UNUSED BslModuleAnchorDestination =
     BslModuleAnchorSource;
 
-// This anchor is used to force the linker to link the BslTestModule.
-extern volatile int BslTestModuleAnchorSource;
-static int LLVM_ATTRIBUTE_UNUSED BslTestModuleAnchorDestination =
-    BslTestModuleAnchorSource;
-
 // This anchor is used to force the linker to link the BoostModule.
 extern volatile int BoostModuleAnchorSource;
 static int LLVM_ATTRIBUTE_UNUSED BoostModuleAnchorDestination =

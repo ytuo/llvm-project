@@ -14,7 +14,7 @@ using namespace clang::ast_matchers;
 
 namespace clang {
 namespace tidy {
-namespace bsltest {
+namespace bsl {
 
 void ForLoopCheck::registerMatchers(MatchFinder *Finder) {
   // A6-5-2
@@ -60,6 +60,6 @@ void ForLoopCheck::check(const MatchFinder::MatchResult &Result) {
 
 }
 
-} // namespace bsltest
+} // namespace bsl
 } // namespace tidy
 } // namespace clang
