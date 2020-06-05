@@ -54,6 +54,7 @@ Clang-Tidy Checks
    `bsl-enum-explicit <bsl-enum-explicit.html>`_,
    `bsl-enum-init <bsl-enum-init.html>`_,
    `bsl-enum-scoped <bsl-enum-scoped.html>`_,
+   `bsl-for-loop <bsl-for-loop.html>`_,
    `bsl-friend-decl <bsl-friend-decl.html>`_,
    `bsl-function-name-use <bsl-function-name-use.html>`_, "Yes"
    `bsl-lambda-implicit-capture <bsl-lambda-implicit-capture.html>`_,
@@ -84,7 +85,6 @@ Clang-Tidy Checks
    `bsl-var-braced-init <bsl-var-braced-init.html>`_,
    `bsltest-bitwise-type <bsltest-bitwise-type.html>`_, "Yes"
    `bsltest-cast-signedness <bsltest-cast-signedness.html>`_,
-   `bsltest-for-loop <bsltest-for-loop.html>`_, "Yes"
    `bugprone-argument-comment <bugprone-argument-comment.html>`_, "Yes"
    `bugprone-assert-side-effect <bugprone-assert-side-effect.html>`_,
    `bugprone-bad-signal-to-kill-thread <bugprone-bad-signal-to-kill-thread.html>`_,

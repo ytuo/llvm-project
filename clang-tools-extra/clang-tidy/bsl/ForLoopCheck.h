@@ -6,19 +6,19 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef LLVM_CLANG_TOOLS_EXTRA_CLANG_TIDY_BSLTEST_FORLOOPCHECK_H
-#define LLVM_CLANG_TOOLS_EXTRA_CLANG_TIDY_BSLTEST_FORLOOPCHECK_H
+#ifndef LLVM_CLANG_TOOLS_EXTRA_CLANG_TIDY_BSL_FORLOOPCHECK_H
+#define LLVM_CLANG_TOOLS_EXTRA_CLANG_TIDY_BSL_FORLOOPCHECK_H
 
 #include "../ClangTidyCheck.h"
 
 namespace clang {
 namespace tidy {
-namespace bsltest {
+namespace bsl {
 
 /// FIXME: Write a short description.
 ///
 /// For the user-facing documentation see:
-/// http://clang.llvm.org/extra/clang-tidy/checks/bsltest-for-loop.html
+/// http://clang.llvm.org/extra/clang-tidy/checks/bsl-for-loop.html
 class ForLoopCheck : public ClangTidyCheck {
 public:
   ForLoopCheck(StringRef Name, ClangTidyContext *Context)
@@ -30,8 +30,8 @@ public:
   }
 };
 
-} // namespace bsltest
+} // namespace bsl
 } // namespace tidy
 } // namespace clang
 
-#endif // LLVM_CLANG_TOOLS_EXTRA_CLANG_TIDY_BSLTEST_FORLOOPCHECK_H
+#endif // LLVM_CLANG_TOOLS_EXTRA_CLANG_TIDY_BSL_FORLOOPCHECK_H

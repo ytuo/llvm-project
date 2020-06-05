@@ -1,6 +1,6 @@
-.. title:: clang-tidy - bsltest-for-loop
+.. title:: clang-tidy - bsl-for-loop
 
-bsltest-for-loop
-================
+bsl-for-loop
+============
 
 FIXME: Describe what patterns does the check detect and why. Give examples.

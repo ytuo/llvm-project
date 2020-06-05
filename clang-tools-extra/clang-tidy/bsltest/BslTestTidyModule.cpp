@@ -11,7 +11,6 @@
 #include "../ClangTidyModuleRegistry.h"
 #include "BitwiseTypeCheck.h"
 #include "CastSignednessCheck.h"
-#include "ForLoopCheck.h"
 using namespace clang::ast_matchers;
 
 namespace clang {
@@ -25,8 +24,6 @@ public:
         "bsltest-bitwise-type");
     CheckFactories.registerCheck<CastSignednessCheck>(
         "bsltest-cast-signedness");
-    CheckFactories.registerCheck<ForLoopCheck>(
-        "bsltest-for-loop");
   }
 };
 

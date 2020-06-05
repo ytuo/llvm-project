@@ -4,7 +4,6 @@ add_clang_library(clangTidyBslTestModule
   BslTestTidyModule.cpp
   BitwiseTypeCheck.cpp
   CastSignednessCheck.cpp
-  ForLoopCheck.cpp
 
   LINK_LIBS
   clangAST
