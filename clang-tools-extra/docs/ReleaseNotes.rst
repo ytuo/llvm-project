@@ -227,8 +227,8 @@ New checks
   non-auto-declared variables. Warns whenever any list initialization
   is used for auto-declared variables.
 
-- New :doc:`bsltest-for-loop
-  <clang-tidy/checks/bsltest-for-loop>` check.
+- New :doc:`bsl-for-loop
+  <clang-tidy/checks/bsl-for-loop>` check.
 
   Warns if for loop does not contain single loop-counter and uses floating point type.
 
@@ -382,9 +382,6 @@ Changes in existing checks
 
 Renamed checks
 ^^^^^^^^^^^^^^
-
-- The 'bsltest-for-loop' check was renamed to :doc:`bsl-for-loop
-  <clang-tidy/checks/bsl-for-loop>`
 
 - The 'fuchsia-restrict-system-headers' check was renamed to :doc:`portability-restrict-system-includes
   <clang-tidy/checks/portability-restrict-system-includes>`

@@ -68,7 +68,6 @@ set(ALL_CLANG_TIDY_CHECKS
   clangTidyAndroidModule
   clangTidyAbseilModule
   clangTidyBslModule
-  clangTidyBslTestModule
   clangTidyBoostModule
   clangTidyBugproneModule
   clangTidyCERTModule
