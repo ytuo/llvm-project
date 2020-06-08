@@ -17,8 +17,11 @@ namespace tidy {
 namespace bsl {
 
 void ForLoopCheck::registerMatchers(MatchFinder *Finder) {
-  Finder->addMatcher(expr(anyOf(floatLiteral(), expr(hasType(realFloatingPointType()))
-    )).bind("float"), this);
+  Finder->addMatcher(expr(floatLiteral(), unless(hasParent(varDecl(hasInitializer(hasType(realFloatingPointType())))))).bind("floatlit"), this);
+
+  Finder->addMatcher(varDecl(hasType(realFloatingPointType())).bind("floatvar"), this);
+
+  // Finder->addMatcher(declRefExpr(hasType(realFloatingPointType()), unless(hasParent(expr(hasType(realFloatingPointType()))))).bind("floatref"), this);
 
   Finder->addMatcher(forStmt(hasIncrement(binaryOperator(hasOperatorName(",")))).bind("singlecounter"), this);
 
@@ -44,10 +47,20 @@ void ForLoopCheck::check(const MatchFinder::MatchResult &Result) {
       diag(locs, "for loop must have single loop-counter");
   }
 
-  const auto *FloatEx = Result.Nodes.getNodeAs<Expr>("float");
+  const auto *FloatEx = Result.Nodes.getNodeAs<Expr>("floatlit");
   if (FloatEx) {
-      diag(FloatEx->getExprLoc(), "float type not allowed");
+      diag(FloatEx->getExprLoc(), "float type not allowed (literal)");
   }
+
+  const auto *FloatVar = Result.Nodes.getNodeAs<VarDecl>("floatvar");
+  if (FloatVar) {
+      diag(FloatVar->getBeginLoc(), "float type not allowed (variable declaration)");
+  }
+
+  // const auto *FloatRef = Result.Nodes.getNodeAs<Expr>("floatref");
+  // if (FloatRef) {
+  //     diag(FloatRef->getBeginLoc(), "float type (ref) not allowed");
+  // }
 
   // const auto *ForInitFloat = Result.Nodes.getNodeAs<ForStmt>("floatinit");
   // const auto *ForIncFloat = Result.Nodes.getNodeAs<ForStmt>("floatcounter");
