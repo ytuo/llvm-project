@@ -42,6 +42,7 @@
 #include "StmtSwitchCaseParentCheck.h"
 #include "StmtSwitchDefaultBreakCheck.h"
 #include "StmtSwitchDefaultLastCheck.h"
+#include "TypeDeclHeaderCheck.h"
 #include "TypesFixedWidthIntsCheck.h"
 #include "TypesNoWideCharCheck.h"
 #include "UnusedReturnValueCheck.h"
@@ -113,6 +114,8 @@ public:
         "bsl-stmt-switch-default-break");
     CheckFactories.registerCheck<StmtSwitchDefaultLastCheck>(
         "bsl-stmt-switch-default-last");
+    CheckFactories.registerCheck<TypeDeclHeaderCheck>(
+        "bsl-type-decl-header");
     CheckFactories.registerCheck<TypesFixedWidthIntsCheck>(
         "bsl-types-fixed-width-ints");
     CheckFactories.registerCheck<LiteralsAsciiOnlyCheck>(

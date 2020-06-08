@@ -214,6 +214,11 @@ New checks
 
   Warns if the default label is not last in a switch statement.
 
+- New :doc:`bsl-type-decl-header
+  <clang-tidy/checks/bsl-type-decl-header>` check.
+
+  Checks that type name declared in header file identical to file name.
+
 - New :doc:`bsl-using-decl-scope
   <clang-tidy/checks/bsl-using-decl-scope>` check.
 
