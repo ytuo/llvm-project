@@ -52,6 +52,7 @@ add_clang_library(clangTidyBslModule
   StructDefCheck.cpp
   TemplateGenericParamCheck.cpp
   TernaryOperatorForbiddenCheck.cpp
+  TypeDeclHeaderCheck.cpp
   TypesFixedWidthIntsCheck.cpp
   TypesNoWideCharCheck.cpp
   UnusedReturnValueCheck.cpp

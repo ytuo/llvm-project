@@ -58,6 +58,7 @@
 #include "StructDefCheck.h"
 #include "TemplateGenericParamCheck.h"
 #include "TernaryOperatorForbiddenCheck.h"
+#include "TypeDeclHeaderCheck.h"
 #include "TypesFixedWidthIntsCheck.h"
 #include "TypesNoWideCharCheck.h"
 #include "UnusedReturnValueCheck.h"
@@ -164,6 +165,8 @@ public:
         "bsl-template-generic-param");
     CheckFactories.registerCheck<TernaryOperatorForbiddenCheck>(
         "bsl-ternary-operator-forbidden");
+    CheckFactories.registerCheck<TypeDeclHeaderCheck>(
+        "bsl-type-decl-header");
     CheckFactories.registerCheck<TypesFixedWidthIntsCheck>(
         "bsl-types-fixed-width-ints");
     CheckFactories.registerCheck<LiteralsAsciiOnlyCheck>(
