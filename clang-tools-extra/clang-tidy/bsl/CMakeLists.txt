@@ -24,6 +24,7 @@ add_clang_library(clangTidyBslModule
   LiteralsUppercaseSuffixCheck.cpp
   LiteralsUserDefinedCheck.cpp
   NamespaceGlobalCheck.cpp
+  NonPodClassdefCheck.cpp
   NonPodStaticCheck.cpp
   OpBitwiseOperandsCheck.cpp
   OpConditionalSubexprCheck.cpp
