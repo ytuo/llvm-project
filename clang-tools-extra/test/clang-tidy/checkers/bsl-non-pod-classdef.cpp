@@ -1,25 +1,25 @@
-// RUN: %check_clang_tidy %s bsl-nonPOD-class-def %t
+// RUN: %check_clang_tidy %s bsl-non-pod-classdef %t
 
 class N { // neither trivial nor standard-
    private: 
     int i;
    public: 
     int j;
-    virtual ~N();
+    // virtual ~N();
 };
 
-class T { // trivial but not standard-layout
+struct T { // trivial but not standard-layout
 public:
     int i;
     int j;
 };
 
-class SL { // standard-layout but not trivial
-public:
+struct SL { // standard-layout but not trivial
+private:
 
     int i;
     int j;
-    ~SL();
+    // ~SL();
 };
 
 N n;

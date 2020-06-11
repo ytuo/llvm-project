@@ -16,16 +16,17 @@ namespace clang {
 namespace tidy {
 namespace bsl {
 
-AST_MATCHER(CXXRecordDecl, hasVirtualBases) {
-  CXXRecordDecl *Def = Node.getDefinition();
-  return Def->getNumVBases() > 0;
-}
+// AST_MATCHER(CXXRecordDecl, hasVirtualBases) {
+//   CXXRecordDecl *Def = Node.getDefinition();
+//   return Def->getNumVBases() > 0;
+// }
 
 void NonPodClassdefCheck::registerMatchers(MatchFinder *Finder) {
   Finder->addMatcher(cxxRecordDecl(has(accessSpecDecl(anyOf(isPublic(), isProtected())))).bind("private"), this);  // cxxRecordDecl
   // Finder->addMatcher(fieldDecl(unless(isPrivate())).bind("private"), this);
 
-  Finder->addMatcher(tagDecl(unless(isClass())).bind("class"), this);
+  Finder->addMatcher(cxxRecordDecl(hasDefinition(), unless(isClass())).bind("class"), this);
+  // enums are PODs
 
   // Finder->addMatcher(tagDecl(isStruct(), ));
   // fieldDecl(isPublic())
@@ -64,36 +65,32 @@ void NonPodClassdefCheck::registerMatchers(MatchFinder *Finder) {
 void NonPodClassdefCheck::check(const MatchFinder::MatchResult &Result) {
   // member data
   auto Var = Result.Nodes.getNodeAs<CXXRecordDecl>("private");
-  if (!Var)
-    return;
+  if (Var) {
+      auto Loc = Var->getLocation();
+    if (Loc.isInvalid() || Loc.isMacroID())
+      return;
 
-  auto Loc = Var->getLocation();
-  if (Loc.isInvalid() || Loc.isMacroID())
-    return;
+    auto Mgr = Result.SourceManager;
+    if (Mgr->getFileID(Loc) != Mgr->getMainFileID())
+      return;
 
-  auto Mgr = Result.SourceManager;
-  if (Mgr->getFileID(Loc) != Mgr->getMainFileID())
-    return;
+    if (Var->isPOD())
+      return;
+    else
+      diag(Loc, "non-POD class types should have private member data");
+  }
 
-  if (Var->isPOD())
-    return;
+  // class type
+  auto NonPodClass = Result.Nodes.getNodeAs<CXXRecordDecl>("class");
 
-  diag(Loc, "non-POD class types should have private member data");
+  if (NonPodClass) {
+    auto PodLoc = NonPodClass->getLocation();
 
-
-  // // class type
-  // auto NonPodClass = Result.Nodes.getNodeAs<TagDecl>("class");
-
-  // if (!NonPodClass)
-  //   return;
- 
-  // if (NonPodClass->getTypeForDecl().isCXX11PODType(*Result.Context))
-  //   return;
-
-  // auto PodLoc = NonPodClass->getLocation();
-
-  // diag(PodLoc, "non-POD type should be defined as a class");
-
+    if (NonPodClass->isPOD())
+      return;
+    else
+      diag(PodLoc, "non-POD type should be defined as a class");
+  }
 
 }
 
