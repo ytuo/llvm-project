@@ -22,7 +22,8 @@ AST_MATCHER(CXXRecordDecl, hasVirtualBases) {
 }
 
 void NonPodClassdefCheck::registerMatchers(MatchFinder *Finder) {
-  Finder->addMatcher(fieldDecl(unless(isPrivate())).bind("private"), this);
+  Finder->addMatcher(cxxRecordDecl(has(accessSpecDecl(anyOf(isPublic(), isProtected())))).bind("private"), this);  // cxxRecordDecl
+  // Finder->addMatcher(fieldDecl(unless(isPrivate())).bind("private"), this);
 
   Finder->addMatcher(tagDecl(unless(isClass())).bind("class"), this);
 
@@ -33,16 +34,16 @@ void NonPodClassdefCheck::registerMatchers(MatchFinder *Finder) {
   
     // Finder->addMatcher(cxxBaseSpecifier(isVirtual()))
   // trivial
-  Finder->addMatcher(decl(anyOf(cxxRecordDecl(hasDefinition(), hasVirtualBases()),
-            cxxMethodDecl(isVirtual())
-            )).bind("class"), this);
+  // Finder->addMatcher(decl(anyOf(cxxRecordDecl(hasDefinition(), hasVirtualBases()),
+  //           cxxMethodDecl(isVirtual())
+  //           )).bind("class"), this);
 
-  cxxConstructorDecl(anyOf(isMoveConstructor(), isCopyConstructor()))
-  unless(cxxConstructorDecl(isDefaultConstructor()), cxxDestructorDecl(isDefaulted()))  // no ConstructorDecl
+  // cxxConstructorDecl(anyOf(isMoveConstructor(), isCopyConstructor()))
+  // unless(cxxConstructorDecl(isDefaultConstructor()), cxxDestructorDecl(isDefaulted()))  // no ConstructorDecl
 
-  // standard layout
-  functionDecl(isStaticStorageClass()), unless(standard layout??)
-  varDecl(isStaticStorageClass()), unless(standard layout??)
+  // // standard layout
+  // functionDecl(isStaticStorageClass()), unless(standard layout??)
+  // varDecl(isStaticStorageClass()), unless(standard layout??)
 
   /* 1. Check if not trivially copyable: has virtual anything, has non-default constructor
      2. Check not standard-layout: has static data, not "same access control," at most one base class subobject
@@ -61,7 +62,8 @@ void NonPodClassdefCheck::registerMatchers(MatchFinder *Finder) {
 }
 
 void NonPodClassdefCheck::check(const MatchFinder::MatchResult &Result) {
-  auto Var = Result.Nodes.getNodeAs<VarDecl>("decl");
+  // member data
+  auto Var = Result.Nodes.getNodeAs<CXXRecordDecl>("private");
   if (!Var)
     return;
 
@@ -73,10 +75,26 @@ void NonPodClassdefCheck::check(const MatchFinder::MatchResult &Result) {
   if (Mgr->getFileID(Loc) != Mgr->getMainFileID())
     return;
 
-  if (!(Var->getType().isCXX11PODType(*Result.Context)))
+  if (Var->isPOD())
     return;
 
-  diag(Loc, "non-pod type with static storage duration");
+  diag(Loc, "non-POD class types should have private member data");
+
+
+  // // class type
+  // auto NonPodClass = Result.Nodes.getNodeAs<TagDecl>("class");
+
+  // if (!NonPodClass)
+  //   return;
+ 
+  // if (NonPodClass->getTypeForDecl().isCXX11PODType(*Result.Context))
+  //   return;
+
+  // auto PodLoc = NonPodClass->getLocation();
+
+  // diag(PodLoc, "non-POD type should be defined as a class");
+
+
 }
 
 } // namespace bsl
