@@ -22,12 +22,21 @@ namespace bsl {
 // }
 
 void NonPodClassdefCheck::registerMatchers(MatchFinder *Finder) {
-  Finder->addMatcher(cxxRecordDecl(has(accessSpecDecl(anyOf(isPublic(), isProtected())))).bind("private"), this);  // cxxRecordDecl
-  // Finder->addMatcher(fieldDecl(unless(isPrivate())).bind("private"), this);
+  // Finder->addMatcher(cxxRecordDecl(has(accessSpecDecl(anyOf(isPublic(), isProtected())))).bind("private"), this);  // cxxRecordDecl
+  // // Finder->addMatcher(fieldDecl(unless(isPrivate())).bind("private"), this);
 
-  Finder->addMatcher(cxxRecordDecl(hasDefinition(), unless(isClass())).bind("class"), this);
-  // enums are PODs
+  // Finder->addMatcher(cxxRecordDecl(hasDefinition(), unless(isClass())).bind("class"), this);
 
+  Finder->addMatcher(cxxRecordDecl(has(
+                                  accessSpecDecl(anyOf(isPrivate(), isProtected()))), 
+                                  isStruct(),
+                                  hasAnyBase()
+                    ).bind("struct"), this);  // cxxRecordDecl
+
+  // Finder->addMatcher(cxxRecordDecl(hasDefinition(), isStruct(), hasAnyBase(), has(fieldDecl(unless(isPublic())))).bind("class"), this);
+
+  // check parent class is not struct, instead of check itself not a parent,  isDerivedFrom
+  // isDefaulted
   // Finder->addMatcher(tagDecl(isStruct(), ));
   // fieldDecl(isPublic())
   // hasAnyBase()
@@ -64,32 +73,41 @@ void NonPodClassdefCheck::registerMatchers(MatchFinder *Finder) {
 
 void NonPodClassdefCheck::check(const MatchFinder::MatchResult &Result) {
   // member data
-  auto Var = Result.Nodes.getNodeAs<CXXRecordDecl>("private");
-  if (Var) {
-      auto Loc = Var->getLocation();
-    if (Loc.isInvalid() || Loc.isMacroID())
-      return;
+  // auto Var = Result.Nodes.getNodeAs<CXXRecordDecl>("private");
+  // if (Var) {
+  //     auto Loc = Var->getLocation();
+  //   if (Loc.isInvalid() || Loc.isMacroID())
+  //     return;
 
-    auto Mgr = Result.SourceManager;
-    if (Mgr->getFileID(Loc) != Mgr->getMainFileID())
-      return;
+  //   auto Mgr = Result.SourceManager;
+  //   if (Mgr->getFileID(Loc) != Mgr->getMainFileID())
+  //     return;
 
-    if (Var->isPOD())
-      return;
-    else
-      diag(Loc, "non-POD class types should have private member data");
-  }
+  //   if (Var->isPOD())
+  //     return;
+  //   else
+  //     diag(Loc, "non-POD class types should have private member data");
+  // }
 
-  // class type
-  auto NonPodClass = Result.Nodes.getNodeAs<CXXRecordDecl>("class");
+  // // class type
+  // auto NonPodClass = Result.Nodes.getNodeAs<CXXRecordDecl>("class");
 
-  if (NonPodClass) {
-    auto PodLoc = NonPodClass->getLocation();
+  // if (NonPodClass) {
+  //   auto PodLoc = NonPodClass->getLocation();
 
-    if (NonPodClass->isPOD())
-      return;
-    else
-      diag(PodLoc, "non-POD type should be defined as a class");
+  //   if (NonPodClass->isPOD())
+  //     return;
+  //   else
+  //     diag(PodLoc, "non-POD type should be defined as a class");
+  // }
+
+  // struct
+  auto StructDef = Result.Nodes.getNodeAs<CXXRecordDecl>("struct");
+
+  if (StructDef) {
+    auto StructLoc = StructDef->getLocation();
+
+    diag(StructLoc, "struct");
   }
 
 }

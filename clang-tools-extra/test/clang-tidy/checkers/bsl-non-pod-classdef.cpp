@@ -14,7 +14,7 @@ public:
     int j;
 };
 
-struct SL { // standard-layout but not trivial
+struct SL: T { // standard-layout but not trivial
 private:
 
     int i;
