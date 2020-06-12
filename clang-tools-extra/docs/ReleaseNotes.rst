@@ -254,6 +254,13 @@ New checks
 
   Warns if you use the ternary operator
 
+- New :doc:`bsl-struct-def
+  <clang-tidy/checks/bsl-struct-def>` check.
+
+  Checks that a struct only contains public data members, does not provide any
+  special member functions or methods, and is not a base or inherits from
+  another struct or class
+
 - New :doc:`bsl-using-decl-scope
   <clang-tidy/checks/bsl-using-decl-scope>` check.
 
