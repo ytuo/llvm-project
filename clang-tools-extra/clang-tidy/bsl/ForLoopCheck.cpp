@@ -21,63 +21,47 @@ void ForLoopCheck::registerMatchers(MatchFinder *Finder) {
 
   Finder->addMatcher(varDecl(hasType(realFloatingPointType())).bind("floatvar"), this);
 
-  // Finder->addMatcher(declRefExpr(hasType(realFloatingPointType()), unless(hasParent(expr(hasType(realFloatingPointType()))))).bind("floatref"), this);
-
   Finder->addMatcher(forStmt(hasIncrement(binaryOperator(hasOperatorName(",")))).bind("singlecounter"), this);
-
-  // Finder->addMatcher(forStmt(anyOf(
-  //   hasLoopInit(expr(binaryOperator(hasRHS(floatLiteral())))),
-  //   hasLoopInit(declStmt(hasSingleDecl(varDecl(hasType(realFloatingPointType()))))),
-  //   hasLoopInit(declStmt(hasSingleDecl(varDecl(hasDescendant(floatLiteral()))))) 
-  //   )).bind("floatinit"), this);
-  // Finder->addMatcher(forStmt(//anyOf(
-  //     // hasIncrement(expr(hasType(realFloatingPointType()))),
-  //     hasIncrement(binaryOperator(hasRHS(floatLiteral())))
-  //   ).bind("floatcounter"), this);
-  // Finder->addMatcher(forStmt(anyOf(
-  //     hasCondition(expr(hasType(realFloatingPointType()))),
-  //     hasCondition(binaryOperator(hasRHS(floatLiteral())))
-  //   )).bind("floatcond"), this);
 }
 
 void ForLoopCheck::check(const MatchFinder::MatchResult &Result) {
   const auto *ForIncSingle = Result.Nodes.getNodeAs<ForStmt>("singlecounter");
+  auto Mgr = Result.SourceManager;
+
   if (ForIncSingle) {
-      auto locs = ForIncSingle->getInc()->getExprLoc();
-      diag(locs, "for loop must have single loop-counter");
+      auto LocS = ForIncSingle->getInc()->getExprLoc();
+      if (LocS.isInvalid() || LocS.isMacroID())
+        return;
+
+      if (Mgr->getFileID(LocS) != Mgr->getMainFileID())
+        return;
+
+      diag(LocS, "for loop must have single loop-counter");
   }
 
   const auto *FloatEx = Result.Nodes.getNodeAs<Expr>("floatlit");
   if (FloatEx) {
-      diag(FloatEx->getExprLoc(), "float type not allowed (literal)");
+    auto LocF = FloatEx->getExprLoc();
+    if (LocF.isInvalid() || LocF.isMacroID())
+        return;
+
+    if (Mgr->getFileID(LocF) != Mgr->getMainFileID())
+      return;
+
+    diag(LocF, "float type not allowed (literal)");
   }
 
   const auto *FloatVar = Result.Nodes.getNodeAs<VarDecl>("floatvar");
   if (FloatVar) {
-      diag(FloatVar->getBeginLoc(), "float type not allowed (variable declaration)");
+      auto LocFV = FloatVar->getBeginLoc();
+      if (LocFV.isInvalid() || LocFV.isMacroID())
+          return;
+
+      if (Mgr->getFileID(LocFV) != Mgr->getMainFileID())
+        return;
+
+      diag(LocFV, "float type not allowed (variable declaration)");
   }
-
-  // const auto *FloatRef = Result.Nodes.getNodeAs<Expr>("floatref");
-  // if (FloatRef) {
-  //     diag(FloatRef->getBeginLoc(), "float type (ref) not allowed");
-  // }
-
-  // const auto *ForInitFloat = Result.Nodes.getNodeAs<ForStmt>("floatinit");
-  // const auto *ForIncFloat = Result.Nodes.getNodeAs<ForStmt>("floatcounter");
-  // const auto *ForCondFloat = Result.Nodes.getNodeAs<ForStmt>("floatcond");
-  // SourceLocation locf; 
-
-  // if (ForInitFloat) {
-  //     locf = ForInitFloat->getInit()->getBeginLoc();
-  //     diag(locf, "for loop counter cannot be of floating point type");
-  // } else if (ForIncFloat) {
-  //     locf = ForIncFloat->getInc()->getExprLoc();
-  //     diag(locf, "for loop counter cannot be of floating point type (increment by float)");
-  // } else if (ForCondFloat) {
-  //     locf = ForCondFloat->getCond()->getExprLoc();
-  //     diag(locf, "for loop counter cannot be of floating point type (comparison to float)");
-  // }
-
 }
 
 } // namespace bsl
