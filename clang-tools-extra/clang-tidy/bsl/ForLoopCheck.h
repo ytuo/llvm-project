@@ -15,7 +15,8 @@ namespace clang {
 namespace tidy {
 namespace bsl {
 
-/// FIXME: Write a short description.
+/// Checks that for loops use a single loop counter
+/// Checks that floating point types are not used
 ///
 /// For the user-facing documentation see:
 /// http://clang.llvm.org/extra/clang-tidy/checks/bsl-for-loop.html
