@@ -111,6 +111,11 @@ New checks
 
   Warns if unions or bitfields are declared.
 
+- New :doc:`bsl-destructor-access-specifier
+  <clang-tidy/checks/bsl-destructor-access-specifier>` check.
+
+  FIXME: add release notes.
+
 - New :doc:`bsl-friend-decl
   <clang-tidy/checks/bsl-friend-decl>` check.
 
