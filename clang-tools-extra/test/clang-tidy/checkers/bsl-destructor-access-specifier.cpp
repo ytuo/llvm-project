@@ -12,7 +12,7 @@ class B : public A
 {
 };
 
-clewass C
+class C
 {
   public:
     virtual ~C() // Compliant

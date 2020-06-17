@@ -18,7 +18,7 @@ namespace bsl {
 
 void DestructorAccessSpecifierCheck::registerMatchers(MatchFinder *Finder) {
   Finder->addMatcher(cxxDestructorDecl( 
-                    unless(anyOf(cxxDestructorDecl(isPublic(), isVirtual()),    // remove
+                    unless(anyOf(cxxDestructorDecl(isPublic()),
                            cxxDestructorDecl(isPublic(), isOverride()),
                            cxxDestructorDecl(isProtected(), unless(isVirtual()))
                     ))).bind("destructor"), this);
@@ -43,7 +43,7 @@ void DestructorAccessSpecifierCheck::check(const MatchFinder::MatchResult &Resul
     if (Mgr->getFileID(LocV) != Mgr->getMainFileID())
       return;
     if (!VDecl->getParent()->isEffectivelyFinal())
-      diag(LocV, "if public destructor is nonvirtual, then class must be declared final");
+      diag(LocV, "if public destructor is nonvirtual, then class must be declared final. Destructor of base class should be public virtual");
   }
   
 }
