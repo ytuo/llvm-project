@@ -16,14 +16,18 @@ namespace clang {
 namespace tidy {
 namespace bsl {
 
+AST_MATCHER(CXXDestructorDecl, isPublicVirtual) {
+  return Node.getAccess() == AS_public && Node.isVirtual();
+}
+
+AST_MATCHER(CXXDestructorDecl, isProtectedNonVirtual) {
+  return Node.getAccess() == AS_protected && !Node.isVirtual();
+}
+
 void DestructorAccessSpecifierCheck::registerMatchers(MatchFinder *Finder) {
   Finder->addMatcher(cxxDestructorDecl( 
-                    unless(anyOf(cxxDestructorDecl(isPublic()),
-                           cxxDestructorDecl(isPublic(), isOverride()),
-                           cxxDestructorDecl(isProtected(), unless(isVirtual()))
+                    unless(anyOf(isPublicVirtual(), isProtectedNonVirtual()
                     ))).bind("destructor"), this);
-
-  Finder->addMatcher(cxxDestructorDecl(isPublic(), unless(isVirtual())).bind("nonvirtual"), this);
 }
 
 void DestructorAccessSpecifierCheck::check(const MatchFinder::MatchResult &Result) {
@@ -34,18 +38,8 @@ void DestructorAccessSpecifierCheck::check(const MatchFinder::MatchResult &Resul
     auto Loc = MatchedDecl->getLocation();
     if (Mgr->getFileID(Loc) != Mgr->getMainFileID())
       return;
-    diag(Loc, "base class destructor must be public virtual, public override, or protected non-virtual");
+    diag(Loc, "base class destructor must be public virtual, public override, or protected non-virtual. If public destructor is nonvirtual, then class must be declared final.");
   }
-
-  const auto *VDecl = Result.Nodes.getNodeAs<CXXDestructorDecl>("nonvirtual");
-  if (VDecl) {
-    auto LocV = VDecl->getLocation();
-    if (Mgr->getFileID(LocV) != Mgr->getMainFileID())
-      return;
-    if (!VDecl->getParent()->isEffectivelyFinal())
-      diag(LocV, "if public destructor is nonvirtual, then class must be declared final. Destructor of base class should be public virtual");
-  }
-  
 }
 
 } // namespace bsl

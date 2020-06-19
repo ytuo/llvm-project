@@ -55,3 +55,18 @@ class I: public F
 
 class J: public H {};
 
+
+template <typename T>
+class X {
+private:
+    T t;
+public:
+    T get_t() { return t; }
+    ~X() = default; // non-compliant, class is not final
+};
+
+int foo()
+{
+    X<int> x;
+   return x.get_t();
+}
