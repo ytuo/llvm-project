@@ -62,6 +62,7 @@ Clang-Tidy Checks
    `bsl-enum-scoped <bsl-enum-scoped.html>`_,
    `bsl-for-loop-counter <bsl-for-loop-counter.html>`_,
    `bsl-function-name-use <bsl-function-name-use.html>`_, "Yes"
+   `bsl-function-noexcept <bsl-function-noexcept.html>`_, "Yes"
    `bsl-identifier-typographically-unambiguous <bsl-identifier-typographically-unambiguous.html>`_,
    `bsl-lambda-implicit-capture <bsl-lambda-implicit-capture.html>`_,
    `bsl-lambda-param-list <bsl-lambda-param-list.html>`_,

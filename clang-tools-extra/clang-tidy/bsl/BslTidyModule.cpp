@@ -26,6 +26,7 @@
 #include "EnumScopedCheck.h"
 #include "ForLoopCounterCheck.h"
 #include "FunctionNameUseCheck.h"
+#include "FunctionNoexceptCheck.h"
 #include "IdentifierTypographicallyUnambiguousCheck.h"
 #include "LambdaImplicitCaptureCheck.h"
 #include "LambdaParamListCheck.h"
@@ -98,8 +99,10 @@ public:
         "bsl-for-loop-counter");
     CheckFactories.registerCheck<FunctionNameUseCheck>(
         "bsl-function-name-use");
+    CheckFactories.registerCheck<FunctionNoexceptCheck>(
+        "bsl-function-noexcept");
     CheckFactories.registerCheck<IdentifierTypographicallyUnambiguousCheck>(
-        "bsl-identifier-typographically-unambiguous");
+        "bsl-identifier-typographically-unambiguous");    
     CheckFactories.registerCheck<LambdaImplicitCaptureCheck>(
         "bsl-lambda-implicit-capture");
     CheckFactories.registerCheck<LambdaParamListCheck>(
