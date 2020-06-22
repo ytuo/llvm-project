@@ -14,6 +14,7 @@ add_clang_library(clangTidyBslModule
   EnumScopedCheck.cpp
   FriendDeclCheck.cpp
   FunctionNameUseCheck.cpp
+  IdentifierTypographicallyUnambiguousCheck.cpp
   LambdaImplicitCaptureCheck.cpp
   LambdaParamListCheck.cpp
   LiteralsAsciiOnlyCheck.cpp
