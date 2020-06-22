@@ -69,14 +69,6 @@ void IdentifierTypographicallyUnambiguousCheck::check(const MatchFinder::MatchRe
       idNames.insert(name);
     }
   }
-
-  
-  
-  // if (MatchedDecl->getName().startswith("awesome_"))
-  //   return;
-  
-  // diag(MatchedDecl->getLocation(), "insert 'awesome'", DiagnosticIDs::Note)
-  //     << FixItHint::CreateInsertion(MatchedDecl->getLocation(), "awesome_");
 }
 
 } // namespace bsl

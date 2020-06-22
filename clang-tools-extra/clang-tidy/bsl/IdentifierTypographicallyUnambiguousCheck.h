@@ -15,7 +15,7 @@ namespace clang {
 namespace tidy {
 namespace bsl {
 
-/// FIXME: Write a short description.
+/// Checks that different identifiers are typographically unambiguous
 ///
 /// For the user-facing documentation see:
 /// http://clang.llvm.org/extra/clang-tidy/checks/bsl-identifier-typographically-unambiguous.html
