@@ -26,6 +26,11 @@ void foo()
 
 	for (int x = 0; x < 3 && y < 15; x++, y++) {}
 	// CHECK-MESSAGES: :[[@LINE-1]]:38: warning: for loop must have single loop-counter [bsl-for-loop]
+	for (int x = 0, y = 0; x < 3 && y < 15; x++, y++) {}
+
+	for (int x = 0, y = 0; x < 3; x++) {}
+
+	for (int x = 0; x < 3 && y < 15; x++) {}
 
 	for (float z = 0.0F; z < 1; z += 0.1F) {}
 	// CHECK-MESSAGES: :[[@LINE-1]]:7: warning: float type not allowed (variable declaration) [bsl-for-loop]
