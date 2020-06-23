@@ -75,6 +75,11 @@ New module
 
 New checks
 ^^^^^^^^^^
+- New :doc:`bsl-auto-type-usage
+  <clang-tidy/checks/bsl-auto-type-usage>` check.
+
+  FIXME: add release notes.
+
 - New :doc:`bsl-class-base
   <clang-tidy/checks/bsl-class-base>` check.
 

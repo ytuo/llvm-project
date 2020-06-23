@@ -1,6 +1,7 @@
 set(LLVM_LINK_COMPONENTS support)
 
 add_clang_library(clangTidyBslModule
+  AutoTypeUsageCheck.cpp
   BslCheckUtils.cpp
   BslTidyModule.cpp
   ClassBaseCheck.cpp

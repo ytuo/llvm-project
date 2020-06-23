@@ -45,6 +45,7 @@ Clang-Tidy Checks
    `android-cloexec-socket <android-cloexec-socket.html>`_,
    `android-comparison-in-temp-failure-retry <android-comparison-in-temp-failure-retry.html>`_,
    `boost-use-to-string <boost-use-to-string.html>`_, "Yes"
+   `bsl-auto-type-usage <bsl-auto-type-usage.html>`_, "Yes"
    `bsl-class-base <bsl-class-base.html>`_,
    `bsl-class-final-function <bsl-class-final-function.html>`_,
    `bsl-class-member-init <bsl-class-member-init.html>`_,
