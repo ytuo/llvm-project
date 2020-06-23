@@ -75,15 +75,25 @@ New module
 
 New checks
 ^^^^^^^^^^
-- New :doc:`bsl-boolean-operators-forbidden
-  <clang-tidy/checks/bsl-boolean-operators-forbidden>` check.
-
-  Warns if you use && or ||
-
 - New :doc:`bsl-assign-op-decl-ref-qualifier
   <clang-tidy/checks/bsl-assign-op-decl-ref-qualifier>` check.
 
   Checks that assignment operators are declared with the ref-qualifier &.
+
+- New :doc:`bsl-auto-type-usage
+  <clang-tidy/checks/bsl-auto-type-usage>` check.
+
+  Checks that the auto specifier is only used
+    1. to declare that a variable has the same type as return type of a function call
+    2. to declare that a variable has the same type as initializer of non-fundamental
+      (non-literal) type
+    3. to declare parameters of a generic lambda expression
+    4. to declare a function (template) using trailing return type syntax.
+
+- New :doc:`bsl-boolean-operators-forbidden
+  <clang-tidy/checks/bsl-boolean-operators-forbidden>` check.
+
+  Warns if you use && or ||.
 
 - New :doc:`bsl-class-base
   <clang-tidy/checks/bsl-class-base>` check.
