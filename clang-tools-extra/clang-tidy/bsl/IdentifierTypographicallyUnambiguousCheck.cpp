@@ -10,6 +10,7 @@
 #include "clang/AST/ASTContext.h"
 #include "clang/ASTMatchers/ASTMatchFinder.h"
 #include <unordered_set>
+#include <unordered_map>
 #include <string>
 
 using namespace clang::ast_matchers;
@@ -18,22 +19,27 @@ namespace clang {
 namespace tidy {
 namespace bsl {
 
+struct map_entry {
+  std::string og_name;
+  SourceLocation loc;
+};
 
-std::unordered_set<std::string> idNames;    // make hashmap: map to line #
+std::unordered_map<std::string, map_entry> idNames; 
 
 void IdentifierTypographicallyUnambiguousCheck::registerMatchers(MatchFinder *Finder) {
-  Finder->addMatcher(namedDecl().bind("x"), this);
+  Finder->addMatcher(namedDecl().bind("id"), this);
 }
 
 void IdentifierTypographicallyUnambiguousCheck::check(const MatchFinder::MatchResult &Result) {
-  const auto *MatchedDecl = Result.Nodes.getNodeAs<NamedDecl>("x");
-  const auto Mgr = Result.SourceManager;
+  const auto *MatchedDecl = Result.Nodes.getNodeAs<NamedDecl>("id");
+  auto Mgr = Result.SourceManager;
   
   if (MatchedDecl) {
     auto Loc = MatchedDecl->getLocation();
     if (Mgr->getFileID(Loc) != Mgr->getMainFileID())
       return;
 
+    std::string og_name = MatchedDecl->getNameAsString();
     std::string name = MatchedDecl->getName().lower();
 
     unsigned int i = 0;
@@ -63,10 +69,14 @@ void IdentifierTypographicallyUnambiguousCheck::check(const MatchFinder::MatchRe
       }
     }
 
-    if (idNames.find(name) != idNames.end()) {
-      diag(MatchedDecl->getLocation(), "different identifiers shall be typographically unambiguous");
+    std::unordered_map<std::string, map_entry>::iterator itr = idNames.find(name);
+    if (itr != idNames.end()) {
+      map_entry m = itr->second;
+      std::string og_name = m.og_name;
+      unsigned int locnum = Mgr->getPresumedLoc(m.loc).getLine();
+      diag(Loc, "Identifier typographically ambiguous with identifier '%0' on line %1") << og_name << locnum;
     } else {
-      idNames.insert(name);
+      idNames[name] = map_entry { og_name, Loc }; 
     }
   }
 }
