@@ -15,7 +15,8 @@ namespace clang {
 namespace tidy {
 namespace bsl {
 
-/// FIXME: Write a short description.
+/// Member data in non-POD class types should be private. Non-POD types should
+/// be defined as class
 ///
 /// For the user-facing documentation see:
 /// http://clang.llvm.org/extra/clang-tidy/checks/bsl-non-pod-classdef.html

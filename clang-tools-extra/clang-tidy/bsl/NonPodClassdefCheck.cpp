@@ -17,11 +17,13 @@ namespace tidy {
 namespace bsl {
 
 void NonPodClassdefCheck::registerMatchers(MatchFinder *Finder) {
-  Finder->addMatcher(cxxRecordDecl(has(accessSpecDecl(anyOf(isPublic(), isProtected())))).bind("private"), this); 
-  // Finder->addMatcher(fieldDecl(unless(isPrivate())).bind("private"), this);
+  Finder->addMatcher(
+      cxxRecordDecl(has(accessSpecDecl(anyOf(isPublic(), isProtected()))), isClass())
+          .bind("private"),
+      this);
 
-  Finder->addMatcher(cxxRecordDecl(hasDefinition(), unless(isClass())).bind("class"), this);
-
+  Finder->addMatcher(
+      cxxRecordDecl(hasDefinition(), unless(isClass())).bind("class"), this);
 }
 
 void NonPodClassdefCheck::check(const MatchFinder::MatchResult &Result) {
@@ -59,7 +61,6 @@ void NonPodClassdefCheck::check(const MatchFinder::MatchResult &Result) {
     else
       diag(PodLoc, "non-POD type should be defined as a class");
   }
-
 }
 
 } // namespace bsl

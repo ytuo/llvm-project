@@ -1,34 +1,39 @@
 // RUN: %check_clang_tidy %s bsl-non-pod-classdef %t
 
-class NonPod{ // not trivial nor standard-layout
-    int a;
-    int b;
-    virtual void foo();
+class NonPod {
+  int a;
+  int b;
+  virtual void foo();
 };
 
-class Trivial { // trivial only
+class Trivial {
+// CHECK-MESSAGES: :[[@LINE-1]]:7: warning: non-POD class types should have private member data [bsl-non-pod-classdef]
 public:
-    int a;
+  int a;
+
 private:
-    int b;
+  int b;
 };
 
-class StandardL { // standard-layout only
-    int a;
-    int b;
+class StandardL {
+// CHECK-MESSAGES: :[[@LINE-1]]:7: warning: non-POD class types should have private member data [bsl-non-pod-classdef]
+  int a;
+  int b;
+
 public:
-    ~StandardL();
+  ~StandardL();
 };
 
-class Pod {   // trivial & standard-layout, ie POD
-    // default private
-    int a;
-    int b;
+class Pod {
+  int a;
+  int b;
 };
 
-struct NonPodStruct { //  should be defined as class
+struct NonPodStruct {
+// CHECK-MESSAGES: :[[@LINE-1]]:8: warning: non-POD type should be defined as a class [bsl-non-pod-classdef]
 public:
-    int a;
+  int a;
+
 private:
-    int b;
+  int b;
 };
