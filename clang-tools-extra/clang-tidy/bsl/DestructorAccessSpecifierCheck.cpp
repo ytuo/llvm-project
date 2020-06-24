@@ -25,20 +25,30 @@ AST_MATCHER(CXXDestructorDecl, isProtectedNonVirtual) {
 }
 
 void DestructorAccessSpecifierCheck::registerMatchers(MatchFinder *Finder) {
-  Finder->addMatcher(cxxDestructorDecl( 
-                    unless(anyOf(isPublicVirtual(), isProtectedNonVirtual()
-                    ))).bind("destructor"), this);
+  Finder->addMatcher(cxxDestructorDecl(unless(anyOf(isPublicVirtual(),
+                                                    isProtectedNonVirtual())))
+                         .bind("destructor"),
+                     this);
 }
 
-void DestructorAccessSpecifierCheck::check(const MatchFinder::MatchResult &Result) {
+void DestructorAccessSpecifierCheck::check(
+    const MatchFinder::MatchResult &Result) {
   const auto Mgr = Result.SourceManager;
-  
-  const auto *MatchedDecl = Result.Nodes.getNodeAs<CXXDestructorDecl>("destructor");
+
+  const auto *MatchedDecl =
+      Result.Nodes.getNodeAs<CXXDestructorDecl>("destructor");
   if (MatchedDecl) {
     auto Loc = MatchedDecl->getLocation();
     if (Mgr->getFileID(Loc) != Mgr->getMainFileID())
       return;
-    diag(Loc, "base class destructor must be public virtual, public override, or protected non-virtual. If public destructor is nonvirtual, then class must be declared final.");
+
+    if (MatchedDecl->getAccess() == AS_public &&
+        MatchedDecl->getParent()->isEffectivelyFinal())
+      return;
+
+    diag(Loc, "base class destructor must be public virtual, public override, "
+              "or protected non-virtual. If public destructor is nonvirtual, "
+              "then class must be declared final.");
   }
 }
 
