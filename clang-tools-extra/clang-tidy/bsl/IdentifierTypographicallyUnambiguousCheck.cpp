@@ -9,9 +9,9 @@
 #include "IdentifierTypographicallyUnambiguousCheck.h"
 #include "clang/AST/ASTContext.h"
 #include "clang/ASTMatchers/ASTMatchFinder.h"
-#include <unordered_set>
-#include <unordered_map>
 #include <string>
+#include <unordered_map>
+#include <unordered_set>
 
 using namespace clang::ast_matchers;
 
@@ -24,16 +24,18 @@ struct map_entry {
   SourceLocation loc;
 };
 
-std::unordered_map<std::string, map_entry> idNames; 
+std::unordered_map<std::string, map_entry> idNames;
 
-void IdentifierTypographicallyUnambiguousCheck::registerMatchers(MatchFinder *Finder) {
+void IdentifierTypographicallyUnambiguousCheck::registerMatchers(
+    MatchFinder *Finder) {
   Finder->addMatcher(namedDecl().bind("id"), this);
 }
 
-void IdentifierTypographicallyUnambiguousCheck::check(const MatchFinder::MatchResult &Result) {
+void IdentifierTypographicallyUnambiguousCheck::check(
+    const MatchFinder::MatchResult &Result) {
   const auto *MatchedDecl = Result.Nodes.getNodeAs<NamedDecl>("id");
   auto Mgr = Result.SourceManager;
-  
+
   if (MatchedDecl) {
     auto Loc = MatchedDecl->getLocation();
     if (Mgr->getFileID(Loc) != Mgr->getMainFileID())
@@ -62,21 +64,25 @@ void IdentifierTypographicallyUnambiguousCheck::check(const MatchFinder::MatchRe
           name.replace(i, 1, "n");
         } else if (name[i] == '8') {
           name.replace(i, 1, "b");
-        } else if (name[i] == 'r' && i < name.length() - 1 && name[i+1] == 'n') {
+        } else if (name[i] == 'r' && i < name.length() - 1 &&
+                   name[i + 1] == 'n') {
           name.replace(i, 2, "m");
         }
         i += 1;
       }
     }
 
-    std::unordered_map<std::string, map_entry>::iterator itr = idNames.find(name);
+    std::unordered_map<std::string, map_entry>::iterator itr =
+        idNames.find(name);
     if (itr != idNames.end()) {
       map_entry m = itr->second;
       std::string og_name = m.og_name;
       unsigned int locnum = Mgr->getPresumedLoc(m.loc).getLine();
-      diag(Loc, "Identifier typographically ambiguous with identifier '%0' on line %1") << og_name << locnum;
+      diag(Loc, "Identifier typographically ambiguous with identifier '%0' on "
+                "line %1")
+          << og_name << locnum;
     } else {
-      idNames[name] = map_entry { og_name, Loc }; 
+      idNames[name] = map_entry{og_name, Loc};
     }
   }
 }
