@@ -20,7 +20,10 @@ void UnusedReturnValueCheck::registerMatchers(MatchFinder *Finder) {
   // static_cast<void>(foo()), where foo() returns non-void, and overloaded
   // built-in operators are exceptions to this check:
   auto StaticVoidCast = cxxStaticCastExpr(hasDestinationType(voidType()));
-  auto AllowedExprs = anyOf(cxxOperatorCallExpr(), hasParent(StaticVoidCast));
+  auto AllowedExprs = anyOf(cxxOperatorCallExpr(),
+                            hasParent(StaticVoidCast),
+                            hasParent(constantExpr(hasParent(caseStmt())))
+                      );
 
   auto NonVoidFunc = functionDecl(unless(returns(voidType())));
   auto CheckedCall = callExpr(unless(AllowedExprs), callee(NonVoidFunc));

@@ -37,6 +37,11 @@ static void g()
     auto y = 1;
 }
 
+static constexpr int c()
+{
+    return 2;
+}
+
 int z()
 {
     int y;
@@ -71,6 +76,8 @@ int z()
         // CHECK-MESSAGES: :[[@LINE-1]]:9: warning: unused return value [bsl-unused-return-value]
         x = f();
         static_cast<void>(f());
+        break;
+    case c():
         break;
     default:
         x = 0;
