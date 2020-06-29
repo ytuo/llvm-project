@@ -18,21 +18,31 @@ namespace bsl {
 
 void AutoTypeUsageCheck::registerMatchers(MatchFinder *Finder) {
   // var: is return value and has type of function
-  // cxxCtorInitializer(unless(isFundamentalType()))
-  // lambdaExpr param
-  // functionDecl(hasTrailingReturn())
-  Finder->addMatcher(functionDecl().bind("x"), this);
+  // 
+  // (1) binaryoperator -> LHS hasType(autoType()) --> vardecl, RHS = callexpr
+  // (2) cxxCtorInitializer(unless()) ??? --> binaryoperator -> hasType RHS = not Type isFundamentalType() 
+  // (3) lambdaExpr parmVarDecl(hasType(autoType()))
+  // (4) functionDecl(hasTrailingReturn()), hasType(autoType())
+  Finder->addMatcher(expr(hasType(autoType())).bind("x"), this);
+  Finder->addMatcher(valueDecl(hasType(autoType())).bind("decl"), this);
+  Finder->addMatcher(classTemplateDecl(hasType(autoType())).bind("temp"), this);  //  functionTemplateDecl
+
 }
 
 void AutoTypeUsageCheck::check(const MatchFinder::MatchResult &Result) {
   // FIXME: Add callback implementation.
-  const auto *MatchedDecl = Result.Nodes.getNodeAs<FunctionDecl>("x");
-  if (MatchedDecl->getName().startswith("awesome_"))
-    return;
-  diag(MatchedDecl->getLocation(), "function %0 is insufficiently awesome")
-      << MatchedDecl;
-  diag(MatchedDecl->getLocation(), "insert 'awesome'", DiagnosticIDs::Note)
-      << FixItHint::CreateInsertion(MatchedDecl->getLocation(), "awesome_");
+  // const auto *MatchedExpr = Result.Nodes.getNodeAs<Expr>("x");
+  // if (MatchedExpr)
+  //   diag(MatchedExpr->getBeginLoc(), "function is insufficiently awesome");
+  const auto *MatchedExpr = Result.Nodes.getNodeAs<Expr>("x");
+  if (MatchedExpr)
+    diag(MatchedExpr->getBeginLoc(), "function is insufficiently awesome");
+  const auto *MatchedDecl = Result.Nodes.getNodeAs<VarDecl>("decl");
+  if (MatchedDecl)
+    diag(MatchedDecl->getLocation(), "decl is insufficiently awesome");
+  const auto *MatchedTempDecl = Result.Nodes.getNodeAs<ClassTemplateDecl>("decl");
+  if (MatchedTempDecl)
+    diag(MatchedTempDecl->getLocation(), "temp decl is insufficiently awesome");
 }
 
 } // namespace bsl
