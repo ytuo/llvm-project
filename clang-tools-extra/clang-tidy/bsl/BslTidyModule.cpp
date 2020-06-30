@@ -46,6 +46,7 @@
 #include "TypesNoWideCharCheck.h"
 #include "UnusedReturnValueCheck.h"
 #include "UsingDeclScopeCheck.h"
+#include "UsingIdentUniqueNamespaceCheck.h"
 #include "VarBracedInitCheck.h"
 
 namespace clang {
@@ -129,6 +130,8 @@ public:
         "bsl-unused-return-value");
     CheckFactories.registerCheck<UsingDeclScopeCheck>(
         "bsl-using-decl-scope");
+    CheckFactories.registerCheck<UsingIdentUniqueNamespaceCheck>(
+        "bsl-using-ident-unique-namespace");
     CheckFactories.registerCheck<VarBracedInitCheck>(
         "bsl-var-braced-init");
   }

@@ -220,6 +220,11 @@ New checks
   Warns if a using declaration in a header file is outside of
   either a class or function.
 
+- New :doc:`bsl-using-ident-unique-namespace
+  <clang-tidy/checks/bsl-using-ident-unique-namespace>` check.
+
+  FIXME: add release notes.
+
 - New :doc:`bsl-var-braced-init
   <clang-tidy/checks/bsl-var-braced-init>` check.
 
