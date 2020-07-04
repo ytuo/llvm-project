@@ -9,6 +9,8 @@
 #include "UsingIdentUniqueNamespaceCheck.h"
 #include "clang/AST/ASTContext.h"
 #include "clang/ASTMatchers/ASTMatchFinder.h"
+#include <unordered_map>
+#include <unordered_set>
 
 using namespace clang::ast_matchers;
 
@@ -16,76 +18,34 @@ namespace clang {
 namespace tidy {
 namespace bsl {
 
+std::unordered_map<const DeclContext *, std::unordered_set<std::string>> namespaceToIDs;
+
 void UsingIdentUniqueNamespaceCheck::registerMatchers(MatchFinder *Finder) {
-  // FIXME: Add matchers.
   Finder->addMatcher(typeAliasDecl().bind("x"), this);  // typealiastemplatedecl
 }
 
 void UsingIdentUniqueNamespaceCheck::check(const MatchFinder::MatchResult &Result) {
   const auto *D = Result.Nodes.getNodeAs<TypeAliasDecl>("x");
-  // const auto *Prev = D->getPreviousDecl();
-  auto It = D->redecls_begin();
-  auto EndIt = D->redecls_end();
+  std::string name = D->getNameAsString();
+  // auto ns = D->getDeclContext();
+  // diag(D->getLocation(), "%0 %1") << ns->getEnclosingNamespaceContext() << name;
 
-  if (It == EndIt) {
-    diag(D->getLocation(), "z");
-    return; 
-  }
+  const DeclContext *ns = D->getDeclContext()->getEnclosingNamespaceContext();
 
-  if (D->isFirstDecl()) {
-  diag(D->getLocation(), "zzz");
-
-  }
-
-  // // const auto t = D->getDescribedAliasTemplate();
-  // if (D->isCanonicalDecl()) {
-  //   diag(D->getLocation(), "none");    
-  // }
-  // if (t2) {
-  //   diag(D->getLocation(), "previously declared here");    
-  // }
-  // else {
-  //   diag(D->getLocation(), "derp"); 
-  // }
+  auto itr = namespaceToIDs.find(ns);
+  if (itr != namespaceToIDs.end()) {
+    auto id_itr = (itr->second).find(name);
+    if (id_itr != (itr->second).end()) {
+      diag(D->getLocation(), "%0 %1") << ns << name;
+        // diag(D->getLocation(), "%0 %1") << ns.getEnclosingNamespaceContext() << name;
+    } else {
+      (itr->second).insert(name);
+    }
     
-  // if (!Prev->getLocation().isValid())
-  //   return;
-  // if (Prev->getLocation() == D->getLocation())
-  //   return;
-  // if (IgnoreMacros &&
-  //     (D->getLocation().isMacroID() || Prev->getLocation().isMacroID()))
-  //   return;
-  // // Don't complain when the previous declaration is a friend declaration.
-  // for (const auto &Parent : Result.Context->getParents(*Prev))
-  //   if (Parent.get<FriendDecl>())
-  //     return;
+  } else {
+    namespaceToIDs[ns] = {name};
+  }
 
-  // const SourceManager &SM = *Result.SourceManager;
-
-  // const bool DifferentHeaders =
-  //     !SM.isInMainFile(D->getLocation()) &&
-  //     !SM.isWrittenInSameFile(Prev->getLocation(), D->getLocation());
-
-  // bool MultiVar = false;
-  // if (const auto *VD = dyn_cast<VarDecl>(D)) {
-  //   // Is this a multivariable declaration?
-  //   for (const auto Other : VD->getDeclContext()->decls()) {
-  //     if (Other != D && Other->getBeginLoc() == VD->getBeginLoc()) {
-  //       MultiVar = true;
-  //       break;
-  //     }
-  //   }
-  // }
-
-  // SourceLocation EndLoc = Lexer::getLocForEndOfToken(
-  //     D->getSourceRange().getEnd(), 0, SM, Result.Context->getLangOpts());
-  // {
-  //   auto Diag = diag(D->getLocation(), "redundant %0 declaration") << D;
-  //   if (!MultiVar && !DifferentHeaders)
-  //     Diag << FixItHint::CreateRemoval(
-  //         SourceRange(D->getSourceRange().getBegin(), EndLoc));
-  // }
-  // diag(Prev->getLocation(), "previously declared here", DiagnosticIDs::Note);
 }
 
 } // namespace bsl
