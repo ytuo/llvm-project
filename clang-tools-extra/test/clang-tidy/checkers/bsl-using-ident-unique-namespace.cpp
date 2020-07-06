@@ -12,6 +12,37 @@ namespace n1
 
 namespace n2
 {
-	using func = void (*)(int, int); // Compliant, reuses func identifier but
-	// in another namespace
+	using func = void (*)(int, int); // Compliant, reuses func identifier but in another namespace
 }
+
+
+namespace n3
+{
+	using func = void (*)(int, int);
+	namespace n4
+	{
+		using func = void (*)(int, int); 
+	}
+}
+
+
+// namespace n5
+// {
+// 	// template <typename T> using Y = void <typename T> f();
+// 	template <typename T> 
+// 	void foo();
+// 	template <typename T> using f = foo;
+// 	void f1()
+// 	{
+// 		template <typename T> using Y = void <typename T> f();
+// 	}
+// }
+
+
+// already not allowed by clang?
+class Type {};
+struct Type { }; // Non-compliant, Type name reused
+enum class Type : int { }; // Non-compliant, Type name reused
+union Type {};
+typedef int Type;
+// using Type = 3;

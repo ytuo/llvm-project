@@ -9,16 +9,14 @@
 #include "UsingIdentUniqueNamespaceCheck.h"
 #include "clang/AST/ASTContext.h"
 #include "clang/ASTMatchers/ASTMatchFinder.h"
-#include <unordered_map>
-#include <unordered_set>
+// #include <unordered_map>
+// #include <unordered_set>
 
 using namespace clang::ast_matchers;
 
 namespace clang {
 namespace tidy {
 namespace bsl {
-
-std::unordered_map<const DeclContext *, std::unordered_set<std::string>> namespaceToIDs;
 
 void UsingIdentUniqueNamespaceCheck::registerMatchers(MatchFinder *Finder) {
   Finder->addMatcher(typeAliasDecl().bind("x"), this);  // typealiastemplatedecl
@@ -30,6 +28,7 @@ void UsingIdentUniqueNamespaceCheck::check(const MatchFinder::MatchResult &Resul
   // auto ns = D->getDeclContext();
   // diag(D->getLocation(), "%0 %1") << ns->getEnclosingNamespaceContext() << name;
 
+  // nested namespaces?
   const DeclContext *ns = D->getDeclContext()->getEnclosingNamespaceContext();
 
   auto itr = namespaceToIDs.find(ns);

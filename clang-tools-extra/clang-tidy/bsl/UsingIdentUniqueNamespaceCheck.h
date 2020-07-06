@@ -10,6 +10,8 @@
 #define LLVM_CLANG_TOOLS_EXTRA_CLANG_TIDY_BSL_USINGIDENTUNIQUENAMESPACECHECK_H
 
 #include "../ClangTidyCheck.h"
+#include <unordered_map>
+#include <unordered_set>
 
 namespace clang {
 namespace tidy {
@@ -25,6 +27,9 @@ public:
       : ClangTidyCheck(Name, Context) {}
   void registerMatchers(ast_matchers::MatchFinder *Finder) override;
   void check(const ast_matchers::MatchFinder::MatchResult &Result) override;
+
+private:
+	std::unordered_map<const DeclContext *, std::unordered_set<std::string>> namespaceToIDs;
 };
 
 } // namespace bsl
