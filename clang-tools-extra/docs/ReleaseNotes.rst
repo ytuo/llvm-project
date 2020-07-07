@@ -114,7 +114,8 @@ New checks
 - New :doc:`bsl-destructor-access-specifier
   <clang-tidy/checks/bsl-destructor-access-specifier>` check.
 
-  FIXME: add release notes.
+  Warns if destructor of base class is not public virtual, public override, 
+  or protected non-virtual, unless public destructor is non-virtual in final class.
 
 - New :doc:`bsl-friend-decl
   <clang-tidy/checks/bsl-friend-decl>` check.

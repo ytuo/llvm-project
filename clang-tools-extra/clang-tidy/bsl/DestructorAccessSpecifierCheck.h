@@ -15,7 +15,9 @@ namespace clang {
 namespace tidy {
 namespace bsl {
 
-/// FIXME: Write a short description.
+/// Check that destructor base class is public virtual, public override, or
+/// protected non-virtual. If public destructor has non-virtual class, then
+/// declare class as final
 ///
 /// For the user-facing documentation see:
 /// http://clang.llvm.org/extra/clang-tidy/checks/bsl-destructor-access-specifier.html
