@@ -125,7 +125,7 @@ New checks
 - New :doc:`bsl-identifier-typographically-unambiguous
   <clang-tidy/checks/bsl-identifier-typographically-unambiguous>` check.
 
-  FIXME: add release notes.
+  Checks that different identifiers are typographically unambiguous.
 
 - New :doc:`bsl-lambda-implicit-capture
   <clang-tidy/checks/bsl-lambda-implicit-capture>` check.

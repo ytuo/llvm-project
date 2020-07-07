@@ -36,7 +36,6 @@ int id9_ZS;
 int id9_25; // Non-compliant
 // CHECK-MESSAGES: :[[@LINE-1]]:5: warning: Identifier typographically ambiguous with identifier 'id9_ZS' on line 35 [bsl-identifier-typographically-unambiguous]
 
-
 void frn0();
 void frno();
 // CHECK-MESSAGES: :[[@LINE-1]]:6: warning: Identifier typographically ambiguous with identifier 'frn0' on line 40 [bsl-identifier-typographically-unambiguous]
