@@ -64,28 +64,19 @@ void AutoTypeUsageCheck::registerMatchers(MatchFinder *Finder) {
   // Finder->addMatcher(functionDecl(returns(autoType())).bind("trail"), this);  // ok // returns templateTypeParmType
      // Finder->addMatcher(functionDecl(hasDescendant(declRefExpr(hasType(templateTypeParmType())))).bind("trail"), this);   // ok?
      // Finder->addMatcher(functionDecl(hasDescendant(parmVarDecl(isTemplate()))).bind("trail"), this); // ok
-  // Finder->addMatcher(functionDecl(anyOf(returns(autoType()),
-  //           allOf(hasTrailingReturn(),
-  //           unless(hasDescendant(parmVarDecl(isTemplate())
-  //             )))
-  //           )).bind("trail"), this); // ok
-  Finder->addMatcher(functionDecl(anyOf(returns(autoType()),    // isLambdaStaticInvoker
-        allOf(hasTrailingReturn(), 
-          unless(anyOf(hasDescendant(parmVarDecl(isTemplate())), 
-                hasParent(cxxRecordDecl(isLambda())),  hasParent(functionTemplateDecl())
-                 )))) // hasParent(functionTemplateDecl()) ))))
 
-    // hasTrailingReturn(), unless(hasParent(functionTemplateDecl()))
-            // allOf(hasTrailingReturn(),
-            // unless(hasDescendant(parmVarDecl(isTemplate())  // or TemplateTypeParmDecl
-            //   ))
-            ).bind("trail"), this); // ok
+  // Finder->addMatcher(functionDecl(anyOf(returns(autoType()),    // isLambdaStaticInvoker
+  //       allOf(hasTrailingReturn(), 
+  //         unless(anyOf(hasDescendant(parmVarDecl(isTemplate())), 
+  //               hasParent(cxxRecordDecl(isLambda())),  hasParent(functionTemplateDecl())   // for lambdas
+  //                ))))
+  //           ).bind("trail"), this); // ok
 
-      // Finder->addMatcher(functionDecl(returns(autoType()), 
-      //           unless(allOf(hasDescendant(parmVarDecl(isTemplate())),
-      //               hasTrailingReturn()
-      //             ))
-      //           ).bind("trail"), this); // ok
+      Finder->addMatcher(functionDecl(returns(autoType()), 
+                unless(allOf(hasDescendant(parmVarDecl(isTemplate())),
+                    hasTrailingReturn()
+                  ))
+                ).bind("trail"), this); // ok
 
 
    // TemplateTypeParmDecl, FunctionTemplateDecl, method has(DeclRefExpr)
@@ -109,7 +100,12 @@ void AutoTypeUsageCheck::check(const MatchFinder::MatchResult &Result) {
 
   const auto *MatchedTempDecl = Result.Nodes.getNodeAs<FunctionDecl>("trail");
   if (MatchedTempDecl) {
-    diag(MatchedTempDecl->getLocation(), "auto can only be used for declaring function templates with a trailing return");
+    if (isa<CXXMethodDecl>(MatchedTempDecl)) {
+        if(!cast<CXXMethodDecl>(MatchedTempDecl)->isLambdaStaticInvoker()) 
+          diag(MatchedTempDecl->getLocation(), "auto can only be used for declaring function templates with a trailing return");
+    } else {
+        diag(MatchedTempDecl->getLocation(), "auto can only be used for declaring function templates with a trailing return");      
+    }
 
   }    
 }
