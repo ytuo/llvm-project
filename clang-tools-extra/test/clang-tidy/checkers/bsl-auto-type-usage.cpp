@@ -1,45 +1,44 @@
 // RUN: %check_clang_tidy %s bsl-auto-type-usage %t
 
-
-// https://isocpp.org/wiki/faq/cpp14-language
-
-
-// #include <cstdint>
-// #include <vector>
-// #include <initializer_list>
+#include <cstdint>
+#include <vector>
+#include <initializer_list>
 
 
-// class A
-// {
-// };
+class A
+{
+};
 
-// void f1() noexcept
-// {
-// 	auto x1 = 5; // Non-compliant - initializer is of fundamental type
-// 	auto x2 = 0.3F; // Non-compliant - initializer is of fundamental type
-// 	auto x3 = {8}; // Non-compliant - initializer is of fundamental type
+void f1() noexcept
+{
+	auto x1 = 5; // Non-compliant - initializer is of fundamental type
+	auto x2 = 0.3F; // Non-compliant - initializer is of fundamental type
+	auto x3 = {8}; // Non-compliant - initializer is of fundamental type
 
-// 	std::vector<std::int32_t> v;
-// 	auto x4 = v.size(); // Compliant with case (1) - x4 is of size_t type that is returned from v.size() method
-// 	auto a = A{}; // Compliant with case (2)
+	std::vector<std::int32_t> v;
+	auto x4 = v.size(); // Compliant with case (1) - x4 is of size_t type that is returned from v.size() method
+	auto a = A{}; // Compliant with case (2)
 
-// 	auto lambda1 = []() -> std::uint16_t {
-// 		return 5U;
-// 	}; // Compliant with case (2) - lambda1 is of non-fundamental lambda expression type
-// 	auto x5 = lambda1(); // Compliant with case (1) - x5 is of std::uint16_t type
+	// auto lambda1 = []() -> int {
+	// 	return 5;
+	// }; 
+	auto lambda1 = []() -> std::uint16_t {
+		return 5U;
+	}; // Compliant with case (2) - lambda1 is of non-fundamental lambda expression type
+	auto x5 = lambda1(); // Compliant with case (1) - x5 is of std::uint16_t type
 	
-// 	auto x6 = lambda1() - 1; // non-compliant??
-// 	auto x7 = std::initializer_list<int>{3};	// non-compliant
+	auto x6 = lambda1() - 1; // non-compliant??
+	auto x7 = std::initializer_list<int>{3};	// non-compliant
 
-// }
+}
 
-// void f2() noexcept
-// {
-// 	auto lambda1 = [](auto x, auto y) -> decltype(x + y) {
-// 		return (x + y);
-// 	}; // Compliant with cases (2) and (3)
-// 	auto y1 = lambda1(5.0, 10); // Compliant with case (1)
-// }
+void f2() noexcept
+{
+	auto lambda1 = [](auto x, auto y) -> decltype(x + y) {
+		return (x + y);
+	}; // Compliant with cases (2) and (3)
+	auto y1 = lambda1(5.0, 10); // Compliant with case (1)
+}
 
 template <typename T>
 class B

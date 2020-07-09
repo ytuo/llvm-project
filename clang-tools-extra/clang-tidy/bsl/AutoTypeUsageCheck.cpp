@@ -39,13 +39,6 @@ AST_MATCHER(ParmVarDecl, isTemplate) {
 }
 
 void AutoTypeUsageCheck::registerMatchers(MatchFinder *Finder) {
-  // var: is return value and has type of function
-  // 
-  // (1) binaryoperator -> LHS hasType(autoType()) --> vardecl, RHS = callexpr
-  // (2) cxxCtorInitializer(unless()) ??? --> binaryoperator -> hasType RHS = not Type isFundamentalType() 
-  // (3) lambdaExpr parmVarDecl(hasType(autoType()))
-  // (4) functionDecl(hasTrailingReturn()), hasType(autoType())
-  
 
   // Finder->addMatcher(valueDecl(hasType(autoType()), has(initListExpr())).bind("decl"), this);
   Finder->addMatcher(valueDecl(hasType(autoType()), hasDescendant(cxxStdInitializerListExpr())).bind("list"), this);  // ok
@@ -71,11 +64,22 @@ void AutoTypeUsageCheck::registerMatchers(MatchFinder *Finder) {
   // Finder->addMatcher(functionDecl(returns(autoType())).bind("trail"), this);  // ok // returns templateTypeParmType
      // Finder->addMatcher(functionDecl(hasDescendant(declRefExpr(hasType(templateTypeParmType())))).bind("trail"), this);   // ok?
      // Finder->addMatcher(functionDecl(hasDescendant(parmVarDecl(isTemplate()))).bind("trail"), this); // ok
-  Finder->addMatcher(functionDecl(anyOf(returns(autoType()),
-            allOf(hasTrailingReturn(),
-            unless(hasDescendant(parmVarDecl(isTemplate())
-              )))
-            )).bind("trail"), this); // ok
+  // Finder->addMatcher(functionDecl(anyOf(returns(autoType()),
+  //           allOf(hasTrailingReturn(),
+  //           unless(hasDescendant(parmVarDecl(isTemplate())
+  //             )))
+  //           )).bind("trail"), this); // ok
+  Finder->addMatcher(functionDecl(anyOf(returns(autoType()),    // isLambdaStaticInvoker
+        allOf(hasTrailingReturn(), 
+          unless(anyOf(hasDescendant(parmVarDecl(isTemplate())), 
+                hasParent(cxxRecordDecl(isLambda())),  hasParent(functionTemplateDecl())
+                 )))) // hasParent(functionTemplateDecl()) ))))
+
+    // hasTrailingReturn(), unless(hasParent(functionTemplateDecl()))
+            // allOf(hasTrailingReturn(),
+            // unless(hasDescendant(parmVarDecl(isTemplate())  // or TemplateTypeParmDecl
+            //   ))
+            ).bind("trail"), this); // ok
 
       // Finder->addMatcher(functionDecl(returns(autoType()), 
       //           unless(allOf(hasDescendant(parmVarDecl(isTemplate())),
@@ -95,59 +99,19 @@ void AutoTypeUsageCheck::registerMatchers(MatchFinder *Finder) {
 }
 
 void AutoTypeUsageCheck::check(const MatchFinder::MatchResult &Result) {
-  // const auto *ListDecl = Result.Nodes.getNodeAs<ValueDecl>("list");
-  // if (ListDecl)
-  //   diag(ListDecl->getLocation(), "auto cannot be used for list initializers");
+  const auto *ListDecl = Result.Nodes.getNodeAs<ValueDecl>("list");
+  if (ListDecl)
+    diag(ListDecl->getLocation(), "auto cannot be used for list initializers");
 
-  // const auto *MatchedDecl = Result.Nodes.getNodeAs<ValueDecl>("decl");
-  // if (MatchedDecl)
-  //   diag(MatchedDecl->getLocation(), "auto cannot be used to declare variable of fundamental type");
+  const auto *MatchedDecl = Result.Nodes.getNodeAs<ValueDecl>("decl");
+  if (MatchedDecl)
+    diag(MatchedDecl->getLocation(), "auto cannot be used to declare variable of fundamental type");
 
   const auto *MatchedTempDecl = Result.Nodes.getNodeAs<FunctionDecl>("trail");
   if (MatchedTempDecl) {
     diag(MatchedTempDecl->getLocation(), "auto can only be used for declaring function templates with a trailing return");
-    // getDescribedFunctionTemplate, getTemplateSpecializationKind(
-    // if (MatchedTempDecl->isFunctionTemplateSpecialization()) {
-    //   diag(MatchedTempDecl->getLocation(), "temp decl is insufficiently 1 ");
-    // }
-    // if (MatchedTempDecl->getParamDecl(0)) {
-    //   diag(MatchedTempDecl->getLocation(), "temp decl is insufficiently 1 ");
-    // }
 
-    // getDescribedVarTemplate () -> getTemplatedParameters (vartemplatedecl)
-    // if (MatchedTempDecl->getDescribedFunctionTemplate()->getTemplatedKind() == FunctionDecl::TK_NonTemplate)
-    //   diag(MatchedTempDecl->getLocation(), "temp decl is insufficiently 1 ");
-    // if (MatchedTempDecl->getDescribedFunctionTemplate()->getTemplatedKind() == FunctionDecl::TK_MemberSpecialization)
-    //   diag(MatchedTempDecl->getLocation(), "temp decl is insufficiently 2 ");
-    // if (MatchedTempDecl->getDescribedFunctionTemplate()->getTemplatedKind() == FunctionDecl::TK_FunctionTemplateSpecialization)
-    //   diag(MatchedTempDecl->getLocation(), "temp decl is insufficiently 3 ");
-    // if (MatchedTempDecl->getDescribedFunctionTemplate()->getTemplatedKind() == FunctionDecl::TK_FunctionTemplate)
-    //   diag(MatchedTempDecl->getLocation(), "temp decl is insufficiently 4 ");
-    // if (MatchedTempDecl->getDescribedFunctionTemplate()->getTemplatedKind() == FunctionDecl::TK_DependentFunctionTemplateSpecialization)
-    //   diag(MatchedTempDecl->getLocation(), "temp decl is insufficiently 5 ");
-  }
-
-  // const auto *MatchedClassDecl = Result.Nodes.getNodeAs<CXXMethodDecl>("trail");
-  
-  // if (MatchedClassDecl) {
-  //   diag(MatchedClassDecl->getLocation(), "temp decl is insufficiently derp ");
-  //   const auto *MatchedClassDecl2 = MatchedClassDecl->getParent();
-    
-  //   if (MatchedClassDecl2->getDescribedClassTemplate()->isThisDeclarationADefinition()) {   // does this do anything
-  //     diag(MatchedClassDecl->getLocation(), "bleh ");
-  //   }
-  //   if (MatchedClassDecl->getTemplatedKind() == FunctionDecl::TK_NonTemplate)
-  //     diag(MatchedClassDecl->getLocation(), "temp decl is insufficiently 1 ");
-  //   if (MatchedClassDecl->getTemplatedKind() == FunctionDecl::TK_MemberSpecialization)
-  //     diag(MatchedClassDecl->getLocation(), "temp decl is insufficiently 2 ");
-  //   if (MatchedClassDecl->getTemplatedKind() == FunctionDecl::TK_FunctionTemplateSpecialization)
-  //     diag(MatchedClassDecl->getLocation(), "temp decl is insufficiently 3 ");
-  //   if (MatchedClassDecl->getTemplatedKind() == FunctionDecl::TK_FunctionTemplate)
-  //     diag(MatchedClassDecl->getLocation(), "temp decl is insufficiently 4 ");
-  //   if (MatchedClassDecl->getTemplatedKind() == FunctionDecl::TK_DependentFunctionTemplateSpecialization)
-  //     diag(MatchedClassDecl->getLocation(), "temp decl is insufficiently 5 ");
-  // }
-    
+  }    
 }
 
 } // namespace bsl
