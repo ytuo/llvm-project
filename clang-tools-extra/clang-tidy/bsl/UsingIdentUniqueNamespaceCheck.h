@@ -17,7 +17,7 @@ namespace clang {
 namespace tidy {
 namespace bsl {
 
-/// FIXME: Write a short description.
+/// Check that a "using" name is a unique identifier in a namespace
 ///
 /// For the user-facing documentation see:
 /// http://clang.llvm.org/extra/clang-tidy/checks/bsl-using-ident-unique-namespace.html

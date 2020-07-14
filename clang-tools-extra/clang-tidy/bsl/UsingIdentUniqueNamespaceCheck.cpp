@@ -23,6 +23,7 @@ void UsingIdentUniqueNamespaceCheck::registerMatchers(MatchFinder *Finder) {
 }
 
 void UsingIdentUniqueNamespaceCheck::check(const MatchFinder::MatchResult &Result) {
+  // get all namespaces, iterate through all idents of a namespace?
   const auto *D = Result.Nodes.getNodeAs<TypeAliasDecl>("x");
   std::string name = D->getNameAsString();
   // auto ns = D->getDeclContext();
@@ -30,19 +31,28 @@ void UsingIdentUniqueNamespaceCheck::check(const MatchFinder::MatchResult &Resul
 
   // nested namespaces?
   const DeclContext *ns = D->getDeclContext()->getEnclosingNamespaceContext();
+  // collect all contexts?
+  // getNextDeclInContext (Namespace) --> match all namespaces, for each namespace, add all the identifier to it...
 
-  auto itr = namespaceToIDs.find(ns);
-  if (itr != namespaceToIDs.end()) {
-    auto id_itr = (itr->second).find(name);
-    if (id_itr != (itr->second).end()) {
-      diag(D->getLocation(), "%0 %1") << ns << name;
-        // diag(D->getLocation(), "%0 %1") << ns.getEnclosingNamespaceContext() << name;
+
+  // while (ns->getParent() != Result.Context->getTranslationUnitDecl()) {
+  while (!ns->isTranslationUnit()) {
+    auto itr = namespaceToIDs.find(ns);
+    if (itr != namespaceToIDs.end()) {
+      auto id_itr = (itr->second).find(name);
+      if (id_itr != (itr->second).end()) {
+        diag(D->getLocation(), "%0 already used in current namespace %1 at ") << name << ns->getEnclosingNamespaceContext();
+        break;
+      } else {
+        (itr->second).insert(name);
+      }
+      
     } else {
-      (itr->second).insert(name);
+      namespaceToIDs[ns] = {name};
     }
-    
-  } else {
-    namespaceToIDs[ns] = {name};
+
+    // diag(D->getLocation(), "%0 %1") << ns->getEnclosingNamespaceContext() << name;
+    ns = ns->getParent();
   }
 
 }
