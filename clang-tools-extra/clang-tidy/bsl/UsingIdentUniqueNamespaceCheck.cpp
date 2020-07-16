@@ -17,10 +17,11 @@ namespace tidy {
 namespace bsl {
 
 void UsingIdentUniqueNamespaceCheck::registerMatchers(MatchFinder *Finder) {
-  Finder->addMatcher(typeAliasDecl().bind("x"), this);  // typealiastemplatedecl
+  Finder->addMatcher(typeAliasDecl().bind("x"), this);
 }
 
-void UsingIdentUniqueNamespaceCheck::check(const MatchFinder::MatchResult &Result) {
+void UsingIdentUniqueNamespaceCheck::check(
+    const MatchFinder::MatchResult &Result) {
   const auto *D = Result.Nodes.getNodeAs<TypeAliasDecl>("x");
   const auto Loc = D->getBeginLoc();
   if (Loc.isInvalid())
@@ -39,13 +40,13 @@ void UsingIdentUniqueNamespaceCheck::check(const MatchFinder::MatchResult &Resul
       auto id_itr = (itr->second).find(name);
       if (id_itr != (itr->second).end()) {
         unsigned int locnum = Mgr->getPresumedLoc(id_itr->second).getLine();
-        diag(Loc, "%0 already used in current namespace %1 at line %2") << name << ns->getEnclosingNamespaceContext() 
-        << locnum;
+        diag(Loc, "%0 already used in current namespace %1 at line %2")
+            << name << ns->getEnclosingNamespaceContext() << locnum;
         break;
       } else {
         (itr->second)[name] = Loc;
       }
-      
+
     } else {
       namespaceToIDs[ns] = {{name, Loc}};
     }

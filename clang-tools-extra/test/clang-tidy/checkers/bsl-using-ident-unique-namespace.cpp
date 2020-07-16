@@ -19,7 +19,7 @@ namespace n1
 
 	template <class T>
 	void f2() {
-		using ptr = T*;
+		using ptr = T*;		// Non-compliant
 	}
 }
 
@@ -28,6 +28,7 @@ namespace n2
 	using func = void (*)(int, int); // Compliant, reuses func identifier but in another namespace
 	template <class T>
 	using ptr = T*;
+	using myptr = int*;
 }
 
 
@@ -43,33 +44,31 @@ namespace n3
 	}
 }
 
-// ok
 
-namespace n4
+namespace n5
 {
-	// https://en.cppreference.com/w/cpp/language/type_alias
-	template<class T>
-	using ptr = T*;
+	template <typename T>
+	using myType = T;
 
-	// using ptr = int*;
-	
-	using myptr = int*;
+	template <typename T>
+	void f1()
+	{
+		using myType = T;		// Non-compliant
+	}
+
+
+	// // template <typename T> using Y = void <typename T> f();
+	// // template <typename T> 
+	// void foo() {};
+	// template <typename T> using f = foo;
+	// void f1()
+	// {
+	// 	template <typename T> using Y = void <typename T> f();
+	// }
 }
 
-// namespace n5
-// {
-// 	// template <typename T> using Y = void <typename T> f();
-// 	template <typename T> 
-// 	void foo();
-// 	template <typename T> using f = foo;
-// 	void f1()
-// 	{
-// 		template <typename T> using Y = void <typename T> f();
-// 	}
-// }
 
-
-// // already not allowed by clang?
+// // already not allowed by clang
 class Type {};
 
 // template <class T>
