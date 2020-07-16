@@ -11,11 +11,23 @@ namespace n1
 		using func = void (*)(void); // Non-compliant, reuses func identifier declared
 			// in the same namespace
 	}
+
+	template <class T>
+	using ptr = T*;
+	// using ptr = int*;
+	using myptr = int*;
+
+	template <class T>
+	void f2() {
+		using ptr = T*;
+	}
 }
 
 namespace n2
 {
 	using func = void (*)(int, int); // Compliant, reuses func identifier but in another namespace
+	template <class T>
+	using ptr = T*;
 }
 
 
@@ -31,6 +43,18 @@ namespace n3
 	}
 }
 
+// ok
+
+namespace n4
+{
+	// https://en.cppreference.com/w/cpp/language/type_alias
+	template<class T>
+	using ptr = T*;
+
+	// using ptr = int*;
+	
+	using myptr = int*;
+}
 
 // namespace n5
 // {
@@ -46,7 +70,11 @@ namespace n3
 
 
 // // already not allowed by clang?
-// class Type {};
+class Type {};
+
+// template <class T>
+// using Type = T;
+
 // struct Type { }; // Non-compliant, Type name reused
 // enum class Type : int { }; // Non-compliant, Type name reused
 // union Type {};

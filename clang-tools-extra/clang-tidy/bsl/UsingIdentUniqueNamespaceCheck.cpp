@@ -9,8 +9,6 @@
 #include "UsingIdentUniqueNamespaceCheck.h"
 #include "clang/AST/ASTContext.h"
 #include "clang/ASTMatchers/ASTMatchFinder.h"
-// #include <unordered_map>
-// #include <unordered_set>
 
 using namespace clang::ast_matchers;
 
@@ -23,38 +21,36 @@ void UsingIdentUniqueNamespaceCheck::registerMatchers(MatchFinder *Finder) {
 }
 
 void UsingIdentUniqueNamespaceCheck::check(const MatchFinder::MatchResult &Result) {
-  // get all namespaces, iterate through all idents of a namespace?
   const auto *D = Result.Nodes.getNodeAs<TypeAliasDecl>("x");
+  const auto Loc = D->getBeginLoc();
+  if (Loc.isInvalid())
+    return;
+
+  auto Mgr = Result.SourceManager;
+  if (Mgr->getFileID(Loc) != Mgr->getMainFileID())
+    return;
+
   std::string name = D->getNameAsString();
-  // auto ns = D->getDeclContext();
-  // diag(D->getLocation(), "%0 %1") << ns->getEnclosingNamespaceContext() << name;
-
-  // nested namespaces?
   const DeclContext *ns = D->getDeclContext()->getEnclosingNamespaceContext();
-  // collect all contexts?
-  // getNextDeclInContext (Namespace) --> match all namespaces, for each namespace, add all the identifier to it...
 
-
-  // while (ns->getParent() != Result.Context->getTranslationUnitDecl()) {
   while (!ns->isTranslationUnit()) {
     auto itr = namespaceToIDs.find(ns);
     if (itr != namespaceToIDs.end()) {
       auto id_itr = (itr->second).find(name);
       if (id_itr != (itr->second).end()) {
-        diag(D->getLocation(), "%0 already used in current namespace %1 at ") << name << ns->getEnclosingNamespaceContext();
+        unsigned int locnum = Mgr->getPresumedLoc(id_itr->second).getLine();
+        diag(Loc, "%0 already used in current namespace %1 at line %2") << name << ns->getEnclosingNamespaceContext() 
+        << locnum;
         break;
       } else {
-        (itr->second).insert(name);
+        (itr->second)[name] = Loc;
       }
       
     } else {
-      namespaceToIDs[ns] = {name};
+      namespaceToIDs[ns] = {{name, Loc}};
     }
-
-    // diag(D->getLocation(), "%0 %1") << ns->getEnclosingNamespaceContext() << name;
     ns = ns->getParent();
   }
-
 }
 
 } // namespace bsl

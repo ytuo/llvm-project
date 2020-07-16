@@ -29,8 +29,9 @@ public:
   void check(const ast_matchers::MatchFinder::MatchResult &Result) override;
 
 private:
-	std::unordered_map<const DeclContext *, std::unordered_set<std::string>> namespaceToIDs;
+  std::unordered_map<const DeclContext *, std::unordered_map<std::string, SourceLocation>> namespaceToIDs;
 };
+
 
 } // namespace bsl
 } // namespace tidy
