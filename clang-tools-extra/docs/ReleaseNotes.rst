@@ -251,6 +251,12 @@ New checks
 
   Warns if a pure virtual function overrides a non-pure function.
 
+- New :doc:`bsl-special-member-functions
+  <clang-tidy/checks/bsl-special-member-functions>` check.
+
+  Checks for classes where some, but not all, of the special member functions
+  are defined.
+
 - New :doc:`bsl-stmt-forbidden
   <clang-tidy/checks/bsl-stmt-forbidden>` check.
 
