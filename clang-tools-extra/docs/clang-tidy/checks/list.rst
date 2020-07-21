@@ -72,6 +72,7 @@ Clang-Tidy Checks
    `bsl-op-logical-postfix <bsl-op-logical-postfix.html>`_, "Yes"
    `bsl-op-mixed-increment-decrement <bsl-op-mixed-increment-decrement.html>`_,
    `bsl-op-relational-return-bool <bsl-op-relational-return-bool.html>`_,
+   `bsl-preprocessor-usage <bsl-preprocessor-usage.html>`_, "Yes"
    `bsl-pure-override <bsl-pure-override.html>`_,
    `bsl-stmt-forbidden <bsl-stmt-forbidden.html>`_,
    `bsl-stmt-switch-case-parent <bsl-stmt-switch-case-parent.html>`_,

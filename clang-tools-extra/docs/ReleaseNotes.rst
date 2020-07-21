@@ -186,6 +186,11 @@ New checks
 
   FIXME: add release notes.
 
+- New :doc:`bsl-preprocessor-usage
+  <clang-tidy/checks/bsl-preprocessor-usage>` check.
+
+  FIXME: add release notes.
+
 - New :doc:`bsl-pure-override
   <clang-tidy/checks/bsl-pure-override>` check.
 

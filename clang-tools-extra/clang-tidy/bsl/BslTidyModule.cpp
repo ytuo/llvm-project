@@ -37,6 +37,7 @@
 #include "OpLogicalPostfixCheck.h"
 #include "OpMixedIncrementDecrementCheck.h"
 #include "OpRelationalReturnBoolCheck.h"
+#include "PreprocessorUsageCheck.h"
 #include "PureOverrideCheck.h"
 #include "StmtForbiddenCheck.h"
 #include "StmtSwitchCaseParentCheck.h"
@@ -103,6 +104,8 @@ public:
         "bsl-op-mixed-increment-decrement");
     CheckFactories.registerCheck<OpRelationalReturnBoolCheck>(
         "bsl-op-relational-return-bool");
+    CheckFactories.registerCheck<PreprocessorUsageCheck>(
+        "bsl-preprocessor-usage");
     CheckFactories.registerCheck<PureOverrideCheck>(
         "bsl-pure-override");
     CheckFactories.registerCheck<StmtForbiddenCheck>(

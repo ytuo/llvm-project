@@ -31,6 +31,7 @@ add_clang_library(clangTidyBslModule
   OpLogicalPostfixCheck.cpp
   OpMixedIncrementDecrementCheck.cpp
   OpRelationalReturnBoolCheck.cpp
+  PreprocessorUsageCheck.cpp
   PureOverrideCheck.cpp
   StmtForbiddenCheck.cpp
   StmtSwitchCaseParentCheck.cpp
