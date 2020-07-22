@@ -27,7 +27,13 @@ public:
                                           Preprocessor &PP)
       : Check(Check), PP(PP) {}
 
-  // pp.isMacroDefined()
+      // 
+      // pp.HandleDirective, isParsingIforElif, isMacroDefined(), 
+          // is currentLexer? currentfilelexer?
+      // evaluatehasinclude, evaluate defined
+      // preprocessedEntity/Directive?
+      // preprocessor MacroUse (?)
+      // PPDirectives Preprocessor::HandleLineDirective, Preprocessor::HandleUserDiagnosticDirective
 
   void InclusionDirective(SourceLocation HashLoc, const Token &IncludeTok, StringRef FileName, 
       bool IsAngled, CharSourceRange FilenameRange, const FileEntry *File, StringRef SearchPath, 
