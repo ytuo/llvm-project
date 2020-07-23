@@ -17,6 +17,7 @@
 #include "ClassVirtualBaseCheck.h"
 #include "ComparisonOperatorsForbiddenCheck.h"
 #include "CopyMoveAccessSpecifierCheck.h"
+#include "ConstObjStdMoveCheck.h"
 #include "DeclForbiddenCheck.h"
 #include "DestructorAccessSpecifierCheck.h"
 #include "ElseRequiredAfterIfCheck.h"
@@ -79,6 +80,8 @@ public:
         "bsl-comparison-operators-forbidden");
     CheckFactories.registerCheck<CopyMoveAccessSpecifierCheck>(
         "bsl-copy-move-access-specifier");
+    CheckFactories.registerCheck<ConstObjStdMoveCheck>(
+        "bsl-const-obj-std-move");
     CheckFactories.registerCheck<DeclForbiddenCheck>(
         "bsl-decl-forbidden");
     CheckFactories.registerCheck<DestructorAccessSpecifierCheck>(

@@ -11,6 +11,7 @@ add_clang_library(clangTidyBslModule
   ClassVirtualBaseCheck.cpp
   ComparisonOperatorsForbiddenCheck.cpp
   CopyMoveAccessSpecifierCheck.cpp
+  ConstObjStdMoveCheck.cpp
   DeclForbiddenCheck.cpp
   DestructorAccessSpecifierCheck.cpp
   ElseRequiredAfterIfCheck.cpp

@@ -53,6 +53,7 @@ Clang-Tidy Checks
    `bsl-class-virtual-base <bsl-class-virtual-base.html>`_,
    `bsl-comparison-operators-forbidden <bsl-comparison-operators-forbidden.html>`_,
    `bsl-copy-move-access-specifier <bsl-copy-move-access-specifier.html>`_,
+   `bsl-const-obj-std-move <bsl-const-obj-std-move.html>`_, "Yes"
    `bsl-decl-forbidden <bsl-decl-forbidden.html>`_,
    `bsl-destructor-access-specifier <bsl-destructor-access-specifier.html>`_,
    `bsl-else-required-after-if <bsl-else-required-after-if.html>`_,
