@@ -21,6 +21,15 @@ namespace n1
 	void f2() {
 		using ptr = T*;		// Non-compliant
 	}
+
+	class Foo() {
+	private:
+		void func(){};
+	}
+
+	struct Bar() {
+		void func(){};
+	}
 }
 
 namespace n2
