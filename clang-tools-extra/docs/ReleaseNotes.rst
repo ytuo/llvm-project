@@ -160,6 +160,12 @@ New checks
   warn if else is used when it shouldn't be, which would prevent the above
   checks from working correctly.
 
+- New :doc:`bsl-forward-reference-overloaded
+  <clang-tidy/checks/bsl-forward-reference-overloaded>` check.
+
+  Checks that a function that containing a “forwarding reference” as its argument 
+  is not overloaded unless the overload has a different number of parameters
+
 - New :doc:`bsl-function-name-use
   <clang-tidy/checks/bsl-function-name-use>` check.
 
