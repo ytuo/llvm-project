@@ -51,7 +51,6 @@ Clang-Tidy Checks
    `bsl-class-member-redefined <bsl-class-member-redefined.html>`_,
    `bsl-class-virtual-base <bsl-class-virtual-base.html>`_,
    `bsl-decl-forbidden <bsl-decl-forbidden.html>`_,
-   `bsl-destructor-access-specifier <bsl-destructor-access-specifier.html>`_, "Yes"
    `bsl-enum-explicit <bsl-enum-explicit.html>`_,
    `bsl-enum-init <bsl-enum-init.html>`_,
    `bsl-enum-scoped <bsl-enum-scoped.html>`_,
