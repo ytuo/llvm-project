@@ -1,4 +1,4 @@
-//===--- ForLoopCheck.cpp - clang-tidy ------------------------------------===//
+//===--- ForLoopCounterCheck.cpp - clang-tidy ------------------------------------===//
 //
 // Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
 // See https://llvm.org/LICENSE.txt for license information.
@@ -6,7 +6,7 @@
 //
 //===----------------------------------------------------------------------===//
 
-#include "ForLoopCheck.h"
+#include "ForLoopCounterCheck.h"
 #include "clang/AST/ASTContext.h"
 #include "clang/ASTMatchers/ASTMatchFinder.h"
 
@@ -16,7 +16,7 @@ namespace clang {
 namespace tidy {
 namespace bsl {
 
-void ForLoopCheck::registerMatchers(MatchFinder *Finder) {
+void ForLoopCounterCheck::registerMatchers(MatchFinder *Finder) {
   Finder->addMatcher(expr(floatLiteral(), unless(hasParent(varDecl(hasInitializer(hasType(realFloatingPointType())))))).bind("floatlit"), this);
 
   Finder->addMatcher(varDecl(hasType(realFloatingPointType())).bind("floatvar"), this);
@@ -24,7 +24,7 @@ void ForLoopCheck::registerMatchers(MatchFinder *Finder) {
   Finder->addMatcher(forStmt(hasIncrement(binaryOperator(hasOperatorName(",")))).bind("singlecounter"), this);
 }
 
-void ForLoopCheck::check(const MatchFinder::MatchResult &Result) {
+void ForLoopCounterCheck::check(const MatchFinder::MatchResult &Result) {
   const auto *ForIncSingle = Result.Nodes.getNodeAs<ForStmt>("singlecounter");
   auto Mgr = Result.SourceManager;
 

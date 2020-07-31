@@ -12,7 +12,7 @@ add_clang_library(clangTidyBslModule
   EnumExplicitCheck.cpp
   EnumInitCheck.cpp
   EnumScopedCheck.cpp
-  ForLoopCheck.cpp
+  ForLoopCounterCheck.cpp
   FriendDeclCheck.cpp
   FunctionNameUseCheck.cpp
   LambdaImplicitCaptureCheck.cpp

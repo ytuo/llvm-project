@@ -227,8 +227,8 @@ New checks
   non-auto-declared variables. Warns whenever any list initialization
   is used for auto-declared variables.
 
-- New :doc:`bsl-for-loop
-  <clang-tidy/checks/bsl-for-loop>` check.
+- New :doc:`bsl-for-loop-counter
+  <clang-tidy/checks/bsl-for-loop-counter>` check.
 
   Warns if for loop does not contain single loop-counter and uses floating point type.
 

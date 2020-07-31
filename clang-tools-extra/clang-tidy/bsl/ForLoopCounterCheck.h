@@ -1,4 +1,4 @@
-//===--- ForLoopCheck.h - clang-tidy ----------------------------*- C++ -*-===//
+//===--- ForLoopCounterCheck.h - clang-tidy ---------------------*- C++ -*-===//
 //
 // Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
 // See https://llvm.org/LICENSE.txt for license information.
@@ -6,8 +6,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef LLVM_CLANG_TOOLS_EXTRA_CLANG_TIDY_BSL_FORLOOPCHECK_H
-#define LLVM_CLANG_TOOLS_EXTRA_CLANG_TIDY_BSL_FORLOOPCHECK_H
+#ifndef LLVM_CLANG_TOOLS_EXTRA_CLANG_TIDY_BSL_FORLOOPCOUNTERCHECK_H
+#define LLVM_CLANG_TOOLS_EXTRA_CLANG_TIDY_BSL_FORLOOPCOUNTERCHECK_H
 
 #include "../ClangTidyCheck.h"
 
@@ -19,10 +19,10 @@ namespace bsl {
 /// Checks that floating point types are not used
 ///
 /// For the user-facing documentation see:
-/// http://clang.llvm.org/extra/clang-tidy/checks/bsl-for-loop.html
-class ForLoopCheck : public ClangTidyCheck {
+/// http://clang.llvm.org/extra/clang-tidy/checks/bsl-for-loop-counter.html
+class ForLoopCounterCheck : public ClangTidyCheck {
 public:
-  ForLoopCheck(StringRef Name, ClangTidyContext *Context)
+  ForLoopCounterCheck(StringRef Name, ClangTidyContext *Context)
       : ClangTidyCheck(Name, Context) {}
   void registerMatchers(ast_matchers::MatchFinder *Finder) override;
   void check(const ast_matchers::MatchFinder::MatchResult &Result) override;
@@ -35,4 +35,4 @@ public:
 } // namespace tidy
 } // namespace clang
 
-#endif // LLVM_CLANG_TOOLS_EXTRA_CLANG_TIDY_BSL_FORLOOPCHECK_H
+#endif // LLVM_CLANG_TOOLS_EXTRA_CLANG_TIDY_BSL_FORLOOPCOUNTERCHECK_H
