@@ -9,6 +9,7 @@ add_clang_library(clangTidyBslModule
   ClassMemberRedefinedCheck.cpp
   ClassVirtualBaseCheck.cpp
   DeclForbiddenCheck.cpp
+  DestructorAccessSpecifierCheck.cpp
   EnumExplicitCheck.cpp
   EnumInitCheck.cpp
   EnumScopedCheck.cpp
