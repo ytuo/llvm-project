@@ -80,6 +80,11 @@ New checks
 
   Warns if you use && or ||
 
+- New :doc:`bsl-assign-op-decl-ref-qualifier
+  <clang-tidy/checks/bsl-assign-op-decl-ref-qualifier>` check.
+
+  Checks that assignment operators are declared with the ref-qualifier &.
+
 - New :doc:`bsl-class-base
   <clang-tidy/checks/bsl-class-base>` check.
 

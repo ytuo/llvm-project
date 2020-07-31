@@ -2,6 +2,7 @@ set(LLVM_LINK_COMPONENTS support)
 
 add_clang_library(clangTidyBslModule
   BooleanOperatorsForbiddenCheck.cpp
+  AssignOpDeclRefQualifierCheck.cpp
   BslCheckUtils.cpp
   BslTidyModule.cpp
   ClassBaseCheck.cpp

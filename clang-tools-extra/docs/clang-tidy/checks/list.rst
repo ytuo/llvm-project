@@ -46,6 +46,7 @@ Clang-Tidy Checks
    `android-comparison-in-temp-failure-retry <android-comparison-in-temp-failure-retry.html>`_,
    `boost-use-to-string <boost-use-to-string.html>`_, "Yes"
    `bsl-boolean-operators-forbidden <bsl-boolean-operators-forbidden.html>`_,
+   `bsl-assign-op-decl-ref-qualifier <bsl-assign-op-decl-ref-qualifier.html>`_, "Yes"
    `bsl-class-base <bsl-class-base.html>`_,
    `bsl-class-final-function <bsl-class-final-function.html>`_,
    `bsl-class-member-init <bsl-class-member-init.html>`_,
