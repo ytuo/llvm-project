@@ -58,7 +58,6 @@ Clang-Tidy Checks
    `bsl-for-loop <bsl-for-loop.html>`_,
    `bsl-friend-decl <bsl-friend-decl.html>`_,
    `bsl-function-name-use <bsl-function-name-use.html>`_, "Yes"
-   `bsl-identifier-typographically-unambiguous <bsl-identifier-typographically-unambiguous.html>`_, "Yes"
    `bsl-lambda-implicit-capture <bsl-lambda-implicit-capture.html>`_,
    `bsl-lambda-param-list <bsl-lambda-param-list.html>`_,
    `bsl-literals-ascii-only <bsl-literals-ascii-only.html>`_,

@@ -22,7 +22,6 @@
 #include "ForLoopCheck.h"
 #include "FriendDeclCheck.h"
 #include "FunctionNameUseCheck.h"
-#include "IdentifierTypographicallyUnambiguousCheck.h"
 #include "LambdaImplicitCaptureCheck.h"
 #include "LambdaParamListCheck.h"
 #include "LiteralsAsciiOnlyCheck.h"
@@ -85,8 +84,6 @@ public:
         "bsl-friend-decl");
     CheckFactories.registerCheck<FunctionNameUseCheck>(
         "bsl-function-name-use");
-    CheckFactories.registerCheck<IdentifierTypographicallyUnambiguousCheck>(
-        "bsl-identifier-typographically-unambiguous");
     CheckFactories.registerCheck<LambdaImplicitCaptureCheck>(
         "bsl-lambda-implicit-capture");
     CheckFactories.registerCheck<LambdaParamListCheck>(
