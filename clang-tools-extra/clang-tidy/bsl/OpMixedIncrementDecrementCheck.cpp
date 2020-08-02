@@ -20,7 +20,8 @@ void OpMixedIncrementDecrementCheck::registerMatchers(MatchFinder *Finder) {
   Finder->addMatcher(unaryOperator(hasAnyOperatorName("++", "--"),
                                    unless(anyOf(hasParent(varDecl()),
                                                 hasParent(forStmt()),
-                                                hasParent(compoundStmt())))
+                                                hasParent(compoundStmt()),
+                                                hasParent(cxxForRangeStmt())))
                                   ).bind("op"),
                      this);
 }

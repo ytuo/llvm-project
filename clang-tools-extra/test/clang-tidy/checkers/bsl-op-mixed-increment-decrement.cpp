@@ -25,4 +25,8 @@ void f()
     for (int q = 0; q < 10; q++) {
 
     }
+
+    for (auto &e : buf) {
+        e = 42;
+    }
 }
