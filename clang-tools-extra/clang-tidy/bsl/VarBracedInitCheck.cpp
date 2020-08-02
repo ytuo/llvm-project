@@ -25,6 +25,10 @@ void VarBracedInitCheck::registerMatchers(MatchFinder *Finder) {
   Finder->addMatcher(
     varDecl(hasInitializer(expr()),
             unless(hasType(autoType())),
+            unless(hasType(references(autoType()))),
+            unless(hasType(pointsTo(autoType()))),
+            unless(isImplicit()),
+            unless(parmVarDecl()),
             unless(hasListInitStyle())).bind("nonauto-var"),
     this);
 

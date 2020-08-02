@@ -36,5 +36,35 @@ int g(int i)
     auto c = {y};
     // CHECK-MESSAGES: :[[@LINE-1]]:10: warning: variable declared 'auto' is initialized via list initialization [bsl-var-braced-init]
 
+    char buf[8];
+
+    for (auto c : buf) {
+       c = 42;
+    }
+
+    for (auto &c : buf) {
+       c = 42;
+    }
+
+    for (auto i = 0; i < 8; i++) {
+        buf[i] += buf[i];
+    }
+
+    for (auto i{0}; i < 8; i++) {
+    // CHECK-MESSAGES: :[[@LINE-1]]:15: warning: variable declared 'auto' is initialized via list initialization [bsl-var-braced-init]
+        buf[i] += buf[i];
+    }
+
+    for (int i = 0; i < 8; i++) {
+    // CHECK-MESSAGES: :[[@LINE-1]]:14: warning: variable is not initialized via direct list initialization [bsl-var-braced-init]
+
+        buf[i] += buf[i];
+    }
+
     return i * x * y;
+}
+
+int baz(int i = 0)
+{
+    return i * 2;
 }
