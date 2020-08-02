@@ -18,7 +18,11 @@ namespace tidy {
 namespace bsl {
 
 void LiteralsUnsignedSuffixCheck::registerMatchers(MatchFinder *Finder) {
-  Finder->addMatcher(integerLiteral().bind("lit"), this);
+  Finder->addMatcher(
+    stmt(integerLiteral().bind("lit"),
+         unless(anyOf(hasAncestor(isImplicit()),
+                      hasAncestor(substNonTypeTemplateParmExpr())))),
+    this);
 }
 
 void LiteralsUnsignedSuffixCheck::check(const MatchFinder::MatchResult &Result) {
