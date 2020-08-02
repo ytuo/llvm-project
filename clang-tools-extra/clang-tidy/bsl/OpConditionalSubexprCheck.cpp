@@ -27,10 +27,6 @@ void OpConditionalSubexprCheck::check(const MatchFinder::MatchResult &Result) {
   if (Loc.isInvalid())
     return;
 
-  const auto Mgr = Result.SourceManager;
-  if (Mgr->getFileID(Loc) != Mgr->getMainFileID())
-    return;
-
   diag(Loc, "conditional operator used as subexpression");
 }
 

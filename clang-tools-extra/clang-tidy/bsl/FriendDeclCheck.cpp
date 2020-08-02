@@ -27,10 +27,6 @@ void FriendDeclCheck::check(const MatchFinder::MatchResult &Result) {
   if (Loc.isInvalid())
     return;
 
-  const auto Mgr = Result.SourceManager;
-  if (Mgr->getFileID(Loc) != Mgr->getMainFileID())
-    return;
-
   diag(Loc, "friend declarations are forbidden");
 }
 

@@ -31,10 +31,6 @@ void DeclForbiddenCheck::check(const MatchFinder::MatchResult &Result) {
   if (Loc.isInvalid())
     return;
 
-  const auto Mgr = Result.SourceManager;
-  if (Mgr->getFileID(Loc) != Mgr->getMainFileID())
-    return;
-
   const auto Tag = dyn_cast<TagDecl>(D);
   if (Tag && Tag->isUnion()) {
     diag(Loc, "unions are forbidden");

@@ -33,10 +33,6 @@ void OpMixedIncrementDecrementCheck::check(const MatchFinder::MatchResult &Resul
   if (Loc.isInvalid())
     return;
 
-  const auto Mgr = Result.SourceManager;
-  if (Mgr->getFileID(Loc) != Mgr->getMainFileID())
-    return;
-
   if (Op->isIncrementOp())
     diag(Loc, "use of '++' is mixed with other operations");
   else

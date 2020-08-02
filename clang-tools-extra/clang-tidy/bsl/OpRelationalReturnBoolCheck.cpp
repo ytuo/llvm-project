@@ -17,7 +17,6 @@ namespace tidy {
 namespace bsl {
 
 void OpRelationalReturnBoolCheck::registerMatchers(MatchFinder *Finder) {
-  // FIXME: Add matchers.
   Finder->addMatcher(
     functionDecl(
       hasAnyOverloadedOperatorName("==", "!=", "<", ">", "<=", ">="),
@@ -31,10 +30,6 @@ void OpRelationalReturnBoolCheck::check(const MatchFinder::MatchResult &Result) 
 
   const auto Loc = Func->getLocation();
   if (Loc.isInvalid())
-    return;
-
-  auto Mgr = Result.SourceManager;
-  if (Mgr->getFileID(Loc) != Mgr->getMainFileID())
     return;
 
   diag(Loc, "comparison operator does not return bool");

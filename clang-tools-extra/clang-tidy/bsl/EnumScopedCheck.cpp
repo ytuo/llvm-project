@@ -27,10 +27,6 @@ void EnumScopedCheck::check(const MatchFinder::MatchResult &Result) {
   if (Loc.isInvalid() || Loc.isMacroID())
     return;
 
-  auto Mgr = Result.SourceManager;
-  if (Mgr->getFileID(Loc) != Mgr->getMainFileID())
-    return;
-
   if (Enum->isScopedUsingClassTag())
     return;
 

@@ -27,10 +27,6 @@ void EnumInitCheck::check(const MatchFinder::MatchResult &Result) {
   if (Loc.isInvalid() || Loc.isMacroID())
     return;
 
-  auto Mgr = Result.SourceManager;
-  if (Mgr->getFileID(Loc) != Mgr->getMainFileID())
-    return;
-
   std::vector<std::pair<SourceLocation, Expr *>> InitExprs;
 
   // Save each EnumConstantDecl's init expression along with

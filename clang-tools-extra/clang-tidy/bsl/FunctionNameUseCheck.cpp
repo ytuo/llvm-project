@@ -43,10 +43,6 @@ void FunctionNameUseCheck::check(const MatchFinder::MatchResult &Result) {
     if (Loc.isInvalid())
       return;
 
-    const auto Mgr = Result.SourceManager;
-    if (Mgr->getFileID(Loc) != Mgr->getMainFileID())
-      return;
-
     auto D = Arg->getFoundDecl();
 
     auto Diag =
@@ -62,10 +58,6 @@ void FunctionNameUseCheck::check(const MatchFinder::MatchResult &Result) {
   if (Ref) {
     const auto Loc = Ref->getBeginLoc();
     if (Loc.isInvalid())
-      return;
-
-    const auto Mgr = Result.SourceManager;
-    if (Mgr->getFileID(Loc) != Mgr->getMainFileID())
       return;
 
     auto D = Ref->getFoundDecl();

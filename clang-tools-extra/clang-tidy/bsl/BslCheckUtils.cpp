@@ -23,9 +23,6 @@ StringRef getRawTokenStr(SourceLocation Loc,
     return StringRef();
 
   auto Mgr = Result.SourceManager;
-  if (Mgr->getFileID(Loc) != Mgr->getMainFileID())
-    return StringRef();
-
   auto Ctx = Result.Context;
 
   Token Tok;

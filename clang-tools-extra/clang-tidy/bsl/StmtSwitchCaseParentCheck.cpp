@@ -30,10 +30,6 @@ void StmtSwitchCaseParentCheck::check(const MatchFinder::MatchResult &Result) {
   if (Loc.isInvalid())
     return;
 
-  const auto Mgr = Result.SourceManager;
-  if (Mgr->getFileID(Loc) != Mgr->getMainFileID())
-    return;
-
   diag(Loc, "switch case's parent is neither case label nor switch body");
 }
 

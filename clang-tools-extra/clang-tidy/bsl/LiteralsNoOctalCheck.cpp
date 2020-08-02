@@ -80,12 +80,7 @@ void LiteralsNoOctalCheck::checkInteger(const MatchFinder::MatchResult &Res) {
     return;
 
   auto Loc = Lit->getBeginLoc();
-  auto Mgr = Res.SourceManager;
-
   if (Loc.isInvalid() || Loc.isMacroID())
-    return;
-
-  if (Mgr->getFileID(Loc) != Mgr->getMainFileID())
     return;
 
   if (!isOctalInteger(Loc, Res))
@@ -101,12 +96,7 @@ void LiteralsNoOctalCheck::checkString(const MatchFinder::MatchResult &Res) {
 
   for (auto i = 0U; i < Lit->getNumConcatenated(); i++) {
     auto Loc = Lit->getStrTokenLoc(i);
-    auto Mgr = Res.SourceManager;
-
     if (Loc.isInvalid() || Loc.isMacroID())
-      continue;
-
-    if (Mgr->getFileID(Loc) != Mgr->getMainFileID())
       continue;
 
     if (!containsOctalEscape(Loc, Res))
@@ -122,12 +112,7 @@ void LiteralsNoOctalCheck::checkCharacter(const MatchFinder::MatchResult &Res) {
     return;
 
   auto Loc = Lit->getBeginLoc();
-  auto Mgr = Res.SourceManager;
-
   if (Loc.isInvalid() || Loc.isMacroID())
-    return;
-
-  if (Mgr->getFileID(Loc) != Mgr->getMainFileID())
     return;
 
   if (!containsOctalEscape(Loc, Res))

@@ -22,7 +22,6 @@ void LambdaImplicitCaptureCheck::registerMatchers(MatchFinder *Finder) {
 
 void LambdaImplicitCaptureCheck::check(const MatchFinder::MatchResult &Result) {
   auto Lambda = Result.Nodes.getNodeAs<LambdaExpr>("lambda");
-  auto Mgr = Result.SourceManager;
 
   auto CaptureLoc = Lambda->getIntroducerRange();
   if (CaptureLoc.isInvalid())
@@ -30,9 +29,6 @@ void LambdaImplicitCaptureCheck::check(const MatchFinder::MatchResult &Result) {
 
   auto Begin = CaptureLoc.getBegin();
   if (Begin.isInvalid() || Begin.isMacroID())
-    return;
-
-  if (Mgr->getFileID(Begin) != Mgr->getMainFileID())
     return;
 
   auto CapList = Lambda->implicit_captures();

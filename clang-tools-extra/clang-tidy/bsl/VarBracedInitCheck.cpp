@@ -46,10 +46,6 @@ void VarBracedInitCheck::check(const MatchFinder::MatchResult &Result) {
     if (Loc.isInvalid())
       return;
 
-    const auto Mgr = Result.SourceManager;
-    if (Mgr->getFileID(Loc) != Mgr->getMainFileID())
-      return;
-
     diag(Loc, "variable is not initialized via direct list initialization");
     return;
   }
@@ -58,10 +54,6 @@ void VarBracedInitCheck::check(const MatchFinder::MatchResult &Result) {
   if (Auto) {
     const auto Loc = Auto->getLocation();
     if (Loc.isInvalid())
-      return;
-
-    const auto Mgr = Result.SourceManager;
-    if (Mgr->getFileID(Loc) != Mgr->getMainFileID())
       return;
 
     const auto Cleanups = dyn_cast<ExprWithCleanups>(Auto->getInit());

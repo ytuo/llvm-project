@@ -34,9 +34,6 @@ void LiteralsUnsignedSuffixCheck::check(const MatchFinder::MatchResult &Result) 
   if (Loc.isInvalid() || Loc.isMacroID())
     return;
 
-  if (Mgr->getFileID(Loc) != Mgr->getMainFileID())
-    return;
-
   auto Type = Lit->getType().getTypePtrOrNull();
   if (Type && !Type->isUnsignedIntegerType())
     return;

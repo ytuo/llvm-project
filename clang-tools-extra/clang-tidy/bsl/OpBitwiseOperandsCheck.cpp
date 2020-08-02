@@ -30,10 +30,6 @@ void OpBitwiseOperandsCheck::check(const MatchFinder::MatchResult &Result) {
   if (Loc.isInvalid() || Loc.isMacroID())
     return;
 
-  auto Mgr = Result.SourceManager;
-  if (Mgr->getFileID(Loc) != Mgr->getMainFileID())
-    return;
-
   auto LHS = Op->getLHS()->IgnoreImpCasts();
   auto RHS = Op->getRHS()->IgnoreImpCasts();
 
