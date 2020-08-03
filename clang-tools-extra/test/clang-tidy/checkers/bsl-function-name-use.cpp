@@ -44,3 +44,37 @@ int g()
 
     return 0;
 }
+
+template<typename T>
+class safe_integral final
+{
+    T m_val;
+    bool m_error;
+
+public:
+    using value_type = T;
+
+    constexpr safe_integral() noexcept = default;
+
+    constexpr bool
+    failure() const noexcept
+    {
+        return m_error;
+    }
+
+    constexpr safe_integral<value_type>
+    max(safe_integral<value_type> const &other) const noexcept
+    {
+        if (this->failure() || other.failure()) {
+            return zero(true);
+        }
+
+        return safe_integral<value_type>{(m_val < other.m_val) ? other.m_val : m_val};
+    }
+
+    static constexpr safe_integral<value_type>
+    zero(bool const err = false) noexcept
+    {
+        return safe_integral<value_type>{static_cast<value_type>(0), err};
+    }
+};

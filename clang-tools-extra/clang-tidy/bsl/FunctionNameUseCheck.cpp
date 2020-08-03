@@ -22,8 +22,9 @@ void FunctionNameUseCheck::registerMatchers(MatchFinder *Finder) {
   Finder->addMatcher(
     expr(
       declRefExpr(to(functionDecl())),
-      unless(hasParent(unaryOperator(hasOperatorName("&")))),
-      unless(hasParent(implicitCastExpr(hasParent(callExpr()))))
+      unless(anyOf(hasParent(unaryOperator(hasOperatorName("&"))),
+                   hasParent(callExpr()),
+                   hasParent(implicitCastExpr(hasParent(callExpr())))))
     ).bind("ref"),
     this);
 
