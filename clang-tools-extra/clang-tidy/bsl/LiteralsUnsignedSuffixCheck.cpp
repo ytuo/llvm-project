@@ -48,7 +48,7 @@ void LiteralsUnsignedSuffixCheck::check(const MatchFinder::MatchResult &Result) 
 
   StringRef Str(Buf, Tok.getLength());
 
-  if (Str.endswith("U"))
+  if (Str.contains_lower('u'))
     return;
 
   if (!Str.startswith("0")) {
