@@ -19,3 +19,15 @@ struct S {
     int f1:30;
     // CHECK-MESSAGES: :[[@LINE-1]]:5: warning: bitfields are forbidden [bsl-decl-forbidden]
 };
+
+class C;
+
+class A {
+public:
+    A& operator+=(A const& rhs);
+    friend A const operator-(A const& lhs, A const& rhs);
+    // CHECK-MESSAGES: :[[@LINE-1]]:5: warning: friends are forbidden [bsl-decl-forbidden]
+
+    friend class C;
+    // CHECK-MESSAGES: :[[@LINE-1]]:5: warning: friends are forbidden [bsl-decl-forbidden]
+};

@@ -17,11 +17,10 @@ namespace tidy {
 namespace bsl {
 
 void DeclForbiddenCheck::registerMatchers(MatchFinder *Finder) {
-  Finder->addMatcher(decl(anyOf(
-      tagDecl(isUnion()),
-      fieldDecl(isBitField())
-    )).bind("decl"),
-    this);
+  Finder->addMatcher(decl(anyOf(tagDecl(isUnion()),
+                                fieldDecl(isBitField()),
+                                friendDecl())).bind("decl"),
+                     this);
 }
 
 void DeclForbiddenCheck::check(const MatchFinder::MatchResult &Result) {
@@ -40,6 +39,13 @@ void DeclForbiddenCheck::check(const MatchFinder::MatchResult &Result) {
   const auto BitField = dyn_cast<FieldDecl>(D);
   if (BitField) {
     diag(Loc, "bitfields are forbidden");
+    return;
+  }
+
+  const auto Friend = dyn_cast<FriendDecl>(D);
+  if (Friend) {
+    const auto FriendLoc = Friend->getFriendLoc();
+    diag(FriendLoc, "friends are forbidden");
     return;
   }
 }
