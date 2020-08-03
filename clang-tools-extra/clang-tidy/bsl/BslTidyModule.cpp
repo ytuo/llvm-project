@@ -20,7 +20,6 @@
 #include "EnumInitCheck.h"
 #include "EnumScopedCheck.h"
 #include "ForLoopCounterCheck.h"
-#include "FriendDeclCheck.h"
 #include "FunctionNameUseCheck.h"
 #include "IdentifierTypographicallyUnambiguousCheck.h"
 #include "LambdaImplicitCaptureCheck.h"
@@ -80,8 +79,6 @@ public:
         "bsl-enum-scoped");
     CheckFactories.registerCheck<ForLoopCounterCheck>(
         "bsl-for-loop-counter");
-    CheckFactories.registerCheck<FriendDeclCheck>(
-        "bsl-friend-decl");
     CheckFactories.registerCheck<FunctionNameUseCheck>(
         "bsl-function-name-use");
     CheckFactories.registerCheck<IdentifierTypographicallyUnambiguousCheck>(

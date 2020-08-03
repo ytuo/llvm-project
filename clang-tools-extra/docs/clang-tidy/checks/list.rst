@@ -56,7 +56,6 @@ Clang-Tidy Checks
    `bsl-enum-init <bsl-enum-init.html>`_,
    `bsl-enum-scoped <bsl-enum-scoped.html>`_,
    `bsl-for-loop-counter <bsl-for-loop-counter.html>`_,
-   `bsl-friend-decl <bsl-friend-decl.html>`_,
    `bsl-function-name-use <bsl-function-name-use.html>`_, "Yes"
    `bsl-identifier-typographically-unambiguous <bsl-identifier-typographically-unambiguous.html>`_, "Yes"
    `bsl-lambda-implicit-capture <bsl-lambda-implicit-capture.html>`_,

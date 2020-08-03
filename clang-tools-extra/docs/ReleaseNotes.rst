@@ -114,13 +114,8 @@ New checks
 - New :doc:`bsl-destructor-access-specifier
   <clang-tidy/checks/bsl-destructor-access-specifier>` check.
 
-  Warns if destructor of base class is not public virtual, public override, 
+  Warns if destructor of base class is not public virtual, public override,
   or protected non-virtual, unless public destructor is non-virtual in final class.
-
-- New :doc:`bsl-friend-decl
-  <clang-tidy/checks/bsl-friend-decl>` check.
-
-  Warns on friend declarations.
 
 - New :doc:`bsl-function-name-use
   <clang-tidy/checks/bsl-function-name-use>` check.
@@ -162,7 +157,7 @@ New checks
 - New :doc:`bsl-non-pod-classdef
   <clang-tidy/checks/bsl-non-pod-classdef>` check.
 
-  Warns when member data in non-POD class type is not private and on non-POD types 
+  Warns when member data in non-POD class type is not private and on non-POD types
   not defined as class
 
 - New :doc:`bsl-op-bitwise-operands
