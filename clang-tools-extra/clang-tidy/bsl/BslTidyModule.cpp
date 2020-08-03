@@ -29,7 +29,6 @@
 #include "LiteralsDigitSeparatorCheck.h"
 #include "LiteralsNoOctalCheck.h"
 #include "LiteralsUnsignedSuffixCheck.h"
-#include "LiteralsUppercaseSuffixCheck.h"
 #include "LiteralsUserDefinedCheck.h"
 #include "NamespaceGlobalCheck.h"
 #include "NonPodClassdefCheck.h"
@@ -133,8 +132,6 @@ public:
         "bsl-literals-no-octal");
     CheckFactories.registerCheck<LiteralsUnsignedSuffixCheck>(
         "bsl-literals-unsigned-suffix");
-    CheckFactories.registerCheck<LiteralsUppercaseSuffixCheck>(
-        "bsl-literals-uppercase-suffix");
     CheckFactories.registerCheck<TypesNoWideCharCheck>(
         "bsl-types-no-wide-char");
     CheckFactories.registerCheck<UnusedReturnValueCheck>(

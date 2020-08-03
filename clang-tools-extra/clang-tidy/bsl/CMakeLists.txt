@@ -23,7 +23,6 @@ add_clang_library(clangTidyBslModule
   LiteralsDigitSeparatorCheck.cpp
   LiteralsNoOctalCheck.cpp
   LiteralsUnsignedSuffixCheck.cpp
-  LiteralsUppercaseSuffixCheck.cpp
   LiteralsUserDefinedCheck.cpp
   NamespaceGlobalCheck.cpp
   NonPodClassdefCheck.cpp

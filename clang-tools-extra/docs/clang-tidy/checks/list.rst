@@ -64,7 +64,6 @@ Clang-Tidy Checks
    `bsl-literals-ascii-only <bsl-literals-ascii-only.html>`_,
    `bsl-literals-digit-separator <bsl-literals-digit-separator.html>`_,
    `bsl-literals-no-octal <bsl-literals-no-octal.html>`_,
-   `bsl-literals-uppercase-suffix <bsl-literals-uppercase-suffix.html>`_,
    `bsl-literals-user-defined <bsl-literals-user-defined.html>`_,
    `bsl-namespace-global <bsl-namespace-global.html>`_,
    `bsl-non-pod-classdef <bsl-non-pod-classdef.html>`_, "Yes"
