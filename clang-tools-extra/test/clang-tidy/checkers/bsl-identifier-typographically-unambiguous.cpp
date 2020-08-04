@@ -38,10 +38,10 @@ int id9_25; // Non-compliant
 
 void frn0();
 void frno();
-// CHECK-MESSAGES: :[[@LINE-1]]:6: warning: Identifier typographically ambiguous with identifier 'frn0' on line 40 [bsl-identifier-typographically-unambiguous]
+// CHECK-MESSAGES: :[[@LINE-1]]:6: warning: Identifier typographically ambiguous with identifier 'frn0' on line 39 [bsl-identifier-typographically-unambiguous]
 
 void frn();
 void fm();
-// CHECK-MESSAGES: :[[@LINE-1]]:6: warning: Identifier typographically ambiguous with identifier 'frn' on line 44 [bsl-identifier-typographically-unambiguous] 
+// CHECK-MESSAGES: :[[@LINE-1]]:6: warning: Identifier typographically ambiguous with identifier 'frn' on line 43 [bsl-identifier-typographically-unambiguous] 
 void f___m();
-// CHECK-MESSAGES: :[[@LINE-1]]:6: warning: Identifier typographically ambiguous with identifier 'frn' on line 44 [bsl-identifier-typographically-unambiguous]
+// CHECK-MESSAGES: :[[@LINE-1]]:6: warning: Identifier typographically ambiguous with identifier 'frn' on line 43 [bsl-identifier-typographically-unambiguous]
