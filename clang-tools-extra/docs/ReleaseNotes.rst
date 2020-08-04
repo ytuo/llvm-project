@@ -148,6 +148,12 @@ New checks
   Warns if anything other than main(), operator new/delete, namespaces, or
   extern "C" declarations are present at global scope.
 
+- New :doc:`bsl-non-pod-classdef
+  <clang-tidy/checks/bsl-non-pod-classdef>` check.
+
+  Warns when member data in non-POD class type is not private and on non-POD types 
+  not defined as class
+
 - New :doc:`bsl-op-bitwise-operands
   <clang-tidy/checks/bsl-op-bitwise-operands>` check.
 
