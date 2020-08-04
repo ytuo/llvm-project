@@ -16,6 +16,7 @@ add_clang_library(clangTidyBslModule
   ForLoopCounterCheck.cpp
   FriendDeclCheck.cpp
   FunctionNameUseCheck.cpp
+  IdentifierTypographicallyUnambiguousCheck.cpp
   LambdaImplicitCaptureCheck.cpp
   LambdaParamListCheck.cpp
   LiteralsAsciiOnlyCheck.cpp
