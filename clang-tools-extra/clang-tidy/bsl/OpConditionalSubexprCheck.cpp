@@ -17,7 +17,8 @@ namespace tidy {
 namespace bsl {
 
 void OpConditionalSubexprCheck::registerMatchers(MatchFinder *Finder) {
-  Finder->addMatcher(conditionalOperator(hasParent(expr())).bind("op"), this);
+  Finder->addMatcher(conditionalOperator(
+              hasParent(expr(unless(implicitCastExpr())))).bind("op"), this);
 }
 
 void OpConditionalSubexprCheck::check(const MatchFinder::MatchResult &Result) {
