@@ -45,3 +45,7 @@ void fm();
 // CHECK-MESSAGES: :[[@LINE-1]]:6: warning: Identifier typographically ambiguous with identifier 'frn' on line 43 [bsl-identifier-typographically-unambiguous] 
 void f___m();
 // CHECK-MESSAGES: :[[@LINE-1]]:6: warning: Identifier typographically ambiguous with identifier 'frn' on line 43 [bsl-identifier-typographically-unambiguous]
+
+template<typename FUNC>
+void
+example(FUNC &&f, const int name);
