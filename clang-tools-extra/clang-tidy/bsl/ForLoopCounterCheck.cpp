@@ -26,14 +26,10 @@ void ForLoopCounterCheck::registerMatchers(MatchFinder *Finder) {
 
 void ForLoopCounterCheck::check(const MatchFinder::MatchResult &Result) {
   const auto *ForIncSingle = Result.Nodes.getNodeAs<ForStmt>("singlecounter");
-  auto Mgr = Result.SourceManager;
 
   if (ForIncSingle) {
       auto LocS = ForIncSingle->getInc()->getExprLoc();
       if (LocS.isInvalid() || LocS.isMacroID())
-        return;
-
-      if (Mgr->getFileID(LocS) != Mgr->getMainFileID())
         return;
 
       diag(LocS, "for loop must have single loop-counter");
@@ -45,9 +41,6 @@ void ForLoopCounterCheck::check(const MatchFinder::MatchResult &Result) {
     if (LocF.isInvalid() || LocF.isMacroID())
         return;
 
-    if (Mgr->getFileID(LocF) != Mgr->getMainFileID())
-      return;
-
     diag(LocF, "float type not allowed (literal)");
   }
 
@@ -56,9 +49,6 @@ void ForLoopCounterCheck::check(const MatchFinder::MatchResult &Result) {
       auto LocFV = FloatVar->getBeginLoc();
       if (LocFV.isInvalid() || LocFV.isMacroID())
           return;
-
-      if (Mgr->getFileID(LocFV) != Mgr->getMainFileID())
-        return;
 
       diag(LocFV, "float type not allowed (variable declaration)");
   }
