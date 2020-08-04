@@ -80,3 +80,5 @@ template <typename T> class Z {
 public:
   virtual ~Z() = default; 
 };
+
+auto test = []{ return 3; };

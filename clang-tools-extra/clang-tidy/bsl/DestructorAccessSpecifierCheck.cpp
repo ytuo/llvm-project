@@ -33,18 +33,16 @@ void DestructorAccessSpecifierCheck::registerMatchers(MatchFinder *Finder) {
 
 void DestructorAccessSpecifierCheck::check(
     const MatchFinder::MatchResult &Result) {
-  const auto Mgr = Result.SourceManager;
-
   const auto *MatchedDecl =
       Result.Nodes.getNodeAs<CXXDestructorDecl>("destructor");
   if (MatchedDecl) {
     auto Loc = MatchedDecl->getLocation();
-    if (Mgr->getFileID(Loc) != Mgr->getMainFileID())
-      return;
 
-    if (MatchedDecl->getAccess() == AS_public &&
-        MatchedDecl->getParent()->isEffectivelyFinal())
+    const auto Parent = MatchedDecl->getParent();
+    if (Parent->isLambda() || (MatchedDecl->getAccess() == AS_public &&
+                               Parent->isEffectivelyFinal())) {
       return;
+    }
 
     diag(Loc, "base class destructor must be public virtual, public override, "
               "or protected non-virtual. If public destructor is nonvirtual, "
