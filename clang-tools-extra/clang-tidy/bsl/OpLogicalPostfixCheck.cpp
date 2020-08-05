@@ -24,10 +24,15 @@ AST_MATCHER(UnaryOperator, isPostfixDecrement) {
   return Node.isDecrementOp() && Node.isPostfix();
 }
 
-void OpLogicalPostfixCheck::registerMatchers(MatchFinder *Finder) {
-  // Define postfix expression. Note the definition purposely excludes literals,
-  // as they are not useful (and unlikely) as an operand to a logical operator.
+AST_MATCHER(Expr, isDependentScopeDeclRefExpr) {
+  return isa<DependentScopeDeclRefExpr>(Node);
+}
 
+AST_MATCHER(Expr, isTypeTraitExpr) {
+  return isa<TypeTraitExpr>(Node);
+}
+
+void OpLogicalPostfixCheck::registerMatchers(MatchFinder *Finder) {
   auto postfixExpr = ignoringImpCasts(anyOf(
     arraySubscriptExpr(),
     callExpr(unless(anyOf(
@@ -35,12 +40,18 @@ void OpLogicalPostfixCheck::registerMatchers(MatchFinder *Finder) {
       cxxOperatorCallExpr(),
       userDefinedLiteral()
     ))),
+    cxxBoolLiteral(),
+    cxxNullPtrLiteralExpr(),
     cxxConstCastExpr(),
     cxxDynamicCastExpr(),
     cxxReinterpretCastExpr(),
     cxxStaticCastExpr(),
     cxxThisExpr(),
+    cxxNoexceptExpr(),
+    unaryExprOrTypeTraitExpr(),
+    isTypeTraitExpr(),
     declRefExpr(),
+    isDependentScopeDeclRefExpr(),
     memberExpr(),
     parenExpr(),
     unaryOperator(anyOf(isPostfixDecrement(), isPostfixIncrement()))
