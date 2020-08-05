@@ -30,17 +30,13 @@ void OpBitwiseOperandsCheck::check(const MatchFinder::MatchResult &Result) {
   if (Loc.isInvalid() || Loc.isMacroID())
     return;
 
-  auto Mgr = Result.SourceManager;
-  if (Mgr->getFileID(Loc) != Mgr->getMainFileID())
-    return;
-
   auto LHS = Op->getLHS()->IgnoreImpCasts();
   auto RHS = Op->getRHS()->IgnoreImpCasts();
 
-  auto LHSType = LHS->getType();
-  auto RHSType = RHS->getType();
+  QualType LHSType = LHS->getType().getCanonicalType();
+  QualType RHSType = RHS->getType().getCanonicalType();
 
-  if (LHSType == RHSType) {
+  if (LHSType.getTypePtr() == RHSType.getTypePtr()) {
     return;
   }
 

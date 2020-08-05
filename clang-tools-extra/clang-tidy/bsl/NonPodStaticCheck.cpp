@@ -32,10 +32,6 @@ void NonPodStaticCheck::check(const MatchFinder::MatchResult &Result) {
   if (Loc.isInvalid() || Loc.isMacroID())
     return;
 
-  auto Mgr = Result.SourceManager;
-  if (Mgr->getFileID(Loc) != Mgr->getMainFileID())
-    return;
-
   if (Var->getType().isCXX11PODType(*Result.Context))
     return;
 

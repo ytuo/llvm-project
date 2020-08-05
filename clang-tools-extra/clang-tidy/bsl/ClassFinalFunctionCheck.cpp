@@ -43,10 +43,6 @@ void ClassFinalFunctionCheck::check(const MatchFinder::MatchResult &Result) {
     if (Loc.isInvalid())
       return;
 
-    const auto Mgr = Result.SourceManager;
-    if (Mgr->getFileID(Loc) != Mgr->getMainFileID())
-      return;
-
     diag(Loc, "overridden function not marked 'final' in final class");
     return;
   }
@@ -55,10 +51,6 @@ void ClassFinalFunctionCheck::check(const MatchFinder::MatchResult &Result) {
   if (Virtual) {
     const auto Loc = Virtual->getLocation();
     if (Loc.isInvalid())
-      return;
-
-    const auto Mgr = Result.SourceManager;
-    if (Mgr->getFileID(Loc) != Mgr->getMainFileID())
       return;
 
     diag(Loc, "non-overridden virtual function in final class");

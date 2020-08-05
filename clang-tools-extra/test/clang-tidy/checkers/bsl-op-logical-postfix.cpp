@@ -56,3 +56,58 @@ int main()
 
     return 0;
 }
+
+template<typename T, T v>
+class integral_constant
+{
+public:
+    using type = integral_constant<T, v>;
+    using value_type = T;
+
+    static constexpr value_type value{v};
+
+protected:
+    ~integral_constant() noexcept = default;
+
+    constexpr integral_constant(integral_constant const &o) noexcept = default;
+    constexpr integral_constant(integral_constant &&o) noexcept = default;
+    integral_constant &operator=(integral_constant const &o) &noexcept = default;
+    integral_constant &operator=(integral_constant &&o) &noexcept = default;
+};
+
+template<bool B>
+using bool_constant = integral_constant<bool, B>;
+
+using true_type = bool_constant<true>;
+
+template<typename>
+using true_type_for = true_type;
+
+using false_type = bool_constant<false>;
+
+template<typename>
+using false_type_for = false_type;
+
+
+template<typename T>
+class is_void final : public false_type
+{};
+
+template<>
+class is_void<void> final : public true_type
+{};
+
+template<>
+class is_void<void const> final : public true_type
+{};
+
+template<typename From, typename To>
+[[nodiscard]] constexpr bool
+check_is_nothrow_convertible() noexcept
+{
+    if constexpr (is_void<From>::value && is_void<To>::value) {
+        return true;
+    }
+
+    return noexcept(is_void<From>::value) && alignof(From) && sizeof(To) && __is_pod(To);
+}

@@ -14,7 +14,6 @@ add_clang_library(clangTidyBslModule
   EnumInitCheck.cpp
   EnumScopedCheck.cpp
   ForLoopCounterCheck.cpp
-  FriendDeclCheck.cpp
   FunctionNameUseCheck.cpp
   IdentifierTypographicallyUnambiguousCheck.cpp
   LambdaImplicitCaptureCheck.cpp
@@ -23,7 +22,6 @@ add_clang_library(clangTidyBslModule
   LiteralsDigitSeparatorCheck.cpp
   LiteralsNoOctalCheck.cpp
   LiteralsUnsignedSuffixCheck.cpp
-  LiteralsUppercaseSuffixCheck.cpp
   LiteralsUserDefinedCheck.cpp
   NamespaceGlobalCheck.cpp
   NonPodClassdefCheck.cpp

@@ -22,13 +22,9 @@ void LambdaParamListCheck::registerMatchers(MatchFinder *Finder) {
 
 void LambdaParamListCheck::check(const MatchFinder::MatchResult &Result) {
   auto Lambda = Result.Nodes.getNodeAs<LambdaExpr>("lambda");
-  auto Mgr = Result.SourceManager;
   auto Loc = Lambda->getBeginLoc();
 
   if (Loc.isInvalid() || Loc.isMacroID())
-    return;
-
-  if (Mgr->getFileID(Loc) != Mgr->getMainFileID())
     return;
 
   if (Lambda->hasExplicitParameters())

@@ -16,6 +16,21 @@ namespace clang {
 namespace tidy {
 namespace bsl {
 
+AST_MATCHER(CXXCtorInitializer, isWrittenMemberInitializer) {
+  return Node.isWritten() && Node.isMemberInitializer();
+}
+
+AST_MATCHER(CXXConstructorDecl, isUserDefinedConcrete) {
+  bool IsUserProvided = Node.isUserProvided();
+  bool IsDefinition = Node.isThisDeclarationADefinition();
+
+  const CXXRecordDecl *Parent = Node.getParent();
+  bool IsTemplateClass = Parent->getDescribedClassTemplate() != nullptr;
+  bool IsConcrete = !IsTemplateClass || Node.isTemplateInstantiation();
+
+  return IsUserProvided && IsDefinition && IsConcrete;
+}
+
 void ClassMemberInitCheck::checkCtorWithInit(const CXXConstructorDecl *Ctor)
 {
   const auto Loc = Ctor->getBeginLoc();
@@ -63,34 +78,31 @@ void ClassMemberInitCheck::checkCtorWithoutInit(const CXXConstructorDecl *Ctor)
 }
 
 void ClassMemberInitCheck::registerMatchers(MatchFinder *Finder) {
-  Finder->addMatcher(decl(anyOf(
-    cxxConstructorDecl(
-      unless(anyOf(
-        isCopyConstructor(), isMoveConstructor(), isDelegatingConstructor()
-      )),
-      hasAnyConstructorInitializer(isMemberInitializer())
-    ).bind("ctor-init"),
-    cxxConstructorDecl(
-      unless(anyOf(
-        isCopyConstructor(), isMoveConstructor(), isDelegatingConstructor(),
-        hasAnyConstructorInitializer(isMemberInitializer())
-      )),
-      isUserProvided(),
-      isDefinition()
-    ).bind("ctor-noinit"))),
-    this);
+  Finder->addMatcher(cxxConstructorDecl(
+    isUserDefinedConcrete(),
+    hasAnyConstructorInitializer(isWrittenMemberInitializer()),
+    unless(anyOf(isCopyConstructor(), isMoveConstructor()))
+  ).bind("ctor-init"), this);
+
+  Finder->addMatcher(cxxConstructorDecl(
+    isUserDefinedConcrete(),
+    unless(anyOf(
+      isCopyConstructor(), isMoveConstructor(), isDelegatingConstructor(),
+      hasAnyConstructorInitializer(isWrittenMemberInitializer())
+    ))
+  ).bind("ctor-noinit"), this);
 }
 
 void ClassMemberInitCheck::check(const MatchFinder::MatchResult &Result) {
-  const auto *Ctor = Result.Nodes.getNodeAs<CXXConstructorDecl>("ctor-init");
-  if (Ctor) {
-    checkCtorWithInit(Ctor);
+  const auto *Init = Result.Nodes.getNodeAs<CXXConstructorDecl>("ctor-init");
+  if (Init) {
+    checkCtorWithInit(Init);
     return;
   }
 
-  Ctor = Result.Nodes.getNodeAs<CXXConstructorDecl>("ctor-noinit");
-  if (Ctor) {
-    checkCtorWithoutInit(Ctor);
+  const auto *NoInit = Result.Nodes.getNodeAs<CXXConstructorDecl>("ctor-noinit");
+  if (NoInit) {
+    checkCtorWithoutInit(NoInit);
     return;
   }
 }

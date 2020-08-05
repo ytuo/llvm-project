@@ -2,6 +2,9 @@
 constexpr int i = 0;
 int j = (i > 0) ? i : 0;
 
+const long k = 42;
+const auto n = (k > 43) ? k : j;
+
 void g(int i);
 
 void f()

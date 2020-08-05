@@ -53,10 +53,6 @@ void OpEqualityVirtMemfnNullptrCheck::check(const MatchFinder::MatchResult &Resu
   if (Loc.isInvalid())
     return;
 
-  const auto Mgr = Result.SourceManager;
-  if (Mgr->getFileID(Loc) != Mgr->getMainFileID())
-    return;
-
   diag(Loc, "comparing virtual member function with expression that is not 'nullptr'");
 }
 

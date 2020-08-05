@@ -25,12 +25,8 @@ void TypesFixedWidthIntsCheck::registerMatchers(MatchFinder *Finder) {
 void TypesFixedWidthIntsCheck::check(const MatchFinder::MatchResult &Result) {
   auto TL = *Result.Nodes.getNodeAs<TypeLoc>("loc");
   auto Loc = TL.getBeginLoc();
-  auto Man = Result.SourceManager;
 
   if (Loc.isInvalid() || Loc.isMacroID())
-    return;
-
-  if (Man->getFileID(Loc) != Man->getMainFileID())
     return;
 
   if (auto QL = TL.getAs<QualifiedTypeLoc>())

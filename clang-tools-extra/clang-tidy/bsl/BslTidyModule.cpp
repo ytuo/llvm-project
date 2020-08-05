@@ -20,7 +20,6 @@
 #include "EnumInitCheck.h"
 #include "EnumScopedCheck.h"
 #include "ForLoopCounterCheck.h"
-#include "FriendDeclCheck.h"
 #include "FunctionNameUseCheck.h"
 #include "IdentifierTypographicallyUnambiguousCheck.h"
 #include "LambdaImplicitCaptureCheck.h"
@@ -29,7 +28,6 @@
 #include "LiteralsDigitSeparatorCheck.h"
 #include "LiteralsNoOctalCheck.h"
 #include "LiteralsUnsignedSuffixCheck.h"
-#include "LiteralsUppercaseSuffixCheck.h"
 #include "LiteralsUserDefinedCheck.h"
 #include "NamespaceGlobalCheck.h"
 #include "NonPodClassdefCheck.h"
@@ -81,8 +79,6 @@ public:
         "bsl-enum-scoped");
     CheckFactories.registerCheck<ForLoopCounterCheck>(
         "bsl-for-loop-counter");
-    CheckFactories.registerCheck<FriendDeclCheck>(
-        "bsl-friend-decl");
     CheckFactories.registerCheck<FunctionNameUseCheck>(
         "bsl-function-name-use");
     CheckFactories.registerCheck<IdentifierTypographicallyUnambiguousCheck>(
@@ -133,8 +129,6 @@ public:
         "bsl-literals-no-octal");
     CheckFactories.registerCheck<LiteralsUnsignedSuffixCheck>(
         "bsl-literals-unsigned-suffix");
-    CheckFactories.registerCheck<LiteralsUppercaseSuffixCheck>(
-        "bsl-literals-uppercase-suffix");
     CheckFactories.registerCheck<TypesNoWideCharCheck>(
         "bsl-types-no-wide-char");
     CheckFactories.registerCheck<UnusedReturnValueCheck>(

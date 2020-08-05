@@ -27,10 +27,6 @@ void EnumExplicitCheck::check(const MatchFinder::MatchResult &Result) {
   if (Loc.isInvalid() || Loc.isMacroID())
     return;
 
-  auto Mgr = Result.SourceManager;
-  if (Mgr->getFileID(Loc) != Mgr->getMainFileID())
-    return;
-
   auto Range = Enum->getIntegerTypeRange();
   if (Range.isValid())
     return;

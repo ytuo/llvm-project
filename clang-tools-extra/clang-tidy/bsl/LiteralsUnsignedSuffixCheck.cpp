@@ -18,7 +18,11 @@ namespace tidy {
 namespace bsl {
 
 void LiteralsUnsignedSuffixCheck::registerMatchers(MatchFinder *Finder) {
-  Finder->addMatcher(integerLiteral().bind("lit"), this);
+  Finder->addMatcher(
+    stmt(integerLiteral().bind("lit"),
+         unless(anyOf(hasAncestor(isImplicit()),
+                      hasAncestor(substNonTypeTemplateParmExpr())))),
+    this);
 }
 
 void LiteralsUnsignedSuffixCheck::check(const MatchFinder::MatchResult &Result) {
@@ -28,9 +32,6 @@ void LiteralsUnsignedSuffixCheck::check(const MatchFinder::MatchResult &Result) 
   auto Ctx = Result.Context;
 
   if (Loc.isInvalid() || Loc.isMacroID())
-    return;
-
-  if (Mgr->getFileID(Loc) != Mgr->getMainFileID())
     return;
 
   auto Type = Lit->getType().getTypePtrOrNull();
@@ -47,7 +48,7 @@ void LiteralsUnsignedSuffixCheck::check(const MatchFinder::MatchResult &Result) 
 
   StringRef Str(Buf, Tok.getLength());
 
-  if (Str.endswith("U"))
+  if (Str.contains_lower('u'))
     return;
 
   if (!Str.startswith("0")) {

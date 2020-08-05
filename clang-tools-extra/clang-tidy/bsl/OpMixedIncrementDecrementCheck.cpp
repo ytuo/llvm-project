@@ -20,7 +20,8 @@ void OpMixedIncrementDecrementCheck::registerMatchers(MatchFinder *Finder) {
   Finder->addMatcher(unaryOperator(hasAnyOperatorName("++", "--"),
                                    unless(anyOf(hasParent(varDecl()),
                                                 hasParent(forStmt()),
-                                                hasParent(compoundStmt())))
+                                                hasParent(compoundStmt()),
+                                                hasParent(cxxForRangeStmt())))
                                   ).bind("op"),
                      this);
 }
@@ -30,10 +31,6 @@ void OpMixedIncrementDecrementCheck::check(const MatchFinder::MatchResult &Resul
   const auto Loc = Op->getOperatorLoc();
 
   if (Loc.isInvalid())
-    return;
-
-  const auto Mgr = Result.SourceManager;
-  if (Mgr->getFileID(Loc) != Mgr->getMainFileID())
     return;
 
   if (Op->isIncrementOp())

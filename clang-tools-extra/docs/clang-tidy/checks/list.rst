@@ -56,7 +56,6 @@ Clang-Tidy Checks
    `bsl-enum-init <bsl-enum-init.html>`_,
    `bsl-enum-scoped <bsl-enum-scoped.html>`_,
    `bsl-for-loop-counter <bsl-for-loop-counter.html>`_,
-   `bsl-friend-decl <bsl-friend-decl.html>`_,
    `bsl-function-name-use <bsl-function-name-use.html>`_, "Yes"
    `bsl-identifier-typographically-unambiguous <bsl-identifier-typographically-unambiguous.html>`_, "Yes"
    `bsl-lambda-implicit-capture <bsl-lambda-implicit-capture.html>`_,
@@ -64,7 +63,6 @@ Clang-Tidy Checks
    `bsl-literals-ascii-only <bsl-literals-ascii-only.html>`_,
    `bsl-literals-digit-separator <bsl-literals-digit-separator.html>`_,
    `bsl-literals-no-octal <bsl-literals-no-octal.html>`_,
-   `bsl-literals-uppercase-suffix <bsl-literals-uppercase-suffix.html>`_,
    `bsl-literals-user-defined <bsl-literals-user-defined.html>`_,
    `bsl-namespace-global <bsl-namespace-global.html>`_,
    `bsl-non-pod-classdef <bsl-non-pod-classdef.html>`_, "Yes"

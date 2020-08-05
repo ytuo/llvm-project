@@ -20,56 +20,31 @@ AST_MATCHER(VarDecl, hasListInitStyle) {
   return Node.getInitStyle() == VarDecl::InitializationStyle::ListInit;
 }
 
+AST_MATCHER(VarDecl, isCXXForRangeDecl) {
+  return Node.isCXXForRangeDecl();
+}
+
 void VarBracedInitCheck::registerMatchers(MatchFinder *Finder) {
-  // TODO: deal with classes with std::initializer_list ctors
   Finder->addMatcher(
     varDecl(hasInitializer(expr()),
-            unless(hasType(autoType())),
-            unless(hasListInitStyle())).bind("nonauto-var"),
-    this);
-
-  Finder->addMatcher(
-    varDecl(hasInitializer(anyOf(initListExpr(), exprWithCleanups())),
-            hasType(autoType())).bind("auto-var"),
+            unless(anyOf(isImplicit(),
+                         parmVarDecl(),
+                         isCXXForRangeDecl(),
+                         hasListInitStyle()))).bind("var"),
     this);
 }
 
 void VarBracedInitCheck::check(const MatchFinder::MatchResult &Result) {
-  const auto *NonAuto = Result.Nodes.getNodeAs<VarDecl>("nonauto-var");
+  const auto *Var = Result.Nodes.getNodeAs<VarDecl>("var");
+  const auto Loc = Var->getLocation();
 
-  if (NonAuto) {
-    const auto Loc = NonAuto->getLocation();
-    if (Loc.isInvalid())
-      return;
-
-    const auto Mgr = Result.SourceManager;
-    if (Mgr->getFileID(Loc) != Mgr->getMainFileID())
-      return;
-
-    diag(Loc, "variable is not initialized via direct list initialization");
+  if (Loc.isInvalid())
     return;
-  }
 
-  const auto *Auto = Result.Nodes.getNodeAs<VarDecl>("auto-var");
-  if (Auto) {
-    const auto Loc = Auto->getLocation();
-    if (Loc.isInvalid())
-      return;
+  diag(Loc, "variable '%0' is not initialized via direct list initialization")
+      << Var->getName();
 
-    const auto Mgr = Result.SourceManager;
-    if (Mgr->getFileID(Loc) != Mgr->getMainFileID())
-      return;
-
-    const auto Cleanups = dyn_cast<ExprWithCleanups>(Auto->getInit());
-    if (Cleanups) {
-      if (isa<CXXStdInitializerListExpr>(*Cleanups->children().begin()))
-        diag(Loc, "variable declared 'auto' is initialized via list initialization");
-    } else {
-      diag(Loc, "variable declared 'auto' is initialized via list initialization");
-    }
-
-    return;
-  }
+  return;
 }
 
 } // namespace bsl

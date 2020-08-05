@@ -53,9 +53,6 @@ void UsingDeclScopeCheck::check(const MatchFinder::MatchResult &Result) {
     return;
 
   const auto Mgr = Result.SourceManager;
-  if (Mgr->getFileID(Loc) != Mgr->getMainFileID())
-    return;
-
   if (!utils::isExpansionLocInHeaderFile(Loc, *Mgr, HeaderFileExtensions)) {
     return;
   }
