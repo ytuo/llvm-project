@@ -10,6 +10,15 @@ void f();
 void f2();
 #endif
 
+#ifdef FOO
+#include <cstdint>
+#endif
+
+#ifndef BSL_USING_DECL_SCOPE_HPP
+#include "bsl-using-decl-scope.hpp"
+#endif
+
+
 #define BAR 4
 
 #if BAR == 2

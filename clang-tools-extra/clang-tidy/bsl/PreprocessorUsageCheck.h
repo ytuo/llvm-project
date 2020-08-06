@@ -27,6 +27,24 @@ public:
   // void check(const ast_matchers::MatchFinder::MatchResult &Result) override;
   void registerPPCallbacks(const SourceManager &SM, Preprocessor *PP,
                            Preprocessor *ModuleExpanderPP) override;
+
+  // add
+  /// Returns ``true`` if the check should suggest inserting a trailing comment
+  /// on the ``#endif`` of the header guard. It will use the same name as
+  /// returned by ``HeaderGuardCheck::getHeaderGuard``.
+  virtual bool shouldSuggestEndifComment(StringRef Filename);
+  /// Returns ``true`` if the check should suggest changing an existing header
+  /// guard to the string returned by ``HeaderGuardCheck::getHeaderGuard``.
+  virtual bool shouldFixHeaderGuard(StringRef Filename);
+  /// Returns ``true`` if the check should add a header guard to the file
+  /// if it has none.
+  virtual bool shouldSuggestToAddHeaderGuard(StringRef Filename);
+  /// Returns a replacement for the ``#endif`` line with a comment mentioning
+  /// \p HeaderGuard. The replacement should start with ``endif``.
+  virtual std::string formatEndIf(StringRef HeaderGuard);
+  /// Gets the canonical header guard for a file.
+  // virtual std::string getHeaderGuard(StringRef Filename,
+  //                                    StringRef OldGuard = StringRef()) = 0;
 };
 
 } // namespace bsl
