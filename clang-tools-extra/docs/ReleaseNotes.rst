@@ -111,6 +111,11 @@ New checks
 
   Warns if unions or bitfields are declared.
 
+- New :doc:`bsl-dependent-base-name
+  <clang-tidy/checks/bsl-dependent-base-name>` check.
+
+  FIXME: add release notes.
+
 - New :doc:`bsl-destructor-access-specifier
   <clang-tidy/checks/bsl-destructor-access-specifier>` check.
 

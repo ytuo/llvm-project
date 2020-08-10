@@ -51,14 +51,15 @@ Clang-Tidy Checks
    `bsl-class-member-redefined <bsl-class-member-redefined.html>`_,
    `bsl-class-virtual-base <bsl-class-virtual-base.html>`_,
    `bsl-decl-forbidden <bsl-decl-forbidden.html>`_,
-   `bsl-destructor-access-specifier <bsl-destructor-access-specifier.html>`_, "Yes"
+   `bsl-dependent-base-name <bsl-dependent-base-name.html>`_, "Yes"
+   `bsl-destructor-access-specifier <bsl-destructor-access-specifier.html>`_,
    `bsl-enum-explicit <bsl-enum-explicit.html>`_,
    `bsl-enum-init <bsl-enum-init.html>`_,
    `bsl-enum-scoped <bsl-enum-scoped.html>`_,
    `bsl-for-loop-counter <bsl-for-loop-counter.html>`_,
    `bsl-friend-decl <bsl-friend-decl.html>`_,
    `bsl-function-name-use <bsl-function-name-use.html>`_, "Yes"
-   `bsl-identifier-typographically-unambiguous <bsl-identifier-typographically-unambiguous.html>`_, "Yes"
+   `bsl-identifier-typographically-unambiguous <bsl-identifier-typographically-unambiguous.html>`_,
    `bsl-lambda-implicit-capture <bsl-lambda-implicit-capture.html>`_,
    `bsl-lambda-param-list <bsl-lambda-param-list.html>`_,
    `bsl-literals-ascii-only <bsl-literals-ascii-only.html>`_,
@@ -67,7 +68,7 @@ Clang-Tidy Checks
    `bsl-literals-uppercase-suffix <bsl-literals-uppercase-suffix.html>`_,
    `bsl-literals-user-defined <bsl-literals-user-defined.html>`_,
    `bsl-namespace-global <bsl-namespace-global.html>`_,
-   `bsl-non-pod-classdef <bsl-non-pod-classdef.html>`_, "Yes"
+   `bsl-non-pod-classdef <bsl-non-pod-classdef.html>`_,
    `bsl-non-pod-static <bsl-non-pod-static.html>`_,
    `bsl-op-bitwise-operands <bsl-op-bitwise-operands.html>`_, "Yes"
    `bsl-op-conditional-subexpr <bsl-op-conditional-subexpr.html>`_,

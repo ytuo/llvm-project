@@ -15,6 +15,7 @@
 #include "ClassMemberRedefinedCheck.h"
 #include "ClassVirtualBaseCheck.h"
 #include "DeclForbiddenCheck.h"
+#include "DependentBaseNameCheck.h"
 #include "DestructorAccessSpecifierCheck.h"
 #include "EnumExplicitCheck.h"
 #include "EnumInitCheck.h"
@@ -71,6 +72,8 @@ public:
         "bsl-class-virtual-base");
     CheckFactories.registerCheck<DeclForbiddenCheck>(
         "bsl-decl-forbidden");
+    CheckFactories.registerCheck<DependentBaseNameCheck>(
+        "bsl-dependent-base-name");
     CheckFactories.registerCheck<DestructorAccessSpecifierCheck>(
         "bsl-destructor-access-specifier");
     CheckFactories.registerCheck<EnumExplicitCheck>(
