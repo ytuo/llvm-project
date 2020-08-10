@@ -106,6 +106,12 @@ New checks
 
   Warns if a class has any virtual bases.
 
+- New :doc:`bsl-copy-move-access-specifier
+  <clang-tidy/checks/bsl-copy-move-access-specifier>` check.
+
+  Checks that copy and move constructors and copy assignment and move 
+  assignment operators are declared protected or deleted in base class.
+
 - New :doc:`bsl-decl-forbidden
   <clang-tidy/checks/bsl-decl-forbidden>` check.
 

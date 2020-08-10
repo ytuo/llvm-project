@@ -14,6 +14,7 @@
 #include "ClassMemberInitCheck.h"
 #include "ClassMemberRedefinedCheck.h"
 #include "ClassVirtualBaseCheck.h"
+#include "CopyMoveAccessSpecifierCheck.h"
 #include "DeclForbiddenCheck.h"
 #include "DestructorAccessSpecifierCheck.h"
 #include "EnumExplicitCheck.h"
@@ -67,6 +68,8 @@ public:
         "bsl-class-member-redefined");
     CheckFactories.registerCheck<ClassVirtualBaseCheck>(
         "bsl-class-virtual-base");
+    CheckFactories.registerCheck<CopyMoveAccessSpecifierCheck>(
+        "bsl-copy-move-access-specifier");
     CheckFactories.registerCheck<DeclForbiddenCheck>(
         "bsl-decl-forbidden");
     CheckFactories.registerCheck<DestructorAccessSpecifierCheck>(
