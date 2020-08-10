@@ -28,18 +28,16 @@ std::unordered_map<std::string, map_entry> idNames;
 
 void IdentifierTypographicallyUnambiguousCheck::registerMatchers(
     MatchFinder *Finder) {
-  Finder->addMatcher(namedDecl().bind("id"), this);
+  Finder->addMatcher(declaratorDecl().bind("id"), this);
 }
 
 void IdentifierTypographicallyUnambiguousCheck::check(
     const MatchFinder::MatchResult &Result) {
-  const auto *MatchedDecl = Result.Nodes.getNodeAs<NamedDecl>("id");
+  const auto *MatchedDecl = Result.Nodes.getNodeAs<DeclaratorDecl>("id");
   auto Mgr = Result.SourceManager;
 
   if (MatchedDecl) {
     auto Loc = MatchedDecl->getLocation();
-    if (Mgr->getFileID(Loc) != Mgr->getMainFileID())
-      return;
 
     std::string og_name = MatchedDecl->getNameAsString();
     std::string name = MatchedDecl->getName().lower();
