@@ -42,6 +42,7 @@ add_clang_library(clangTidyBslModule
   StmtSwitchCaseParentCheck.cpp
   StmtSwitchDefaultBreakCheck.cpp
   StmtSwitchDefaultLastCheck.cpp
+  TernaryOperatorForbiddenCheck.cpp
   TypesFixedWidthIntsCheck.cpp
   TypesNoWideCharCheck.cpp
   UnusedReturnValueCheck.cpp

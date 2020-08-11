@@ -249,6 +249,11 @@ New checks
 
   Warns if the default label is not last in a switch statement.
 
+- New :doc:`bsl-ternary-operator-forbidden
+  <clang-tidy/checks/bsl-ternary-operator-forbidden>` check.
+
+  Warns if you use the ternary operator
+
 - New :doc:`bsl-using-decl-scope
   <clang-tidy/checks/bsl-using-decl-scope>` check.
 
