@@ -51,10 +51,11 @@ Clang-Tidy Checks
    `bsl-class-member-init <bsl-class-member-init.html>`_,
    `bsl-class-member-redefined <bsl-class-member-redefined.html>`_,
    `bsl-class-virtual-base <bsl-class-virtual-base.html>`_,
-   `bsl-comparison-operators-forbidden <bsl-comparison-operators-forbidden.html>`_, "Yes"
+   `bsl-comparison-operators-forbidden <bsl-comparison-operators-forbidden.html>`_,
    `bsl-copy-move-access-specifier <bsl-copy-move-access-specifier.html>`_,
    `bsl-decl-forbidden <bsl-decl-forbidden.html>`_,
    `bsl-destructor-access-specifier <bsl-destructor-access-specifier.html>`_,
+   `bsl-else-required-after-if <bsl-else-required-after-if.html>`_, "Yes"
    `bsl-enum-explicit <bsl-enum-explicit.html>`_,
    `bsl-enum-init <bsl-enum-init.html>`_,
    `bsl-enum-scoped <bsl-enum-scoped.html>`_,

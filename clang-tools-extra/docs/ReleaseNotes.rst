@@ -114,7 +114,7 @@ New checks
 - New :doc:`bsl-comparison-operators-forbidden
   <clang-tidy/checks/bsl-comparison-operators-forbidden>` check.
 
-  FIXME: add release notes.
+  Warns if you use >= or <=
 
 - New :doc:`bsl-copy-move-access-specifier
   <clang-tidy/checks/bsl-copy-move-access-specifier>` check.
@@ -132,6 +132,13 @@ New checks
 
   Warns if destructor of base class is not public virtual, public override,
   or protected non-virtual, unless public destructor is non-virtual in final class.
+
+- New :doc:`bsl-else-required-after-if
+  <clang-tidy/checks/bsl-else-required-after-if>` check.
+
+  Warns if else/bsl::touch is missing in certain situations. This will also
+  warn if else is used when it shouldn't be, which would prevent the above
+  checks from working correctly.
 
 - New :doc:`bsl-function-name-use
   <clang-tidy/checks/bsl-function-name-use>` check.
