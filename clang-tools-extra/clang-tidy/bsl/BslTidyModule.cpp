@@ -9,6 +9,7 @@
 #include "../ClangTidy.h"
 #include "../ClangTidyModule.h"
 #include "../ClangTidyModuleRegistry.h"
+#include "BooleanOperatorsForbiddenCheck.h"
 #include "ClassBaseCheck.h"
 #include "ClassFinalFunctionCheck.h"
 #include "ClassMemberInitCheck.h"
@@ -58,6 +59,8 @@ namespace bsl {
 class BslModule : public ClangTidyModule {
 public:
   void addCheckFactories(ClangTidyCheckFactories &CheckFactories) override {
+    CheckFactories.registerCheck<BooleanOperatorsForbiddenCheck>(
+        "bsl-boolean-operators-forbidden");
     CheckFactories.registerCheck<ClassBaseCheck>(
         "bsl-class-base");
     CheckFactories.registerCheck<ClassFinalFunctionCheck>(

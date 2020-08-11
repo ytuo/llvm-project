@@ -25,7 +25,7 @@ void UnusedReturnValueCheck::registerMatchers(MatchFinder *Finder) {
                             hasParent(constantExpr(hasParent(caseStmt())))
                       );
 
-  auto NonVoidFunc = functionDecl(unless(returns(voidType())));
+  auto NonVoidFunc = functionDecl(unless(anyOf(returns(voidType()), hasAttr(clang::attr::Unused))));
   auto CheckedCall = callExpr(unless(AllowedExprs), callee(NonVoidFunc));
   auto IgnoredCall = ignoringImplicit(ignoringParenImpCasts(CheckedCall));
   auto IgnoredExpr = expr(IgnoredCall).bind("unused-ret");
