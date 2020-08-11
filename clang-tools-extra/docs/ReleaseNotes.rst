@@ -111,6 +111,11 @@ New checks
 
   Warns if a class has any virtual bases.
 
+- New :doc:`bsl-comparison-operators-forbidden
+  <clang-tidy/checks/bsl-comparison-operators-forbidden>` check.
+
+  FIXME: add release notes.
+
 - New :doc:`bsl-copy-move-access-specifier
   <clang-tidy/checks/bsl-copy-move-access-specifier>` check.
 
