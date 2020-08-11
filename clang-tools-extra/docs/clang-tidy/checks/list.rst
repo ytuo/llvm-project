@@ -45,13 +45,14 @@ Clang-Tidy Checks
    `android-cloexec-socket <android-cloexec-socket.html>`_,
    `android-comparison-in-temp-failure-retry <android-comparison-in-temp-failure-retry.html>`_,
    `boost-use-to-string <boost-use-to-string.html>`_, "Yes"
-   `bsl-boolean-operators-forbidden <bsl-boolean-operators-forbidden.html>`_, "Yes"
+   `bsl-boolean-operators-forbidden <bsl-boolean-operators-forbidden.html>`_,
    `bsl-class-base <bsl-class-base.html>`_,
    `bsl-class-final-function <bsl-class-final-function.html>`_,
    `bsl-class-member-init <bsl-class-member-init.html>`_,
    `bsl-class-member-redefined <bsl-class-member-redefined.html>`_,
    `bsl-class-virtual-base <bsl-class-virtual-base.html>`_,
-   `bsl-copy-move-access-specifier <bsl-copy-move-access-specifier.html>`_, "Yes"
+   `bsl-comparison-operators-forbidden <bsl-comparison-operators-forbidden.html>`_, "Yes"
+   `bsl-copy-move-access-specifier <bsl-copy-move-access-specifier.html>`_,
    `bsl-decl-forbidden <bsl-decl-forbidden.html>`_,
    `bsl-destructor-access-specifier <bsl-destructor-access-specifier.html>`_,
    `bsl-enum-explicit <bsl-enum-explicit.html>`_,
