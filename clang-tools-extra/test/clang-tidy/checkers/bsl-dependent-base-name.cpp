@@ -1,14 +1,81 @@
 // RUN: %check_clang_tidy %s bsl-dependent-base-name %t
 
-// FIXME: Add something that triggers the check here.
-void f();
+#include <cstdint> 
+
 // CHECK-MESSAGES: :[[@LINE-1]]:6: warning: function 'f' is insufficiently awesome [bsl-dependent-base-name]
+typedef int32_t TYPE;
+void g ( );
 
-// FIXME: Verify the applied fix.
-//   * Make the CHECK patterns specific enough and try to make verified lines
-//     unique to avoid incorrect matches.
-//   * Use {{}} for regular expressions.
-// CHECK-FIXES: {{^}}void awesome_f();{{$}}
+template <typename T>
+class B;
 
-// FIXME: Add something that doesn't trigger the check here.
-void awesome_f2();
+int var;
+
+template <typename T>
+class A : public B<T>
+{
+	void f1 ( )
+	{
+		TYPE t = 0;
+		g ( );
+		var = 0; 		// Non-compliant?? use ::var = 0?
+	}
+	// Non-compliant Example 1
+	// Non-compliant Example 2
+	void f2 ( )
+	{
+		::TYPE t1 = 0;
+		::g ( );
+		// Compliant - explicit use global TYPE
+		// Compliant - explicit use global func
+		typename B<T>::TYPE t2 = 0; // Compliant - explicit use base TYPE
+		this->g ( );
+		// Compliant - explicit use base "g"
+	}
+};
+
+template <typename T>
+class B
+{
+public:
+	typedef T TYPE;
+	void g ( );
+};
+
+template class A<int32_t>;
+
+
+class C {};
+
+template <typename T>
+class D : public C
+{
+	void f1 ( )
+	{
+		TYPE t = 0;
+		g ( );
+	}
+	void f2 ( )
+	{
+		::TYPE t1 = 0;
+		::g ( );
+		typename B<T>::TYPE t2 = 0;
+		this->g ( );
+	}
+};
+
+class E : C
+{
+	void f1 ( )
+	{
+		TYPE t = 0;
+		g ( );
+	}
+	void f2 ( )
+	{
+		::TYPE t1 = 0;
+		::g ( );
+		// typename B<T>::TYPE t2 = 0;	// error
+		// this->g ( ); 		// error (???)
+	}
+};

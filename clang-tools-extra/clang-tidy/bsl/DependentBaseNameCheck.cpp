@@ -18,18 +18,52 @@ namespace bsl {
 
 void DependentBaseNameCheck::registerMatchers(MatchFinder *Finder) {
   // FIXME: Add matchers.
-  Finder->addMatcher(functionDecl().bind("x"), this);
+  // Finder->addMatcher(cxxRecordDecl().bind("x"), this);
+  // Finder->addMatcher(cxxThisExpr().bind("this"), this);
+  // Finder->addMatcher(varDecl(unless(hasType(elaboratedType()))).bind("var"), this);
+  Finder->addMatcher(varDecl().bind("var"), this);
+  // Finder->addMatcher(declRefExpr().bind("this"), this);
+  // memberexpr
 }
 
 void DependentBaseNameCheck::check(const MatchFinder::MatchResult &Result) {
   // FIXME: Add callback implementation.
-  const auto *MatchedDecl = Result.Nodes.getNodeAs<FunctionDecl>("x");
-  if (MatchedDecl->getName().startswith("awesome_"))
-    return;
-  diag(MatchedDecl->getLocation(), "function %0 is insufficiently awesome")
-      << MatchedDecl;
-  diag(MatchedDecl->getLocation(), "insert 'awesome'", DiagnosticIDs::Note)
-      << FixItHint::CreateInsertion(MatchedDecl->getLocation(), "awesome_");
+  // const auto *MatchedDecl = Result.Nodes.getNodeAs<CXXRecordDecl>("x");
+  // if (MatchedDecl && MatchedDecl->hasAnyDependentBases()) {
+  //   diag(MatchedDecl->getLocation(), "dependent base");
+  // }
+
+  const auto *MatchedDecl = Result.Nodes.getNodeAs<VarDecl>("var");
+  if (isa<ElaboratedType>(MatchedDecl->getType())) {
+     diag(MatchedDecl->getLocation(), "elaborate ");
+  } else {
+    // diag(MatchedDecl->getLocation(), "no elaborate ");
+  }
+  // if (MatchedDecl->getQualifier()) {
+  //    diag(MatchedDecl->getLocation(), "qualifier ");
+  // } else {
+  //   diag(MatchedDecl->getLocation(), "no qualifier %0 ");
+  // }
+  // if (MatchedDecl->getType()->hasQualifier()) {
+  //    diag(MatchedDecl->getLocation(), "qualifier ");
+  // }
+  // diag(MatchedDecl->getLocation(), "no qualifier %0 ");
+
+  // const auto *MatchedExpr = Result.Nodes.getNodeAs<DeclRefExpr>("this");
+  // if (!MatchedExpr->hasQualifier()) {
+  //    diag(MatchedExpr->getLocation(), "no qualifier");
+  // }  // ok
+
+  // getBaseTypeIdentifier
+
+  // const auto *MatchedExpr = Result.Nodes.getNodeAs<CXXThisExpr>("this");
+  // if (MatchedExpr) {
+  //   diag(MatchedExpr->getLocation(), "this");
+  //   if (!MatchedExpr->isImplicit()) {
+  //     diag(MatchedExpr->getLocation(), "not implicit");
+  //   }
+  // }
+  
 }
 
 } // namespace bsl
