@@ -55,7 +55,7 @@ Clang-Tidy Checks
    `bsl-copy-move-access-specifier <bsl-copy-move-access-specifier.html>`_,
    `bsl-decl-forbidden <bsl-decl-forbidden.html>`_,
    `bsl-destructor-access-specifier <bsl-destructor-access-specifier.html>`_,
-   `bsl-else-required-after-if <bsl-else-required-after-if.html>`_, "Yes"
+   `bsl-else-required-after-if <bsl-else-required-after-if.html>`_,
    `bsl-enum-explicit <bsl-enum-explicit.html>`_,
    `bsl-enum-init <bsl-enum-init.html>`_,
    `bsl-enum-scoped <bsl-enum-scoped.html>`_,
@@ -83,6 +83,7 @@ Clang-Tidy Checks
    `bsl-stmt-switch-case-parent <bsl-stmt-switch-case-parent.html>`_,
    `bsl-stmt-switch-default-break <bsl-stmt-switch-default-break.html>`_,
    `bsl-stmt-switch-default-last <bsl-stmt-switch-default-last.html>`_,
+   `bsl-ternary-operator-forbidden <bsl-ternary-operator-forbidden.html>`_, "Yes"
    `bsl-types-fixed-width-ints <bsl-types-fixed-width-ints.html>`_,
    `bsl-types-no-wide-char <bsl-types-no-wide-char.html>`_,
    `bsl-unused-return-value <bsl-unused-return-value.html>`_,
