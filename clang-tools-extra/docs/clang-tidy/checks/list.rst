@@ -45,6 +45,7 @@ Clang-Tidy Checks
    `android-cloexec-socket <android-cloexec-socket.html>`_,
    `android-comparison-in-temp-failure-retry <android-comparison-in-temp-failure-retry.html>`_,
    `boost-use-to-string <boost-use-to-string.html>`_, "Yes"
+   `bsl-boolean-operators-forbidden <bsl-boolean-operators-forbidden.html>`_, "Yes"
    `bsl-class-base <bsl-class-base.html>`_,
    `bsl-class-final-function <bsl-class-final-function.html>`_,
    `bsl-class-member-init <bsl-class-member-init.html>`_,
@@ -52,13 +53,13 @@ Clang-Tidy Checks
    `bsl-class-virtual-base <bsl-class-virtual-base.html>`_,
    `bsl-copy-move-access-specifier <bsl-copy-move-access-specifier.html>`_, "Yes"
    `bsl-decl-forbidden <bsl-decl-forbidden.html>`_,
-   `bsl-destructor-access-specifier <bsl-destructor-access-specifier.html>`_, "Yes"
+   `bsl-destructor-access-specifier <bsl-destructor-access-specifier.html>`_,
    `bsl-enum-explicit <bsl-enum-explicit.html>`_,
    `bsl-enum-init <bsl-enum-init.html>`_,
    `bsl-enum-scoped <bsl-enum-scoped.html>`_,
    `bsl-for-loop-counter <bsl-for-loop-counter.html>`_,
    `bsl-function-name-use <bsl-function-name-use.html>`_, "Yes"
-   `bsl-identifier-typographically-unambiguous <bsl-identifier-typographically-unambiguous.html>`_, "Yes"
+   `bsl-identifier-typographically-unambiguous <bsl-identifier-typographically-unambiguous.html>`_,
    `bsl-lambda-implicit-capture <bsl-lambda-implicit-capture.html>`_,
    `bsl-lambda-param-list <bsl-lambda-param-list.html>`_,
    `bsl-literals-ascii-only <bsl-literals-ascii-only.html>`_,
@@ -66,7 +67,7 @@ Clang-Tidy Checks
    `bsl-literals-no-octal <bsl-literals-no-octal.html>`_,
    `bsl-literals-user-defined <bsl-literals-user-defined.html>`_,
    `bsl-namespace-global <bsl-namespace-global.html>`_,
-   `bsl-non-pod-classdef <bsl-non-pod-classdef.html>`_, "Yes"
+   `bsl-non-pod-classdef <bsl-non-pod-classdef.html>`_,
    `bsl-non-pod-static <bsl-non-pod-static.html>`_,
    `bsl-op-bitwise-operands <bsl-op-bitwise-operands.html>`_, "Yes"
    `bsl-op-conditional-subexpr <bsl-op-conditional-subexpr.html>`_,

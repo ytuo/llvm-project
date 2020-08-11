@@ -75,6 +75,11 @@ New module
 
 New checks
 ^^^^^^^^^^
+- New :doc:`bsl-boolean-operators-forbidden
+  <clang-tidy/checks/bsl-boolean-operators-forbidden>` check.
+
+  Warns if you use && or ||
+
 - New :doc:`bsl-class-base
   <clang-tidy/checks/bsl-class-base>` check.
 
@@ -109,7 +114,7 @@ New checks
 - New :doc:`bsl-copy-move-access-specifier
   <clang-tidy/checks/bsl-copy-move-access-specifier>` check.
 
-  Checks that copy and move constructors and copy assignment and move 
+  Checks that copy and move constructors and copy assignment and move
   assignment operators are declared protected or deleted in base class.
 
 - New :doc:`bsl-decl-forbidden
