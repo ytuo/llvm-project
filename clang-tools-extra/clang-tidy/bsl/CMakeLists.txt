@@ -13,6 +13,7 @@ add_clang_library(clangTidyBslModule
   CopyMoveAccessSpecifierCheck.cpp
   DeclForbiddenCheck.cpp
   DestructorAccessSpecifierCheck.cpp
+  ElseRequiredAfterIfCheck.cpp
   EnumExplicitCheck.cpp
   EnumInitCheck.cpp
   EnumScopedCheck.cpp
