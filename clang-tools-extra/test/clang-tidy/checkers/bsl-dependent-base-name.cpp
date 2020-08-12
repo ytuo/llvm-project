@@ -70,6 +70,8 @@ class E : C
 	{
 		TYPE t = 0;
 		g ( );
+		// A a = a();
+		// a->f1();
 	}
 	void f2 ( )
 	{
