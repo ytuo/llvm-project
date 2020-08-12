@@ -15,7 +15,8 @@ namespace clang {
 namespace tidy {
 namespace bsl {
 
-/// FIXME: Write a short description.
+/// Checks that names in a class template found in its dependent base are
+/// referred to using a qualified-id or this->.
 ///
 /// For the user-facing documentation see:
 /// http://clang.llvm.org/extra/clang-tidy/checks/bsl-dependent-base-name.html

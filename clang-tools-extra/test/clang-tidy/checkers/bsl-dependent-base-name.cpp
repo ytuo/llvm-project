@@ -16,24 +16,21 @@ class A : public B<T>
 {
 	void f1 ( )
 	{
-		TYPE t = 0;
-		g ( );
+		TYPE t = 0;		// Non-compliant Example 1
+		g ( );			// Non-compliant Example 2
 		var = 0; 		// Non-compliant?? use ::var = 0?
 	}
-	// Non-compliant Example 1
-	// Non-compliant Example 2
+	
 	void f2 ( )
 	{
-		::TYPE t1 = 0;
-		::g ( );
-		// Compliant - explicit use global TYPE
-		// Compliant - explicit use global func
+		::TYPE t1 = 0;	// Compliant - explicit use global TYPE
+		::g ( );		// Compliant - explicit use global func
 		typename B<T>::TYPE t2 = 0; // Compliant - explicit use base TYPE
-		this->g ( );
-		// Compliant - explicit use base "g"
+		this->g ( );	// Compliant - explicit use base "g"
 	}
 };
 
+// All compliant
 template <typename T>
 class B
 {
