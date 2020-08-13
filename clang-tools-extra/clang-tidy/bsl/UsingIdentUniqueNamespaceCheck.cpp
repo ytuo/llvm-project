@@ -33,25 +33,29 @@ void UsingIdentUniqueNamespaceCheck::check(
 
   std::string name = D->getNameAsString();
   const DeclContext *ns = D->getDeclContext()->getEnclosingNamespaceContext();
+  auto *curns = ns;
 
-  while (!ns->isTranslationUnit()) {
-    auto itr = namespaceToIDs.find(ns);
+  bool seen = false;
+  while (curns && (!curns->isTranslationUnit() || curns->isTranslationUnit())) {
+    auto itr = namespaceToIDs.find(curns);
     if (itr != namespaceToIDs.end()) {
       auto id_itr = (itr->second).find(name);
       if (id_itr != (itr->second).end()) {
         unsigned int locnum = Mgr->getPresumedLoc(id_itr->second).getLine();
-        diag(Loc, "%0 already used in current namespace %1 at line %2")
-            << name << ns->getEnclosingNamespaceContext() << locnum;
+        diag(Loc, "%0 already used in %1 at line %2")
+            << name << curns->getEnclosingNamespaceContext() << locnum;
+        seen = true;
         break;
-      } else {
+      } else if (curns == ns) {
         (itr->second)[name] = Loc;
       }
 
-    } else {
-      namespaceToIDs[ns] = {{name, Loc}};
+    } else if (curns == ns) {
+      namespaceToIDs[curns] = {{name, Loc}};
     }
-    ns = ns->getParent();
+    curns = curns->getParent(); // if isTranslationUnit, curns parent is null
   }
+
 }
 
 } // namespace bsl

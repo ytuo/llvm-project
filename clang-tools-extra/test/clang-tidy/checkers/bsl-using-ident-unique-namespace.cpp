@@ -1,15 +1,13 @@
 // RUN: %check_clang_tidy %s bsl-using-ident-unique-namespace %t
 // #include <cstdint>
 
-using func = void (*)(int, int);	// Compliant
-
 namespace n1
 {
 	using func = void (*)(int, int);
 	void f1()
 	{
-		using func = void (*)(void); // Non-compliant, reuses func identifier declared
-			// in the same namespace
+		using func = void (*)(void); // Non-compliant, reuses func identifier declared in the same namespace
+		// CHECK-MESSAGES: [[@LINE-1]]:3: warning: func already used in namespace 'n1' at line 6 [bsl-using-ident-unique-namespace]
 	}
 
 	template <class T>
@@ -20,16 +18,19 @@ namespace n1
 	template <class T>
 	void f2() {
 		using ptr = T*;		// Non-compliant
+		// CHECK-MESSAGES: [[@LINE-1]]:3: warning: func already used in namespace 'n1' at line 14 [bsl-using-ident-unique-namespace]
 	}
 
-	class Foo() {
+	class Foo {
 	private:
 		void func(){};
-	}
+		// CHECK-MESSAGES: [[@LINE-1]]:
+	};
 
-	struct Bar() {
+	struct Bar {
 		void func(){};
-	}
+		// CHECK-MESSAGES: [[@LINE-1]]:
+	};
 }
 
 namespace n2
@@ -47,8 +48,10 @@ namespace n3
 	namespace n4
 	{
 		using func = void (*)(int, int); // Non-compliant; nested namespace
+		// CHECK-MESSAGES: [[@LINE-1]]:3: warning: func already used in namespace 'n3' at line 47 [bsl-using-ident-unique-namespace]
 		namespace n5 {
 			using func = void (*)(int);	 // Non-compliant
+			// CHECK-MESSAGES: [[@LINE-1]]:4: warning: func already used in namespace 'n3::n4' at line 50 [bsl-using-ident-unique-namespace]
 		}
 	}
 }
@@ -63,6 +66,7 @@ namespace n5
 	void f1()
 	{
 		using myType = T;		// Non-compliant
+		// CHECK-MESSAGES: [[@LINE-1]]:3: warning: myType already used in namespace 'n5' at line 63 [bsl-using-ident-unique-namespace]
 	}
 
 
@@ -74,6 +78,42 @@ namespace n5
 	// {
 	// 	template <typename T> using Y = void <typename T> f();
 	// }
+}
+
+using func2 = void (*)(int, int);
+// class and struct tests
+namespace n6{
+	using func2 = void (*)(int, int);
+	// CHECK-MESSAGES: [[@LINE-1]]:2: warning: func2 already used in the global namespace at line 47 [bsl-using-ident-unique-namespace]
+	using func = void (*)(int, int);
+	class Outer {
+		using func = void (*)(int, int);
+		// CHECK-MESSAGES: [[@LINE-1]]:3: warning: func already used in namespace 'n6' at line 88 [bsl-using-ident-unique-namespace]
+
+		class Inner{
+			using func = void (*)(int, int);
+			// CHECK-MESSAGES: [[@LINE-1]]:3: warning: func already used in namespace 'n6' at line 47 [bsl-using-ident-unique-namespace]
+
+		};
+	};
+
+	class Outer2 {
+		using func3 = void (*)(int, int);
+		class Inner2{
+			using func3 = void (*)(int, int);
+			// CHECK-MESSAGES: [[@LINE-1]]:3: warning: func3 already used in namespace 'n6' at line 47 [bsl-using-ident-unique-namespace]
+
+		};
+	};
+
+	struct Outer3 {
+		using func3 = void (*)(int, int);
+		struct Inner3{
+			using func3 = void (*)(int, int);
+			// CHECK-MESSAGES: [[@LINE-1]]:3: warning: func3 already used in namespace 'n6' at line 47 [bsl-using-ident-unique-namespace]
+
+		};
+	};
 }
 
 
