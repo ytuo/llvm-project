@@ -1,6 +1,19 @@
 
 #include <stdint.h>
 
+template<typename T>
+class X {
+    T m_val;
+
+public:
+    constexpr auto
+    operator<<=(T const &rhs) &noexcept -> T &
+    {
+        // No warning for type dependent operators
+        m_val <<= rhs.m_val;
+    }
+};
+
 int foo()
 {
   short a0 = 4;

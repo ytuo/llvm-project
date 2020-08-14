@@ -20,7 +20,9 @@ namespace bsl {
 void OpBitwiseOperandsCheck::registerMatchers(MatchFinder *Finder) {
   auto BinaryOps = hasAnyOperatorName("^", "|", "&", "^=", "|=", "&=",
                                       "<<", ">>", "<<=", ">>=");
-  Finder->addMatcher(binaryOperator(BinaryOps).bind("op"), this);
+  Finder->addMatcher(binaryOperator(BinaryOps,
+                                    unless(isTypeDependent())).bind("op"),
+                     this);
 }
 
 void OpBitwiseOperandsCheck::check(const MatchFinder::MatchResult &Result) {
