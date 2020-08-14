@@ -10,6 +10,7 @@
 #include "../ClangTidyModule.h"
 #include "../ClangTidyModuleRegistry.h"
 #include "BooleanOperatorsForbiddenCheck.h"
+#include "AssignOpDeclRefQualifierCheck.h"
 #include "ClassBaseCheck.h"
 #include "ClassFinalFunctionCheck.h"
 #include "ClassMemberInitCheck.h"
@@ -65,6 +66,8 @@ public:
   void addCheckFactories(ClangTidyCheckFactories &CheckFactories) override {
     CheckFactories.registerCheck<BooleanOperatorsForbiddenCheck>(
         "bsl-boolean-operators-forbidden");
+    CheckFactories.registerCheck<AssignOpDeclRefQualifierCheck>(
+        "bsl-assign-op-decl-ref-qualifier");
     CheckFactories.registerCheck<ClassBaseCheck>(
         "bsl-class-base");
     CheckFactories.registerCheck<ClassFinalFunctionCheck>(
