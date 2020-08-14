@@ -30,6 +30,7 @@ public:
     }
 
     X* operator&()
+    // CHECK-MESSAGES: :[[@LINE-1]]:5: warning: overloaded address-of operator is forbidden [bsl-op-forbidden-overload]
     {
         return this;
     }
@@ -50,8 +51,28 @@ int foo()
     int i = c[1];
     // CHECK-MESSAGES: :[[@LINE-1]]:16: warning: overloaded operator[] is forbidden [bsl-op-forbidden-overload]
 
-    X *p = &c;
-    // CHECK-MESSAGES: :[[@LINE-1]]:12: warning: overloaded operator& is forbidden [bsl-op-forbidden-overload]
-
     return 0;
+}
+
+template<typename T>
+class Y
+{
+    T t;
+
+public:
+    T* ptr() { return &t; }
+};
+
+template<typename T>
+T* operator&(T t)
+// CHECK-MESSAGES: :[[@LINE-1]]:1: warning: overloaded address-of operator is forbidden [bsl-op-forbidden-overload]
+{
+    return t.ptr();
+}
+
+int b;
+
+int *bar()
+{
+    return &b;
 }

@@ -1,3 +1,14 @@
+
+template<typename T> struct remove_reference { typedef T type; };
+template<typename T> struct remove_reference<T&> { typedef T type; };
+template<typename T> struct remove_reference<T&&> { typedef T type; };
+
+template<typename T>
+constexpr typename remove_reference<T>::type && move(T && arg) noexcept
+{
+  return static_cast<typename remove_reference<T>::type &&>(arg);
+}
+
 struct C {
     float f0;
     float f1;
@@ -31,6 +42,8 @@ static int f()
     return 0;
 }
 
+[[maybe_unused]] static int f_unused();
+
 static void g()
 {
     auto x = 0;
@@ -51,10 +64,12 @@ int z()
     f();
     // CHECK-MESSAGES: :[[@LINE-1]]:5: warning: unused return value [bsl-unused-return-value]
 
+    f_unused();
+
     int x = f();
     static_cast<void>(f());
 
-    class C c0, c1, c2;
+    class C c0, c1, c2, c3, c4;
 
     for (auto i = 0; i < 5; i++) {
         f();
@@ -87,6 +102,8 @@ int z()
     c2 = c0 + c1;
     c0 * c2;
     c1 - c2;
+    c4 = c2;
+    c3 = move(c4);
 
     operator*(c0, c2);
     // CHECK-MESSAGES: :[[@LINE-1]]:5: warning: unused return value [bsl-unused-return-value]
