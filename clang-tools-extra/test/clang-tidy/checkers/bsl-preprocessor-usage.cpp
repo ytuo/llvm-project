@@ -1,56 +1,59 @@
 // RUN: %check_clang_tidy %s bsl-preprocessor-usage %t
 
-#ifndef FOO
-// CHECK-NOTES: [[@LINE-3]]:2: note: previous #ifndef was here
-void f();
-#endif
-
-#ifdef FOO
-// CHECK-NOTES: [[@LINE-3]]:2: note: previous #ifndef was here
-void f2();
-#endif
-
-#ifdef FOO
-#include <cstdint>
-#endif
-
-#ifndef BSL_USING_DECL_SCOPE_HPP
-#include "bsl-using-decl-scope.hpp"
-#endif
+#include "readability-redundant-preprocessor.h"
 
 
-#define BAR 4
+// #ifndef FOO
+// // CHECK-NOTES: [[@LINE-3]]:2: note: previous #ifndef was here
+// void f();
+// #endif
 
-#if BAR == 2
-#error error
-#elif BAR == 4
-#else
-#endif
+// #ifdef FOO
+// // CHECK-NOTES: [[@LINE-3]]:2: note: previous #ifndef was here
+// void f2();
+// #endif
 
-// error?
-// ident?		#ident #sccs
-#line 10		// error?
+// #ifdef FOO
+// #include <cstdint>
+// #endif
 
-#undef FOO
+// #ifndef BSL_USING_DECL_SCOPE_HPP
+// #include "bsl-using-decl-scope.hpp"
+// #endif
 
-// #include <iostream>
+
+// #define BAR 4
+
+// #if BAR == 2
+// #error error
+// #elif BAR == 4
+// #else
+// #endif
+
+// // error?
+// // ident?		#ident #sccs
+// #line 10		// error?
+
+// #undef FOO
+
+// // #include <iostream>
 
 
-void func1();  
-void func2();  
+// void func1();  
+// void func2();  
     
-#pragma startup func1  
-#pragma exit func2  #pragma warn -rvl
-#pragma warning(disable:4700)
-#pragma warn -rvl    
+// #pragma startup func1  
+// #pragma exit func2  #pragma warn -rvl
+// #pragma warning(disable:4700)
+// #pragma warn -rvl    
 
-void func1()  
-{  
-    int x = 1;
-}  
+// void func1()  
+// {  
+//     int x = 1;
+// }  
     
-void func2()  
-{  
-    int x = 2;
-}  
-    
+// void func2()  
+// {  
+//     int x = 2;
+// }  
+//     
