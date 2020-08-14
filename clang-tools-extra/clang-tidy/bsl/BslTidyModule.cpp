@@ -49,6 +49,7 @@
 #include "StmtSwitchDefaultBreakCheck.h"
 #include "StmtSwitchDefaultLastCheck.h"
 #include "TernaryOperatorForbiddenCheck.h"
+#include "StructDefCheck.h"
 #include "TypesFixedWidthIntsCheck.h"
 #include "TypesNoWideCharCheck.h"
 #include "UnusedReturnValueCheck.h"
@@ -136,6 +137,8 @@ public:
         "bsl-stmt-switch-default-last");
     CheckFactories.registerCheck<TernaryOperatorForbiddenCheck>(
         "bsl-ternary-operator-forbidden");
+    CheckFactories.registerCheck<StructDefCheck>(
+        "bsl-struct-def");
     CheckFactories.registerCheck<TypesFixedWidthIntsCheck>(
         "bsl-types-fixed-width-ints");
     CheckFactories.registerCheck<LiteralsAsciiOnlyCheck>(
