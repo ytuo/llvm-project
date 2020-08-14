@@ -16,28 +16,67 @@ namespace clang {
 namespace tidy {
 namespace bsl {
 
+AST_MATCHER(FunctionDecl, isInstanceMethod) {
+  const auto MD = dyn_cast<CXXMethodDecl>(&Node);
+  return MD && MD->isInstance();
+}
+
 void OpForbiddenOverloadCheck::registerMatchers(MatchFinder *Finder) {
-  Finder->addMatcher(
-    callExpr(anyOf(
-      cxxOperatorCallExpr(hasAnyOverloadedOperatorName("&&", "||", ",", "[]")),
-      cxxOperatorCallExpr(
-          hasOverloadedOperatorName("&"),
-          unless(argumentCountIs(2))
-      )
-    )).bind("op-call"),
-    this);
+  Finder->addMatcher(cxxOperatorCallExpr(
+                       hasAnyOverloadedOperatorName("&&", "||", ",", "[]")
+                     ).bind("op-call"),
+                    this);
+
+  Finder->addMatcher(functionDecl(
+                       hasOverloadedOperatorName("&"), parameterCountIs(1),
+                       unless(isInstanceMethod())
+                     ).bind("op-decl-non-instance"),
+                     this);
+
+  Finder->addMatcher(cxxMethodDecl(
+                       hasOverloadedOperatorName("&"), parameterCountIs(0),
+                       isInstanceMethod()
+                     ).bind("op-decl-instance"),
+                     this);
 }
 
 void OpForbiddenOverloadCheck::check(const MatchFinder::MatchResult &Result) {
   const auto Call = Result.Nodes.getNodeAs<CXXOperatorCallExpr>("op-call");
 
-  const auto Loc = Call->getOperatorLoc();
-  if (Loc.isInvalid())
+  if (Call) {
+    const auto Loc = Call->getOperatorLoc();
+    if (Loc.isInvalid())
+      return;
+
+    const auto Str = getOperatorSpelling(Call->getOperator());
+    diag(Loc, "overloaded operator%0 is forbidden") << Str;
+
     return;
+  }
 
-  const auto Str = getOperatorSpelling(Call->getOperator());
+  const auto FD = Result.Nodes.getNodeAs<FunctionDecl>("op-decl-non-instance");
+  if (FD) {
+    const auto CFD = FD->getCanonicalDecl();
+    if (CFD->getSourceRange().isInvalid())
+        return;
 
-  diag(Loc, "overloaded operator%0 is forbidden") << Str;
+    const auto Loc = CFD->getSourceRange().getBegin();
+    diag(Loc, "overloaded address-of operator is forbidden");
+
+    return;
+  }
+
+  const auto MD = Result.Nodes.getNodeAs<CXXMethodDecl>("op-decl-instance");
+  if (MD) {
+    const auto CMD = MD->getCanonicalDecl();
+    if (CMD->getSourceRange().isInvalid())
+      return;
+
+    const auto Loc = CMD->getSourceRange().getBegin();
+    diag(Loc, "overloaded address-of operator is forbidden");
+
+    return;
+  }
 }
 
 } // namespace bsl
