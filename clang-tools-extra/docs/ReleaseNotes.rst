@@ -127,6 +127,11 @@ New checks
   Checks that copy and move constructors and copy assignment and move
   assignment operators are declared protected or deleted in base class.
 
+- New :doc:`bsl-const-obj-std-move
+  <clang-tidy/checks/bsl-const-obj-std-move>` check.
+
+  Warns if std::move (or bsl::move) is used on objects declared const or const&.
+
 - New :doc:`bsl-decl-forbidden
   <clang-tidy/checks/bsl-decl-forbidden>` check.
 
