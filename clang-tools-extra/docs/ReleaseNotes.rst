@@ -166,6 +166,11 @@ New checks
   Warns if a function name is used in an expression other than a call
   or address-of.
 
+- New :doc:`bsl-function-noexcept
+  <clang-tidy/checks/bsl-function-noexcept>` check.
+
+  Checks that every function is marked as noexcept or noexcept(false).
+
 - New :doc:`bsl-identifier-typographically-unambiguous
   <clang-tidy/checks/bsl-identifier-typographically-unambiguous>` check.
 

@@ -22,6 +22,7 @@ add_clang_library(clangTidyBslModule
   EnumScopedCheck.cpp
   ForLoopCounterCheck.cpp
   FunctionNameUseCheck.cpp
+  FunctionNoexceptCheck.cpp
   IdentifierTypographicallyUnambiguousCheck.cpp
   LambdaImplicitCaptureCheck.cpp
   LambdaParamListCheck.cpp
