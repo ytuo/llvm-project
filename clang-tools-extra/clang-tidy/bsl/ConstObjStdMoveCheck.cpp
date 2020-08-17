@@ -19,27 +19,30 @@ namespace bsl {
 void ConstObjStdMoveCheck::registerMatchers(MatchFinder *Finder) {
   Finder->addMatcher(
       callExpr(
-          hasArgument(0, declRefExpr(hasType(qualType(isConstQualified())))))
-          .bind("const"),
+          hasArgument(0, declRefExpr(hasType(qualType(isConstQualified()))).bind("ref")),
+          callee(functionDecl(anyOf(hasName("::std::move"),
+                                    hasName("::bsl::move"))).bind("decl"))
+          ).bind("move"),
       this);
 }
 
 void ConstObjStdMoveCheck::check(const MatchFinder::MatchResult &Result) {
-  const auto *MatchedDecl = Result.Nodes.getNodeAs<CallExpr>("const");
-  if (MatchedDecl->isCallToStdMove()) {
-    diag(MatchedDecl->getBeginLoc(),
-         "std::move should not be used on objects declared const or const &");
-  } else {
-    const FunctionDecl *FD = MatchedDecl->getDirectCallee();
-    const auto *NsDecl = cast<NamespaceDecl>(
-        FD->getDeclContext()->getEnclosingNamespaceContext());
+  const auto Call = Result.Nodes.getNodeAs<CallExpr>("move");
+  const auto Loc = Call->getBeginLoc();
 
-    if (FD->getIdentifier()->isStr("move") &&
-        NsDecl->getName().equals(StringRef("bsl"))) {
-      diag(MatchedDecl->getBeginLoc(),
-           "bsl::move should not be used on objects declared const or const &");
-    }
-  }
+  if (Loc.isInvalid())
+      return;
+
+  const auto Func = Result.Nodes.getNodeAs<FunctionDecl>("decl");
+  const auto Ref = Result.Nodes.getNodeAs<DeclRefExpr>("ref");
+  const auto ArgName = Ref->getFoundDecl()->getName();
+  const auto ArgLoc = Ref->getFoundDecl()->getBeginLoc();
+
+  diag(Loc, "invoking %0 with const argument %1")
+      << Func->getQualifiedNameAsString() << ArgName;
+
+  diag(ArgLoc,
+       "argument %0 declared const here", DiagnosticIDs::Note) << ArgName;
 }
 
 } // namespace bsl
