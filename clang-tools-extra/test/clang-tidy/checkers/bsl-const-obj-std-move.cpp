@@ -30,26 +30,30 @@ void f1() {
   const A a1{};
   A a2 = a1;            // Compliant - copy constructor is called
   A a3 = std::move(a1); // Non-compliant
-  // CHECK-MESSAGES: :[[@LINE-1]]:10: warning: std::move should not be used on objects declared const or const & [bsl-const-obj-std-move]
+  // CHECK-MESSAGES: :[[@LINE-1]]:10: warning: invoking std::move with const argument a1 [bsl-const-obj-std-move]
+  // CHECK-MESSAGES: :[[@LINE-4]]:3: note: argument a1 declared const here
   A a4{};
   A a5 = std::move(a4); // Compliant
 
   const A &a6{};
   A a7 = std::move(a6); // Non-compliant
-  // CHECK-MESSAGES: :[[@LINE-1]]:10: warning: std::move should not be used on objects declared const or const & [bsl-const-obj-std-move]
+  // CHECK-MESSAGES: :[[@LINE-1]]:10: warning: invoking std::move with const argument a6 [bsl-const-obj-std-move]
+  // CHECK-MESSAGES: :[[@LINE-3]]:3: note: argument a6 declared const here
 }
 
 void f2() {
   const A a1{};
   A a2 = a1;            // Compliant - copy constructor is called
   A a3 = bsl::move(a1); // Non-compliant
-  // CHECK-MESSAGES: :[[@LINE-1]]:10: warning: bsl::move should not be used on objects declared const or const & [bsl-const-obj-std-move]
+  // CHECK-MESSAGES: :[[@LINE-1]]:10: warning: invoking bsl::move with const argument a1 [bsl-const-obj-std-move]
+  // CHECK-MESSAGES: :[[@LINE-4]]:3: note: argument a1 declared const here
   A a4{};
   A a5 = bsl::move(a4); // Compliant
 
   const A &a6{};
   A a7 = bsl::move(a6); // Non-compliant
-  // CHECK-MESSAGES: :[[@LINE-1]]:10: warning: bsl::move should not be used on objects declared const or const & [bsl-const-obj-std-move]
+  // CHECK-MESSAGES: :[[@LINE-1]]:10: warning: invoking bsl::move with const argument a6 [bsl-const-obj-std-move]
+  // CHECK-MESSAGES: :[[@LINE-3]]:3: note: argument a6 declared const here
 }
 
 // Compliant; ignore other namespaces
