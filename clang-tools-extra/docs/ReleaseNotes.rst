@@ -171,6 +171,11 @@ New checks
 
   Checks that every function is marked as noexcept or noexcept(false).
 
+- New :doc:`bsl-identifier-hide-outer-scope
+  <clang-tidy/checks/bsl-identifier-hide-outer-scope>` check.
+
+  FIXME: add release notes.
+
 - New :doc:`bsl-identifier-typographically-unambiguous
   <clang-tidy/checks/bsl-identifier-typographically-unambiguous>` check.
 
