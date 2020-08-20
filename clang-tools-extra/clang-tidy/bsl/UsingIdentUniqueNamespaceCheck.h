@@ -29,9 +29,15 @@ public:
   void check(const ast_matchers::MatchFinder::MatchResult &Result) override;
 
 private:
-  std::unordered_map<const DeclContext *, std::unordered_map<std::string, SourceLocation>> namespaceToIDs;
-};
+  void findPreviousUsage(const DeclContext *curns, std::string name,
+                         const DeclContext *ns, SourceManager *Mgr,
+                         SourceLocation Loc);
 
+private:
+  std::unordered_map<const DeclContext *,
+                     std::unordered_map<std::string, SourceLocation>>
+      namespaceToIDs;
+};
 
 } // namespace bsl
 } // namespace tidy

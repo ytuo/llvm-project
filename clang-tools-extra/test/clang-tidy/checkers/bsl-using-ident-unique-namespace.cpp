@@ -149,6 +149,40 @@ namespace n9
     }
 }
 
+namespace n10
+{
+	using foo = void (*)(int, int);
+	namespace n10_1{ 
+		typedef unsigned long foo;
+		// CHECK-MESSAGES: [[@LINE-1]]:
+		class Inner {
+			typedef unsigned long foo;
+			// CHECK-MESSAGES: [[@LINE-1]]:
+		};
+	}
+
+	namespace n10_2{ 
+		typedef unsigned long bar;
+	}
+
+	namespace n10_3{ 
+		typedef unsigned long bar;
+	}
+
+	class A {
+		typedef unsigned long foo;
+		// CHECK-MESSAGES: [[@LINE-1]]:
+	};
+}
+
+namespace n11
+{
+	using before = void (*)(int, int);
+	// CHECK-MESSAGES: [[@LINE-1]]:
+}
+
+using before = void (*)(int, int);
+
 // // // already not allowed by clang
 // class Type {};
 

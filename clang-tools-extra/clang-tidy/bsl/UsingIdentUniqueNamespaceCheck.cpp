@@ -18,187 +18,29 @@ namespace bsl {
 
 void UsingIdentUniqueNamespaceCheck::registerMatchers(MatchFinder *Finder) {
   Finder->addMatcher(typeAliasDecl().bind("using"), this);
-  Finder->addMatcher(tagDecl(anyOf(
-                      cxxRecordDecl(hasDefinition()),
-                      enumDecl()
-                      )).bind("tag"), this);
-  // typedef?
+  Finder->addMatcher(
+      tagDecl(anyOf(cxxRecordDecl(hasDefinition()), enumDecl())).bind("tag"),
+      this);
+  Finder->addMatcher(typedefDecl().bind("typedef"), this);
 }
 
-
-// use lookup stuff at each level?
 void UsingIdentUniqueNamespaceCheck::check(
     const MatchFinder::MatchResult &Result) {
   auto Mgr = Result.SourceManager;
 
-  // version 2 use lookups
-  // const auto *D = Result.Nodes.getNodeAs<TypeAliasDecl>("using");
-  // if (D) {
-    
-  //   const auto Loc = D->getBeginLoc();
-  //   if (Loc.isInvalid())
-  //     return;    
-
-  //   std::string name = D->getNameAsString();
-  //   const DeclContext *ns = D->getDeclContext();
-  //   auto *curns = ns;
-
-  //   while (curns) {
-  //     // check if parent is class, not namespace (lexicalparent?)
-  //     // for (NamedDecl *item : curns->lookup(name)) {
-  //     //   // unless namespace unnamed? 
-  //     //   if (item == D) {
-  //     //     unsigned int locnum = Mgr->getPresumedLoc(item).getLine();
-  //     //     diag(Loc, "%0 already used in %1 at line %2")
-  //     //         << name << curns << locnum;
-  //     //   }
-  //     // }
-  //     diag(Loc, "%0") << D->getDeclName();
-  //     if (curns->lookup(D->getDeclName()).size() > 1) {
-  //        diag(Loc,"more than one");
-  //     }
-          
-  //     curns = curns->getLexicalParent();
-  //   }
-  // }
-  
-
-  // const auto *MatchedDecl = Result.Nodes.getNodeAs<TagDecl>("tag");
-  // if (MatchedDecl) {
-  //   const auto Loc = MatchedDecl->getBeginLoc();
-  //   if (Loc.isInvalid())
-  //     return;
-
-  //   std::string name = MatchedDecl->getNameAsString();
-  //   const DeclContext *ns = MatchedDecl->getDeclContext();
-  //   auto *curns = ns;
-
-  //   while (curns) {
-  //   // check if parent is class, not namespace (lexicalparent?)
-  //     // for (NamedDecl *item : curns->lookup(name)) {
-  //     //   // unless namespace unnamed? 
-  //     //   if (item == D) {
-  //     //     unsigned int locnum = Mgr->getPresumedLoc(item).getLine();
-  //     //     diag(Loc, "%0 already used in %1 at line %2")
-  //     //         << name << curns << locnum;
-  //     //   }
-  //     // }
-  //     diag(Loc, "%0") << MatchedDecl->getDeclName();
-  //     if (curns->lookup(MatchedDecl->getDeclName()).size() > 1) {
-  //        diag(Loc,"more than one");
-  //     }
-          
-  //     curns = curns->getLexicalParent();
-  //   }
-  // }
-
-  // version 1
-// // getOuterLexicalRecordContext ()
-// const auto *D = Result.Nodes.getNodeAs<TypeAliasDecl>("using");
-//   if (D) {
-//     const auto Loc = D->getBeginLoc();
-//     if (Loc.isInvalid())
-//       return;
-
-//     std::string name = D->getNameAsString();
-//     const DeclContext *ns = D->getDeclContext();  //->getEnclosingNamespaceContext();
-//     auto *curns = ns;
-
-//     bool seen = false;
-//     while (curns) {
-//       if (curns->isRecord()) {
-//         diag(Loc, "is record");
-//       }
-
-//        if (curns->getOuterLexicalRecordContext()) {
-//         diag(Loc, "lexical %0") << curns->getOuterLexicalRecordContext()->getName() ;
-//       }
-//       // diag(Loc, "parent: %0, lexical parent: %1, lookup parent: %2")
-//       //   << curns->getParent() << curns->getLexicalParent() << curns->getLookupParent();
-
-//       diag(Loc, "%0 already used in %1 declkind %2")
-//               << name << curns << curns->getDeclKindName();
-//       curns = curns->getLexicalParent();
-//     }
-//   }
-  
-
-//   const auto *MatchedDecl = Result.Nodes.getNodeAs<TagDecl>("tag");
-//   if (MatchedDecl) {
-//     const auto Loc = MatchedDecl->getBeginLoc();
-//     if (Loc.isInvalid())
-//       return;
-
-//     std::string name = MatchedDecl->getNameAsString();
-//     const DeclContext *ns = MatchedDecl->getDeclContext();  //->getEnclosingNamespaceContext(); // getLexicalDeclContext
-//     auto *curns = ns;
-
-//     bool seen = false;
-//     while (curns) {
-//       if (curns->isRecord()) {
-//         diag(Loc, "derp");
-//       }
-//       if (curns->getOuterLexicalRecordContext()) {
-//         diag(Loc, "lexical %0") << curns->getOuterLexicalRecordContext()->getName() ;
-//       }
-
-//       // diag(Loc, "parent: %0, lexical parent: %1, lookup parent: %2")
-//       //   << curns->getParent() << curns->getLexicalParent() << curns->getLookupParent();
-
-
-//       diag(Loc, "%0 already used in %1 declkind %2")
-//               << name << curns << curns->getDeclKindName();
-//       curns = curns->getLexicalParent();
-//     }
-//   }
-
-
-
-
   const auto *D = Result.Nodes.getNodeAs<TypeAliasDecl>("using");
   if (D) {
-    
+
     const auto Loc = D->getBeginLoc();
     if (Loc.isInvalid())
       return;
-  //   if (D->isCXXClassMember()) {
-  //     diag(Loc, "yes");
-  //   } else {
-  //     diag(Loc, "no");
-  //   }
-
-  // }
-    // is Record?()
-    
 
     std::string name = D->getNameAsString();
-    const DeclContext *ns = D->getDeclContext();  //->getEnclosingNamespaceContext();
+    const DeclContext *ns = D->getDeclContext();
     auto *curns = ns;
 
-    bool seen = false;
-    while (curns) {
-      // check if parent is class, not namespace (lexicalparent?)
-      auto itr = namespaceToIDs.find(curns);
-      if (itr != namespaceToIDs.end()) {
-        auto id_itr = (itr->second).find(name);
-        if (id_itr != (itr->second).end()) {
-          unsigned int locnum = Mgr->getPresumedLoc(id_itr->second).getLine();
-          diag(Loc, "%0 already used in %1 at line %2")
-              << name << curns->getEnclosingNamespaceContext() << locnum;
-          seen = true;
-          break;
-        } else if (curns == ns) { // technically should only add at end, would cause more collisions
-          (itr->second)[name] = Loc;
-        }
-
-      } else if (curns == ns) {
-        namespaceToIDs[curns] = {{name, Loc}};
-      }
-      // curns = curns->getParent(); // if curns isTranslationUnit, parent is null
-      curns = curns->getLexicalParent();
-    }
+    findPreviousUsage(curns, name, ns, Mgr, Loc);
   }
-  
 
   const auto *MatchedDecl = Result.Nodes.getNodeAs<TagDecl>("tag");
   if (MatchedDecl) {
@@ -207,35 +49,52 @@ void UsingIdentUniqueNamespaceCheck::check(
       return;
 
     std::string name = MatchedDecl->getNameAsString();
-    const DeclContext *ns = MatchedDecl->getDeclContext(); //->getEnclosingNamespaceContext();
+    const DeclContext *ns = MatchedDecl->getDeclContext();
     auto *curns = ns;
 
-    bool seen = false;
-    while (curns) {
-      auto itr = namespaceToIDs.find(curns);
-      if (itr != namespaceToIDs.end()) {
-        auto id_itr = (itr->second).find(name);
-        if (id_itr != (itr->second).end()) {
-          // check if class
-          unsigned int locnum = Mgr->getPresumedLoc(id_itr->second).getLine();
-          diag(Loc, "%0 already used in %1 at line %2")
-              << name << curns->getEnclosingNamespaceContext() << locnum;
-          seen = true;
-          break;
-        } else if (curns == ns) {
-          (itr->second)[name] = Loc;
-        }
-
-      } else if (curns == ns) {
-        namespaceToIDs[curns] = {{name, Loc}};    // map name to class and loc
-        // curns is declcontext, is parent class also declcontext? simply add class as ns
-      }
-      // curns = curns->getParent(); // if isTranslationUnit, curns parent is null
-      curns = curns->getLexicalParent();
-    }
+    findPreviousUsage(curns, name, ns, Mgr, Loc);
   }
 
+  const auto *TypedefMatchDecl = Result.Nodes.getNodeAs<TypedefDecl>("typedef");
+  if (TypedefMatchDecl) {
+    const auto Loc = TypedefMatchDecl->getBeginLoc();
+    if (Loc.isInvalid())
+      return;
 
+    std::string name = TypedefMatchDecl->getNameAsString();
+    const DeclContext *ns = TypedefMatchDecl->getDeclContext();
+    auto *curns = ns;
+
+    findPreviousUsage(curns, name, ns, Mgr, Loc);
+  }
+}
+
+void UsingIdentUniqueNamespaceCheck::findPreviousUsage(const DeclContext *curns,
+                                                       std::string name,
+                                                       const DeclContext *ns,
+                                                       SourceManager *Mgr,
+                                                       SourceLocation Loc) {
+  // bool seen = false;
+  while (curns) {
+    auto itr = namespaceToIDs.find(curns);
+    if (itr != namespaceToIDs.end()) {
+      auto id_itr = (itr->second).find(name);
+      if (id_itr != (itr->second).end()) {
+        unsigned int locnum = Mgr->getPresumedLoc(id_itr->second).getLine();
+        diag(Loc, "%0 already used in %1 at line %2")
+            << name << curns->getEnclosingNamespaceContext() << locnum;
+        // seen = true;
+        break;
+      } else if (curns ==
+                 ns) { // Could add at end of while loop if no match instead
+        (itr->second)[name] = Loc;
+      }
+
+    } else if (curns == ns) {
+      namespaceToIDs[curns] = {{name, Loc}};
+    }
+    curns = curns->getLexicalParent();
+  }
 }
 
 } // namespace bsl
