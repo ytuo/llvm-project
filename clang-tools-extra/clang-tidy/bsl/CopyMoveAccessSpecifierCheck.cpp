@@ -19,12 +19,12 @@ namespace bsl {
 void CopyMoveAccessSpecifierCheck::registerMatchers(MatchFinder *Finder) {
   Finder->addMatcher(
       cxxConstructorDecl(anyOf(isCopyConstructor(), isMoveConstructor()),
-                         unless(anyOf(isDeleted(), isProtected())))
+                         unless(anyOf(isDeleted(), isProtected(), isImplicit())))
           .bind("ctor"),
       this);
   Finder->addMatcher(cxxMethodDecl(anyOf(isCopyAssignmentOperator(),
                                          isMoveAssignmentOperator()),
-                                   unless(anyOf(isDeleted(), isProtected())))
+                                   unless(anyOf(isDeleted(), isProtected(), isImplicit())))
                          .bind("op"),
                      this);
 }

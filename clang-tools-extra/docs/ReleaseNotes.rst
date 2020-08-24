@@ -208,6 +208,11 @@ New checks
   Warns if anything other than main(), operator new/delete, namespaces, or
   extern "C" declarations are present at global scope.
 
+- New :doc:`bsl-nodiscard
+  <clang-tidy/checks/bsl-nodiscard>` check.
+
+  Warns if [[nodiscard]] or [[maybe_unused]] are missing
+
 - New :doc:`bsl-non-pod-classdef
   <clang-tidy/checks/bsl-non-pod-classdef>` check.
 

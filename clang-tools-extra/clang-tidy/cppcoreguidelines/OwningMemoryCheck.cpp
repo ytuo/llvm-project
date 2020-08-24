@@ -60,7 +60,7 @@ void OwningMemoryCheck::registerMatchers(MatchFinder *Finder) {
   const auto LegacyOwnerConsumers = functionDecl(LegacyConsumerFunctions);
 
   const auto CreatesOwner =
-      anyOf(cxxNewExpr(),
+      anyOf(cxxNewExpr(unless(hasAnyPlacementArg(anything()))),
             callExpr(callee(
                 functionDecl(returns(qualType(hasDeclaration(OwnerDecl)))))),
             CreatesLegacyOwner, LegacyOwnerCast);
