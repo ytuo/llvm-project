@@ -50,6 +50,9 @@ void RedundantDeclarationCheck::check(const MatchFinder::MatchResult &Result) {
       (D->getLocation().isMacroID() || Prev->getLocation().isMacroID()))
     return;
   // Don't complain when the previous declaration is a friend declaration.
+  if (D->getFriendObjectKind() != clang::Decl::FriendObjectKind::FOK_None) {
+    return;
+  }
   for (const auto &Parent : Result.Context->getParents(*Prev))
     if (Parent.get<FriendDecl>())
       return;
