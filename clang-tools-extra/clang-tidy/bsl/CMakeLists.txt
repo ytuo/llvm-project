@@ -53,6 +53,7 @@ add_clang_library(clangTidyBslModule
   TypesNoWideCharCheck.cpp
   UnusedReturnValueCheck.cpp
   UsingDeclScopeCheck.cpp
+  UsingIdentUniqueNamespaceCheck.cpp
   VarBracedInitCheck.cpp
 
   LINK_LIBS
