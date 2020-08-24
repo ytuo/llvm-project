@@ -88,8 +88,9 @@ Clang-Tidy Checks
    `bsl-stmt-switch-case-parent <bsl-stmt-switch-case-parent.html>`_,
    `bsl-stmt-switch-default-break <bsl-stmt-switch-default-break.html>`_,
    `bsl-stmt-switch-default-last <bsl-stmt-switch-default-last.html>`_,
+   `bsl-struct-def <bsl-struct-def.html>`_,
+   `bsl-template-generic-param <bsl-template-generic-param.html>`_,
    `bsl-ternary-operator-forbidden <bsl-ternary-operator-forbidden.html>`_, "Yes"
-   `bsl-struct-def <bsl-struct-def.html>`_, "Yes"
    `bsl-types-fixed-width-ints <bsl-types-fixed-width-ints.html>`_,
    `bsl-types-no-wide-char <bsl-types-no-wide-char.html>`_,
    `bsl-unused-return-value <bsl-unused-return-value.html>`_,

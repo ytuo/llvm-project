@@ -280,17 +280,24 @@ New checks
 
   Warns if the default label is not last in a switch statement.
 
-- New :doc:`bsl-ternary-operator-forbidden
-  <clang-tidy/checks/bsl-ternary-operator-forbidden>` check.
-
-  Warns if you use the ternary operator
-
 - New :doc:`bsl-struct-def
   <clang-tidy/checks/bsl-struct-def>` check.
 
   Checks that a struct only contains public data members, does not provide any
   special member functions or methods, and is not a base or inherits from
   another struct or class
+
+- New :doc:`bsl-template-generic-param
+  <clang-tidy/checks/bsl-template-generic-param>` check.
+
+  Checks that a copy constructor/assignment operator is declared when there is a 
+  template constructor/assignment operator (respectively) with a single parameter
+  that is a generic parameter.
+
+- New :doc:`bsl-ternary-operator-forbidden
+  <clang-tidy/checks/bsl-ternary-operator-forbidden>` check.
+
+  Warns if you use the ternary operator
 
 - New :doc:`bsl-using-decl-scope
   <clang-tidy/checks/bsl-using-decl-scope>` check.
