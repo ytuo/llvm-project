@@ -39,6 +39,7 @@
 #include "LiteralsUnsignedSuffixCheck.h"
 #include "LiteralsUserDefinedCheck.h"
 #include "NamespaceGlobalCheck.h"
+#include "NodiscardCheck.h"
 #include "NonPodClassdefCheck.h"
 #include "NonPodStaticCheck.h"
 #include "OpBitwiseOperandsCheck.h"
@@ -125,6 +126,8 @@ public:
         "bsl-literals-user-defined");
     CheckFactories.registerCheck<NamespaceGlobalCheck>(
         "bsl-namespace-global");
+    CheckFactories.registerCheck<NodiscardCheck>(
+        "bsl-nodiscard");
     CheckFactories.registerCheck<NonPodClassdefCheck>(
         "bsl-non-pod-classdef");
     CheckFactories.registerCheck<NonPodStaticCheck>(

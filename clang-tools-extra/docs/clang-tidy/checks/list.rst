@@ -74,6 +74,7 @@ Clang-Tidy Checks
    `bsl-literals-no-octal <bsl-literals-no-octal.html>`_,
    `bsl-literals-user-defined <bsl-literals-user-defined.html>`_,
    `bsl-namespace-global <bsl-namespace-global.html>`_,
+   `bsl-nodiscard <bsl-nodiscard.html>`_, "Yes"
    `bsl-non-pod-classdef <bsl-non-pod-classdef.html>`_,
    `bsl-non-pod-static <bsl-non-pod-static.html>`_,
    `bsl-op-bitwise-operands <bsl-op-bitwise-operands.html>`_, "Yes"
