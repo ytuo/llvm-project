@@ -27,6 +27,7 @@
 #include "EnumInitCheck.h"
 #include "EnumScopedCheck.h"
 #include "ForLoopCounterCheck.h"
+#include "ForwardReferenceOverloadedCheck.h"
 #include "FunctionNameUseCheck.h"
 #include "FunctionNoexceptCheck.h"
 #include "IdentifierTypographicallyUnambiguousCheck.h"
@@ -106,6 +107,8 @@ public:
         "bsl-enum-scoped");
     CheckFactories.registerCheck<ForLoopCounterCheck>(
         "bsl-for-loop-counter");
+    CheckFactories.registerCheck<ForwardReferenceOverloadedCheck>(
+        "bsl-forward-reference-overloaded");
     CheckFactories.registerCheck<FunctionNameUseCheck>(
         "bsl-function-name-use");
     CheckFactories.registerCheck<FunctionNoexceptCheck>(

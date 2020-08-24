@@ -46,7 +46,7 @@ Clang-Tidy Checks
    `android-comparison-in-temp-failure-retry <android-comparison-in-temp-failure-retry.html>`_,
    `boost-use-to-string <boost-use-to-string.html>`_, "Yes"
    `bsl-assign-op-decl-ref-qualifier <bsl-assign-op-decl-ref-qualifier.html>`_, "Yes"
-   `bsl-auto-type-usage <bsl-auto-type-usage.html>`_, "Yes"
+   `bsl-auto-type-usage <bsl-auto-type-usage.html>`_,
    `bsl-boolean-operators-forbidden <bsl-boolean-operators-forbidden.html>`_,
    `bsl-class-base <bsl-class-base.html>`_,
    `bsl-class-final-function <bsl-class-final-function.html>`_,
@@ -55,7 +55,7 @@ Clang-Tidy Checks
    `bsl-class-virtual-base <bsl-class-virtual-base.html>`_,
    `bsl-comparison-operators-forbidden <bsl-comparison-operators-forbidden.html>`_,
    `bsl-copy-move-access-specifier <bsl-copy-move-access-specifier.html>`_,
-   `bsl-const-obj-std-move <bsl-const-obj-std-move.html>`_, "Yes"
+   `bsl-const-obj-std-move <bsl-const-obj-std-move.html>`_,
    `bsl-decl-forbidden <bsl-decl-forbidden.html>`_,
    `bsl-destructor-access-specifier <bsl-destructor-access-specifier.html>`_,
    `bsl-else-required-after-if <bsl-else-required-after-if.html>`_,
@@ -63,8 +63,9 @@ Clang-Tidy Checks
    `bsl-enum-init <bsl-enum-init.html>`_,
    `bsl-enum-scoped <bsl-enum-scoped.html>`_,
    `bsl-for-loop-counter <bsl-for-loop-counter.html>`_,
+   `bsl-forward-reference-overloaded <bsl-forward-reference-overloaded.html>`_,
    `bsl-function-name-use <bsl-function-name-use.html>`_, "Yes"
-   `bsl-function-noexcept <bsl-function-noexcept.html>`_, "Yes"
+   `bsl-function-noexcept <bsl-function-noexcept.html>`_,
    `bsl-identifier-typographically-unambiguous <bsl-identifier-typographically-unambiguous.html>`_,
    `bsl-lambda-implicit-capture <bsl-lambda-implicit-capture.html>`_,
    `bsl-lambda-param-list <bsl-lambda-param-list.html>`_,

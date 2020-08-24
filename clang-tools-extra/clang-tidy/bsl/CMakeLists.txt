@@ -21,6 +21,7 @@ add_clang_library(clangTidyBslModule
   EnumInitCheck.cpp
   EnumScopedCheck.cpp
   ForLoopCounterCheck.cpp
+  ForwardReferenceOverloadedCheck.cpp
   FunctionNameUseCheck.cpp
   FunctionNoexceptCheck.cpp
   IdentifierTypographicallyUnambiguousCheck.cpp
