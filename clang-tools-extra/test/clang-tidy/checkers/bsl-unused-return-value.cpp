@@ -1,4 +1,41 @@
 
+template <typename T = int>
+class basic_errc_type final
+{
+public:
+    constexpr basic_errc_type() noexcept = default;
+
+    explicit constexpr basic_errc_type(T const &errc) noexcept : m_errc{errc}
+    {}
+
+    constexpr T const & get() const noexcept
+    {
+        return m_errc;
+    }
+
+    constexpr long message() const noexcept;
+
+private:
+    T m_errc;
+};
+
+constexpr basic_errc_type<> errc_success{0};
+constexpr basic_errc_type<> errc_failure{1};
+
+template<typename T>
+constexpr long
+basic_errc_type<T>::message() const noexcept
+{
+    switch (m_errc) {
+    case errc_success.get():
+        return 1;
+    case errc_failure.get():
+        return 2;
+    default:
+        return 3;
+    };
+}
+
 template<typename T> struct remove_reference { typedef T type; };
 template<typename T> struct remove_reference<T&> { typedef T type; };
 template<typename T> struct remove_reference<T&&> { typedef T type; };

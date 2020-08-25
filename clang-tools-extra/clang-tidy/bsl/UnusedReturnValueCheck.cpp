@@ -22,7 +22,8 @@ void UnusedReturnValueCheck::registerMatchers(MatchFinder *Finder) {
   auto StaticVoidCast = cxxStaticCastExpr(hasDestinationType(voidType()));
   auto AllowedExprs = anyOf(cxxOperatorCallExpr(),
                             hasParent(StaticVoidCast),
-                            hasParent(constantExpr(hasParent(caseStmt())))
+                            hasParent(constantExpr(hasParent(caseStmt()))),
+                            cxxMemberCallExpr(hasParent(caseStmt()))
                       );
 
   auto NonVoidFunc = functionDecl(unless(
