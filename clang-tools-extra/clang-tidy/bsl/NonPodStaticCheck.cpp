@@ -18,7 +18,8 @@ namespace bsl {
 
 void NonPodStaticCheck::registerMatchers(MatchFinder *Finder) {
   Finder->addMatcher(varDecl(hasStaticStorageDuration(),
-                             unless(isConstexpr())
+                             unless(anyOf(isConstexpr(),
+                                          hasAttr(attr::ConstInit)))
                             ).bind("decl"),
                      this);
 }

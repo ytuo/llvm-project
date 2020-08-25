@@ -7,6 +7,8 @@ public:
     int y;
 };
 
+constinit non_pod np{};
+
 //static_assert(!std::is_pod<non_pod>::value);
 
 class A {
@@ -27,7 +29,6 @@ private:
     static A a;
     // CHECK-MESSAGES: :[[@LINE-1]]:14: warning: non-pod type with static storage duration [bsl-non-pod-static]
 };
-
 
 class C {
 public:
