@@ -183,6 +183,22 @@ namespace n11
 
 using before = void (*)(int, int);
 
+namespace n12
+{
+	using separated = void (*)(int, int);
+	using separated2 = void (*)(int, int);
+}
+
+namespace n12
+{
+	using separated = void (*)(int, int);
+	// CHECK-MESSAGES: [[@LINE-1]]:4: warning: separated already used in namespace 'n12' at line 188 [bsl-using-ident-unique-namespace]
+	struct Inner{
+		using separated2 = void (*)(int, int);
+		// CHECK-MESSAGES: [[@LINE-1]]:4: warning: separated2 already used in namespace 'n12' at line 189 [bsl-using-ident-unique-namespace]
+
+	};
+}
 // // // already not allowed by clang
 // class Type {};
 
