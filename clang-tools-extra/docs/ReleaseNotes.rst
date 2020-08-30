@@ -160,10 +160,16 @@ New checks
   warn if else is used when it shouldn't be, which would prevent the above
   checks from working correctly.
 
+- New :doc:`bsl-explicit-constructor
+  <clang-tidy/checks/bsl-explicit-constructor>` check.
+
+  Checks that constructors with a single argument of builtin type are marked
+  explicit to avoid unwanted conversions.
+
 - New :doc:`bsl-forward-reference-overloaded
   <clang-tidy/checks/bsl-forward-reference-overloaded>` check.
 
-  Checks that a function that containing a “forwarding reference” as its argument 
+  Checks that a function that containing a “forwarding reference” as its argument
   is not overloaded unless the overload has a different number of parameters
 
 - New :doc:`bsl-function-name-use
@@ -301,7 +307,7 @@ New checks
 - New :doc:`bsl-template-generic-param
   <clang-tidy/checks/bsl-template-generic-param>` check.
 
-  Checks that a copy constructor/assignment operator is declared when there is a 
+  Checks that a copy constructor/assignment operator is declared when there is a
   template constructor/assignment operator (respectively) with a single parameter
   that is a generic parameter.
 

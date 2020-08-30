@@ -45,7 +45,7 @@ Clang-Tidy Checks
    `android-cloexec-socket <android-cloexec-socket.html>`_,
    `android-comparison-in-temp-failure-retry <android-comparison-in-temp-failure-retry.html>`_,
    `boost-use-to-string <boost-use-to-string.html>`_, "Yes"
-   `bsl-assign-op-decl-ref-qualifier <bsl-assign-op-decl-ref-qualifier.html>`_, "Yes"
+   `bsl-assign-op-decl-ref-qualifier <bsl-assign-op-decl-ref-qualifier.html>`_,
    `bsl-auto-type-usage <bsl-auto-type-usage.html>`_,
    `bsl-boolean-operators-forbidden <bsl-boolean-operators-forbidden.html>`_,
    `bsl-class-base <bsl-class-base.html>`_,
@@ -54,14 +54,15 @@ Clang-Tidy Checks
    `bsl-class-member-redefined <bsl-class-member-redefined.html>`_,
    `bsl-class-virtual-base <bsl-class-virtual-base.html>`_,
    `bsl-comparison-operators-forbidden <bsl-comparison-operators-forbidden.html>`_,
-   `bsl-copy-move-access-specifier <bsl-copy-move-access-specifier.html>`_,
    `bsl-const-obj-std-move <bsl-const-obj-std-move.html>`_,
+   `bsl-copy-move-access-specifier <bsl-copy-move-access-specifier.html>`_,
    `bsl-decl-forbidden <bsl-decl-forbidden.html>`_,
    `bsl-destructor-access-specifier <bsl-destructor-access-specifier.html>`_,
    `bsl-else-required-after-if <bsl-else-required-after-if.html>`_,
    `bsl-enum-explicit <bsl-enum-explicit.html>`_,
    `bsl-enum-init <bsl-enum-init.html>`_,
    `bsl-enum-scoped <bsl-enum-scoped.html>`_,
+   `bsl-explicit-constructor <bsl-explicit-constructor.html>`_, "Yes"
    `bsl-for-loop-counter <bsl-for-loop-counter.html>`_,
    `bsl-forward-reference-overloaded <bsl-forward-reference-overloaded.html>`_,
    `bsl-function-name-use <bsl-function-name-use.html>`_, "Yes"
@@ -74,7 +75,7 @@ Clang-Tidy Checks
    `bsl-literals-no-octal <bsl-literals-no-octal.html>`_,
    `bsl-literals-user-defined <bsl-literals-user-defined.html>`_,
    `bsl-namespace-global <bsl-namespace-global.html>`_,
-   `bsl-nodiscard <bsl-nodiscard.html>`_, "Yes"
+   `bsl-nodiscard <bsl-nodiscard.html>`_,
    `bsl-non-pod-classdef <bsl-non-pod-classdef.html>`_,
    `bsl-non-pod-static <bsl-non-pod-static.html>`_,
    `bsl-op-bitwise-operands <bsl-op-bitwise-operands.html>`_, "Yes"
@@ -92,12 +93,12 @@ Clang-Tidy Checks
    `bsl-stmt-switch-default-last <bsl-stmt-switch-default-last.html>`_,
    `bsl-struct-def <bsl-struct-def.html>`_,
    `bsl-template-generic-param <bsl-template-generic-param.html>`_,
-   `bsl-ternary-operator-forbidden <bsl-ternary-operator-forbidden.html>`_, "Yes"
+   `bsl-ternary-operator-forbidden <bsl-ternary-operator-forbidden.html>`_,
    `bsl-types-fixed-width-ints <bsl-types-fixed-width-ints.html>`_,
    `bsl-types-no-wide-char <bsl-types-no-wide-char.html>`_,
    `bsl-unused-return-value <bsl-unused-return-value.html>`_,
    `bsl-using-decl-scope <bsl-using-decl-scope.html>`_,
-   `bsl-using-ident-unique-namespace <bsl-using-ident-unique-namespace.html>`_, "Yes"
+   `bsl-using-ident-unique-namespace <bsl-using-ident-unique-namespace.html>`_,
    `bsl-var-braced-init <bsl-var-braced-init.html>`_,
    `bugprone-argument-comment <bugprone-argument-comment.html>`_, "Yes"
    `bugprone-assert-side-effect <bugprone-assert-side-effect.html>`_,

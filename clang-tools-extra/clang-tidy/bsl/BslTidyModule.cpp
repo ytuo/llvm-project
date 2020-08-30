@@ -26,6 +26,7 @@
 #include "EnumExplicitCheck.h"
 #include "EnumInitCheck.h"
 #include "EnumScopedCheck.h"
+#include "ExplicitConstructorCheck.h"
 #include "ForLoopCounterCheck.h"
 #include "ForwardReferenceOverloadedCheck.h"
 #include "FunctionNameUseCheck.h"
@@ -106,6 +107,8 @@ public:
         "bsl-enum-init");
     CheckFactories.registerCheck<EnumScopedCheck>(
         "bsl-enum-scoped");
+    CheckFactories.registerCheck<ExplicitConstructorCheck>(
+        "bsl-explicit-constructor");
     CheckFactories.registerCheck<ForLoopCounterCheck>(
         "bsl-for-loop-counter");
     CheckFactories.registerCheck<ForwardReferenceOverloadedCheck>(

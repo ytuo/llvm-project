@@ -85,7 +85,6 @@ void ClassBaseCheck::registerMatchers(MatchFinder *Finder) {
   Finder->addMatcher(
     cxxRecordDecl(
       unless(isLambda()),
-      unless(isExpansionInSystemHeader()),
       hasDefinition(),
       hasAtLeastTwoBases()).bind("record"),
     this);
