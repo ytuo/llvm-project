@@ -20,6 +20,7 @@ add_clang_library(clangTidyBslModule
   EnumExplicitCheck.cpp
   EnumInitCheck.cpp
   EnumScopedCheck.cpp
+  ExplicitConstructorCheck.cpp
   ForLoopCounterCheck.cpp
   ForwardReferenceOverloadedCheck.cpp
   FunctionNameUseCheck.cpp
